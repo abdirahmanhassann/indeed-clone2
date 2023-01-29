@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+
+.header3{
+    color:black;
+    color: rgb(45, 45, 45);
+    font-weight: bold;
+    font-size:20px;
+    font-family: 'Roboto', sans-serif;
+}
+.paragraph{
+    font-weight: 700;
+    color: #5e5e5e;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.subparagraph{
+    color: rgb(89, 89, 89);
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+}
+
+.BlueButton{
+   padding:10px;
+   padding-inline:15px;
+   color:white;
+   background-color: rgb(22, 64, 129);
+   align-items: center;
+   border: 1px solid rgb(37, 87, 167);
+   border-radius:5px;
+   font-family: 'Roboto', sans-serif;
+   font-size: 17px;
+   font-weight: 500;
+   cursor:pointer;
+}
+.InverseButton{
+   padding:10px;
+   padding-inline:15px;
+   color:rgb(22, 64, 129);
+   background-color: white;
+   align-items: center;
+   border: 1px solid lightgray;
+   border-radius:5px;
+   font-family: 'Roboto', sans-serif;
+   font-size: 17px;
+   font-weight: 700;
+   cursor:pointer;
+}
+
+.InverseButton:hover{
+    background: #f2f2f2;
+    transition: 0.3s;
+}

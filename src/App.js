@@ -5,6 +5,7 @@ import Searched from './Components/Home/searched';
 import Notfound from './Components/Home/Notfound';
 import Home from './Components/Home/Home';
 import Signin from './Components/SigninComponents/Signin';
+import Signup from './Components/SigninComponents/Signup';
 function App() 
 {
  return (
@@ -15,6 +16,7 @@ function App()
  <Route  path= '/searched' element={<Searched /> }exact/>
 <Route path='*' element={<Notfound/>}/>
 <Route path='Signin' element={<Signin/>}/>
+<Route path='Signup' element={<Signup/>}/>
 </Routes>
 </Router>
    </>

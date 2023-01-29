@@ -6,6 +6,9 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@firebase/firestore": "^3.8.1",
+    "@mui/material": "^5.11.6",
     "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -15,6 +18,7 @@
     "cheerio": "^1.0.0-rc.12",
     "cities.json": "^1.1.13",
     "cors": "^2.8.5",
+    "firebase": "^9.16.0",
     "git": "^0.1.5",
     "http-proxy-middleware": "^2.0.6",
     "husky": "^8.0.1",
