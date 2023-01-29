@@ -1,0 +1,737 @@
+body{
+    font-family: 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif ;
+}
+nav{
+    border-bottom: 1px #e4e2e0 solid;
+    margin-bottom: 58px;
+    height: 42px;
+    margin-top: 35px;
+    font-weight: 200;
+    color: #2a2a2a;
+    font-size: 0.875rem;
+    text-align: center;
+}
+.navspan2{
+    margin-left: 420px;
+}
+.navspan1{
+    margin-left: 138px;   
+}
+.a1{
+    margin-left: 25px;
+    font-weight: 200;
+    color: #2a2a2a;
+    font-size: 0.875rem;
+    cursor: pointer;
+
+}
+.a2{
+    margin-right: 35px;
+    font-weight: 200;
+    color: #2a2a2a;
+    font-size: 0.875rem;
+    cursor: pointer;
+
+}
+.a21{
+    padding-right: 17px;
+    margin-right: 20px;
+    color: #2557a7;
+    font-weight: 700;
+    border-right:1px rgb(155, 155, 155) solid; 
+    font-size: 0.875rem;
+    cursor: pointer;
+
+}
+.thelargestdiv{
+    text-align: -webkit-center;
+}
+.inputdiv{
+    margin-top: 48px;
+    text-align: center;
+    margin-top: 21px;
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    place-content: center;
+}
+.inputdiv2{
+    margin-top: 48px;
+    text-align: center;
+    margin-top: 21px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 130px;
+   place-content:center;
+}
+input{
+    height: 41px;
+    width: 380px;
+    border-radius: 7px;
+    border: 1px gray solid;
+    margin-left: 15px;
+    text-align: center;
+    
+}
+.inputbutton{
+    padding-top: 14px;
+    text-decoration: none;
+    display: block;
+    background: #285cad;
+    border: none;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    margin-left: 10px;
+    height: 31px;
+    font-weight: bold;
+    color: white;
+    padding-inline: 16px;
+    cursor: pointer;
+}
+.div3{
+    text-align-last: center;
+  
+}
+.div4{
+    text-align-last: center;
+    margin-top: 20px;
+}
+.span1{
+   color: #2557a7;
+   font-weight: 700;
+}
+.span2{
+    color: #4b4b4b;
+}
+/*label{
+
+    border: 0.5px gray solid;
+    height: 45px;
+  
+    border-right: none;
+    display: inline-block;
+    border-radius: 10px;
+}*/
+.div5{
+    text-align: center;
+    margin-top: 85px;
+}
+.suggestedbutton{
+    color: #323232;
+    HEIGHT: 41PX;
+    width: fit-content;
+    margin-right: 10px;
+    margin-top: 10px;
+    border: none;
+cursor: pointer;
+    background-color: #dedede;
+    border-radius: 3px;
+}
+footer{
+    margin-top: 80px;
+    border-top: 1px #adadad solid;
+    bottom: 0px;
+    position: relative;
+    /* margin-left: 38px; */
+    width: 100%;
+}
+.footerlink{
+    margin-right: 15px;
+    color: #3c3c3c;
+    font-size: 15px;
+}
+.ul2{
+    margin-top: 39px;
+}
+.div6{
+    text-align: center;
+    background-color: #e8e8e8;
+    margin-top: 26px;
+
+}
+h2{
+    font-size: larger;
+    position: relative;
+    top: 14px;
+}
+.uploadbutton{
+    background: #285cad;
+    margin-top: 32px;
+    border: none;
+    margin-top: 20px;
+    padding-inline: 26px;
+    margin-bottom: 20px;
+    border-radius: 9px;
+    height: 41px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+.notfound{
+    width: 174px;
+    margin-left: 44%;
+    margin-top: 150px;
+    margin-bottom: 200px;
+    text-align: -webkit-center;
+    /* position: fixed; */
+    top: 12%;
+    /* left: 45%; */
+    column-gap: 50px;
+
+}
+.dataResult{
+    width: 384px;
+    height: 200px;
+    background-color: white;
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    overflow: hidden;
+    overflow-y: auto;
+    z-index: 1;
+    position: absolute;
+    right: 331px;
+    top: 181px;
+    border: 1px solid #7373ff;
+    border-bottom-right-radius: 13px;
+    border-bottom-left-radius: 13px;
+  text-align: center;
+}
+.dataItem:hover{
+    background-color: #e2deff;
+    cursor: pointer;
+}
+.dataResult::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .dataResult .dataItem {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    color: black;
+  }
+  
+  .dataItem p {
+    padding: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+    margin: 2px;
+  }
+  .dataResult2{
+    width: 383px;
+    height: 200px;
+    background-color: white;
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    overflow: hidden;
+    overflow-y: auto;
+    z-index: 1;
+    position: absolute;
+    right: 732px;
+    top: 181px;
+    border: 1px solid #7373ff;
+    border-bottom-right-radius: 13px;
+    border-bottom-left-radius: 13px;
+  
+}
+.dataItem2:hover{
+    background-color: #e2deff;
+}
+.dataResult2::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .dataResult2 .dataItem {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    color: black;
+  }
+  
+  .dataItem2 p {
+    padding: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+    margin: 2px;
+  }
+  
+  .apidiv{
+    margin-top: 139px;
+    margin-left: 120px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+    place-content: center;
+  }
+  .apiinfo{
+    padding: 14px;
+    border: 1px solid lightgray;
+    background: white;
+  border-radius: 9px;
+    width: 381px;
+    height: 240px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    contain: content;
+  }
+  .apiinfo:hover{
+    box-shadow: 1px 1px 12px 1px #dedede;
+
+  }
+  .apipara{
+    text-decoration: none;
+    white-space: pre-line;
+  }
+  
+  .applicationdiv{
+    display: block;
+    height: 492px;
+    border-radius: 13px;
+    padding: 20px;
+    width: 500px;
+    border: 1px lightgray solid;
+    margin-left: 54px;
+    position: sticky;
+    top: 30px;
+    contain: content;
+    overflow-y: auto;
+    background: white;
+}
+
+.Xbutton
+{
+    border-style: none;
+    background-color: white;
+    cursor:pointer;
+}
+.searchbutton{
+    height: 48px;
+    /* padding-top: 14px; */
+    text-decoration: none;
+    display: block;
+    background: #285cad;
+    border: none;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    margin-left: 10px;
+    /* height: 46px; */
+    font-weight: bold;
+    color: white;
+    padding-inline: 16px;
+    cursor: pointer;
+}
+.div33{
+
+    text-align-last: center;
+}
+.subapidiv2{
+    overflow-y: auto;
+}
+.bluepara{
+    color: #285cad;
+}
+.indeedlogo{
+    position: absolute;
+    top: 10px;
+    height: 61px;
+    margin-left: 27px;
+    cursor: pointer;
+}
+.usericon{
+    margin-top: -15px;
+    display: block;
+    margin-left: 78%;
+    height: 31px;
+    width: fit-content;
+    background-color: #2557a7;
+    color: white;
+    border-radius: 9px;
+    font-size: large;
+    font-weight: bold;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 6px;
+    cursor: pointer;
+    display: none;
+}
+
+.hamburger {
+    margin-top: -34px;
+    height:31px ;
+    margin-left: 82%;
+    cursor: pointer;
+    inline-size: max-content;
+    display: none;
+  
+}
+.smallnav{
+    display:flex;
+    flex-direction: row;
+    display: none;
+}
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    position: absolute;
+    right: 0px;
+    width: 72%;
+    padding-left: 10px;
+    height: 100%;
+    top: -36px;
+    background-color: white;
+    padding-top: 56px;
+    gap: 23px;
+    font-size: medium;
+    font-weight: 700;
+    box-shadow: -3px 1px 20px 0px #474747;
+}
+.sidebarel{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 16px;
+    border-bottom: 1px solid lightgray;
+    cursor: pointer;
+}
+.sidebararrow{
+    position: absolute;
+    right: 0px;
+}
+@media (min-width:1278px){
+.navspan2{
+    margin-left:20vw;
+}
+.usericon{
+    display:none;
+}
+.applicationdiv{
+    display: block;
+}
+.dataResult{
+    display:none;
+}
+.dataResult2{
+    display:none;
+}
+}
+@media (max-width:1072px){
+    .navspan2{
+        margin-left:10vw;
+    }
+    .indeedlogo{
+        height: 50px;
+        top: 15px;
+       }
+
+       .applicationdiv{
+        display: block;
+    }
+    .dataResult{
+        display:block;
+    }
+    .dataResult2{
+        display:block;
+    }
+    
+    }
+    @media (max-width:976px){
+        .navspan2{
+display: none;
+        }
+        .navspan1{
+            display: none;
+        }
+        .a2{
+            display: none;
+        }
+       .indeedlogo{
+        height: 40px;
+        top: 20px;
+       }
+       .smallnav{
+        display: block;
+       }
+       .usericon{
+      display: block;
+      margin-left: 76%;
+    }
+    .hamburger{
+        display: block;
+        margin-left: 92%;
+    }
+    .inputdiv{
+        display: flex;
+        gap: 14px;
+        flex-direction: column;
+        margin-left: 0px;
+    }
+    
+    .dataResult2{
+    right: 8%;
+    top: 27%;
+       width: 90%;
+    }
+    .dataResult{
+        right: 8%;
+        top: 37%;
+        width: 90%;
+    }
+    .inputbutton{
+        width: 87%;
+        margin-left: 12px;
+    }
+    input{
+        width: 90%;
+    }
+    .i
+    nav{
+        border-bottom: none;
+        text-align: inherit;
+
+    }
+    .inputdiv2{
+        text-align: center;
+        /* margin-top: 21px; */
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .searchbutton{
+        width: 91%;
+        margin-left: 13px;
+    }
+    .apidiv{
+        justify-content: center;
+        border-top: 1px solid lightgray;
+        padding: 10%;
+        /* margin-left: 120px; */
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-top: 1px solid lightgray;
+    place-content: center;
+    }
+    .applicationdiv{
+        display: block;
+    }
+    .loader{
+        margin-left: 46%;
+    }
+    .thelargestdiv{
+        margin:0px;
+        text-align: initial;
+        }
+        
+}
+    @media (max-width:803px){
+        .navspan2{
+display: none;
+        }
+        .navspan1{
+            display: none;
+        }
+        .a2{
+            display: none;
+        }
+       .indeedlogo{
+        height: 40px;
+        top: 20px;
+       }
+       .smallnav{
+        display: block;
+       }
+       .usericon{
+      display: block;
+      margin-left: 60%;
+    }
+    .hamburger{
+        display: block;
+margin-left: 78%;
+    }
+    nav{
+        border-bottom: none;
+        text-align: inherit;
+
+    }
+    .inputdiv2{
+        margin-left: 0px;
+        place-content: center;
+    }
+    .applicationdiv{
+        display: none;
+    }
+    .loader{
+    margin-left: 50%;
+    }
+  
+    .thelargestdiv{
+        margin:0px;
+        text-align: initial;
+        }
+        
+}
+@media (max-width:744px){
+    .navspan2{
+display: none;
+    }
+    .navspan1{
+        display: none;
+    }
+    .a2{
+        display: none;
+    }
+   .indeedlogo{
+    height: 40px;
+    top: 20px;
+   }
+   .smallnav{
+    display: block;
+   }
+   .usericon{
+  display: block;
+  margin-left: 47%;
+}
+.hamburger{
+    display: block;
+    margin-left: 82%;
+}
+nav{
+    border-bottom: none;
+    text-align: inherit;
+
+}.inputdiv2{
+    margin-left: 0px;
+}
+.applicationdiv{
+    display: none;
+}
+.loader{
+    margin-left: 45%;
+}
+
+.thelargestdiv{
+    margin:0px;
+    text-align: initial;
+    }
+    
+}
+@media (max-width:360px){
+    .inputbutton{
+        width: 83%;
+        margin-left: 13px;    
+    }
+    .navspan2{
+display: none;
+    }
+    .navspan1{
+        display: none;
+    }
+    .a2{
+        display: none;
+    }
+   .indeedlogo{
+    height: 51px;
+    top: 12px;
+   }
+   .smallnav{
+    display: block;
+   }
+   .usericon {
+    margin-top: -14px;
+    display: block;
+    margin-left: 43%;
+    height: 32px;
+    width: fit-content;
+    background-color: #2557a7;
+    color: white;
+    border-radius: 9px;
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 6px;
+    cursor: pointer;
+   }
+.hamburger{
+    display: block;
+    margin-left: 86%;
+}
+nav{
+    border-bottom: none;
+    text-align: inherit;
+
+}
+.inputdiv2{
+margin-left: 0px;
+}
+.applicationdiv{
+    display: none;
+}
+.loader{
+    margin-left: 35%;
+}
+.thelargestdiv{
+margin:0px;
+text-align: initial;
+}
+}
+.loader{
+  
+    margin: auto;
+    width: 10%;
+    padding-top: 87px;
+}
+
+.buttonn{
+    margin-left: 19px;
+    margin-top: 19px;
+    height: 42px;
+    width: 43px;
+    padding-top: -11px;
+    position: absolute;
+    border-radius: 6px;
+    background: #dedede;
+    border: 0.0625rem solid transparent!important;
+    color: #2d2d2d!important;
+    box-shadow: none!important;
+    cursor: pointer;
+}
+.svg{
+    height: 25px;
+    width: 29px;
+}
+.salarypara{
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    color: #545454;
+    font-size: small;
+    width: fit-content;
+    padding: 8px;
+    font-weight: 700;
+}
+.detspan{
+    margin-top: -10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.descpara{
+    color: #7d7d7d;
+    font-size: 14px;
+}
+.headerdiv{
+    margin-top: -15px;
+    display: flex;
+    flex-direction: row;
+
+}
+.svgdot{
+    margin-top: 7px;
+    /* margin-right: -75px; */
+    position: absolute;
+    left: 373px;
+    height: 30px;
+    width: 25px;
+}
