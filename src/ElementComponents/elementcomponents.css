@@ -35,6 +35,7 @@
    font-size: 17px;
    font-weight: 500;
    cursor:pointer;
+   width: 100%;
 }
 .InverseButton{
    padding:10px;
@@ -48,9 +49,19 @@
    font-size: 17px;
    font-weight: 700;
    cursor:pointer;
+   
+   width: 100%;
+
 }
 
 .InverseButton:hover{
     background: #f2f2f2;
     transition: 0.3s;
+}
+
+.paragraphblue{
+    color:rgb(22, 64, 129);
+    font-size:16px;
+    font-weight:bold;
+    
 }

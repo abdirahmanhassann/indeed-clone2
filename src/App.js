@@ -6,6 +6,7 @@ import Notfound from './Components/Home/Notfound';
 import Home from './Components/Home/Home';
 import Signin from './Components/SigninComponents/Signin';
 import Signup from './Components/SigninComponents/Signup';
+import EmployerSignupform from './Components/SigninComponents/EmployerSignup/EmployerSignupform';
 function App() 
 {
  return (
@@ -17,6 +18,7 @@ function App()
 <Route path='*' element={<Notfound/>}/>
 <Route path='Signin' element={<Signin/>}/>
 <Route path='Signup' element={<Signup/>}/>
+<Route path='Signup/Employer' element={<EmployerSignupform/>}/>
 </Routes>
 </Router>
    </>

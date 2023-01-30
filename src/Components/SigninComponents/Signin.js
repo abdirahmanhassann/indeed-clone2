@@ -8,6 +8,7 @@ import Subaparagraph from '../../ElementComponents/subaparagraph'
 import './signin.css'
 import BlueButton from '../../ElementComponents/bluebutton'
 import { TextField } from '@mui/material'
+import { Link } from 'react-router-dom'
 function Signin() {
     return (
         <>
@@ -20,7 +21,9 @@ function Signin() {
 <Paragraph text={'Create an account or sign in.'}/>
 <Subaparagraph text={`By creating an account or logging in, you understand and agree to Indeed's Terms. You also acknowledge our Cookie and Privacy policies. You will receive marketing messages from Indeed and may opt out at any time by following the unsubscribe link in our messages, or as detailed in our terms.`}/>
                     </div>
+                    <Link to='/signup' className='link'>
                 <BlueButton text={'Create an account'}/>
+                    </Link>
                 <Paragraph text={'or login to your account'}/>
                 <TextField id="outlined-basic" label="Email" variant="outlined" />
                 <TextField id="outlined-basic" label="Password" variant="outlined" type='password' 

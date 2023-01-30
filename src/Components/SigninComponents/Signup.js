@@ -7,6 +7,7 @@ import { TextField } from '@mui/material'
 import Footer from '../GeneralComponents/Footer'
 import InverseButton from '../../ElementComponents/InverseButton'
 import Subaparagraph from '../../ElementComponents/subaparagraph'
+import { Link } from 'react-router-dom'
 function Signup() {
   return (
     <>
@@ -20,7 +21,10 @@ function Signup() {
                     <div className='subdiv3'>
                 <Paragraph text={'Ready for the next step?'}/>
                 <Subaparagraph text={'Create an account for tools to help you'}/>
+                <Link to='./Employer' className='link'>
+                
 <InverseButton text={'Employer'} click={()=>console.log('clicked')}/>
+                </Link>
 <InverseButton text={'Job seeker'} click={()=>console.log('clicked')}/>
                     </div>
 
