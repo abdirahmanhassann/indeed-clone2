@@ -18,6 +18,7 @@ import {
     uploadBytes,
     uploadBytesResumable,
   } from "firebase/storage";
+import { async } from '@firebase/util'
  
 
 
@@ -27,6 +28,7 @@ function EmployerSignupform() {
     const [employerdetails,setemployerdetails]=useState({name:'',country:'',city:'',email:'',password:'',repassword:'',image:null,bio:''})
 const [imageupload,setimageupload]=useState(null)
 const [imageUrls,setImageUrls]=useState(null)
+const [imageUrls2,setImageUrls2]=useState(null)
     function changed(e){
      
                   
@@ -47,8 +49,18 @@ const [imageUrls,setImageUrls]=useState(null)
 
         
          console.log(storagee,employerdetails.email,v4())
-         const imageRef = ref(storagee, `/images/${employerdetails.email + v4()}`);
-         uploadBytes(imageRef, imageupload)
+         setImageUrls ( ref(storagee, employerdetails.name))
+         uploadBytes(imageUrls, imageupload).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+              setemployerdetails((i)=>{
+                return{
+                ...i,
+                 image:JSON.stringify(url)
+                }}
+                );
+              console.log(employerdetails)
+            });
+          });
     
     }}
 
@@ -75,7 +87,7 @@ const [imageUrls,setImageUrls]=useState(null)
                 email: employerdetails.email,
                 password: employerdetails.password,
                 repassword: employerdetails.repassword,
-            //    image: employerdetails.image,
+            image:imageUrls2,
                 bio: employerdetails.bio
             })
             console.log('success')
@@ -208,10 +220,14 @@ setimageupload(e.target.files[0])
 }
 <BlueButton text='submit' click={()=>{
     if(employerdetails.bio.length > 5)
-    {
-    enteredDetails()
-    uploadpic();
-    seterr(false)
+    {async function i(){
+
+
+       await uploadpic();
+        await enteredDetails()
+       await seterr(false)
+    }
+    i();
     }
     else{
 seterr(true)
