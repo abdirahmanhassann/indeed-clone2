@@ -8,23 +8,27 @@ import Paragraph from '../../../ElementComponents/paragraph'
 import Paragraphblue from '../../../ElementComponents/paragraphblue'
 import Subaparagraph from '../../../ElementComponents/subaparagraph'
 import Nav from '../../GeneralComponents/Nav'
-import { db } from '../../../Firebase/Firebase'
+import { db, storagee } from '../../../Firebase/Firebase'
 import '../signin.css'
 import { Link } from 'react-router-dom'
+import { v4 } from 'uuid'
+import {
+    getDownloadURL,
+    ref,
+    uploadBytes,
+    uploadBytesResumable,
+  } from "firebase/storage";
+ 
 
 
 function EmployerSignupform() {
     const [progress,setprogress]=useState(25);
     const [err,seterr]=useState(false)
     const [employerdetails,setemployerdetails]=useState({name:'',country:'',city:'',email:'',password:'',repassword:'',image:null,bio:''})
-
+const [imageupload,setimageupload]=useState(null)
+const [imageUrls,setImageUrls]=useState(null)
     function changed(e){
-        if (e.target.name === "image") {
-            setemployerdetails({
-              ...employerdetails,
-              [e.target.name]: e.target.files[0]
-            });
-          } else {
+     
                   
         console.log(employerdetails)
         setemployerdetails(i=>
@@ -35,8 +39,18 @@ function EmployerSignupform() {
         }
     }
     )
-} 
+
     }
+    function uploadpic(){
+        if ( imageupload === null) return;
+        else{
+
+        
+         console.log(storagee,employerdetails.email,v4())
+         const imageRef = ref(storagee, `/images/${employerdetails.email + v4()}`);
+         uploadBytes(imageRef, imageupload)
+    
+    }}
 
    async function enteredDetails(){
 
@@ -180,7 +194,9 @@ err==true &&
     <>
     <Paragraph text={'Enter company picture'}/>
     <input 
-  type="file"  accept="image/*"  name="image" onChange={changed}
+  type="file"  accept="image/*"  name="image" onChange={(e)=>{
+setimageupload(e.target.files[0])
+  }}
   style={{width:'100%',border:'none'}}
   />
  <Paragraph text={'Enter company bio'}/>
@@ -194,6 +210,7 @@ err==true &&
     if(employerdetails.bio.length > 5)
     {
     enteredDetails()
+    uploadpic();
     seterr(false)
     }
     else{

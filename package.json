@@ -8,6 +8,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@firebase/firestore": "^3.8.1",
+    "@firebase/storage": "^0.10.1",
     "@mui/material": "^5.11.6",
     "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/jest-dom": "^5.16.5",
@@ -44,6 +45,7 @@
     "request": "^2.88.2",
     "scrape-indeed": "^0.6.0",
     "tmp": "^0.2.1",
+    "uuid": "^9.0.0",
     "vercel": "^28.5.5",
     "web-vitals": "^2.1.4",
     "xhr2": "^0.2.1"
