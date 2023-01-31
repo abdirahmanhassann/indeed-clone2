@@ -17,6 +17,7 @@ function clicked(){
        // navigate('/')
         dispatch(employerlogin(false))
         dispatch(employeremail(null));
+
         }
     else{
         navigate('/signin')

@@ -51,7 +51,10 @@ return(
 <a className='a21'>Sign in</a>
 </Link>
     </span>
+
+    <Link to='/EmployerHome' className="link">
     <a className='a2'>Employers / Post job</a>
+    </Link>
     
         <div className="smallnav">
 
