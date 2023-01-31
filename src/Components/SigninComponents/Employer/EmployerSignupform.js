@@ -1,34 +1,36 @@
 import { addDoc, collection, getDocs } from '@firebase/firestore'
 import { LinearProgress, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import React, { createFactory, useState } from 'react'
 import { BiArrowBack, BiNoEntry } from 'react-icons/bi'
 import BlueButton from '../../../ElementComponents/bluebutton'
 import Header from '../../../ElementComponents/Header'
+import ScaleLoader from "react-spinners/ClipLoader";
 import Paragraph from '../../../ElementComponents/paragraph'
 import Paragraphblue from '../../../ElementComponents/paragraphblue'
 import Subaparagraph from '../../../ElementComponents/subaparagraph'
 import Nav from '../../GeneralComponents/Nav'
 import { db, storagee } from '../../../Firebase/Firebase'
 import '../signin.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { v4 } from 'uuid'
 import {
     getDownloadURL,
     ref,
     uploadBytes,
     uploadBytesResumable,
-  } from "firebase/storage";
-import { async } from '@firebase/util'
- 
+  } from "firebase/storage"; 
+import { FaSpinner } from 'react-icons/fa'
 
 
 function EmployerSignupform() {
     const [progress,setprogress]=useState(25);
     const [err,seterr]=useState(false)
-    const [employerdetails,setemployerdetails]=useState({name:'',country:'',city:'',email:'',password:'',repassword:'',image:null,bio:''})
+    const [employerdetails,setemployerdetails]=useState({name:'',country:'',city:'',email:'',password:'',repassword:'',bio:''})
 const [imageupload,setimageupload]=useState(null)
-const [imageUrls,setImageUrls]=useState(null)
+const [added,setadded]=useState(true)
+const [clicked,setclicked]=useState(false)
 const [imageUrls2,setImageUrls2]=useState(null)
+const navigate=useNavigate()
     function changed(e){
      
                   
@@ -47,22 +49,17 @@ const [imageUrls2,setImageUrls2]=useState(null)
         if ( imageupload === null) return;
         else{
 
-        
-         console.log(storagee,employerdetails.email,v4())
-         setImageUrls ( ref(storagee, employerdetails.name))
-         uploadBytes(imageUrls, imageupload).then((snapshot) => {
-            getDownloadURL(snapshot.ref).then((url) => {
-              setemployerdetails((i)=>{
-                return{
-                ...i,
-                 image:JSON.stringify(url)
-                }}
-                );
-              console.log(employerdetails)
-            });
-          });
-    
-    }}
+  try{      
+      const imagge= ( ref(storagee,employerdetails.email+v4()))
+      console.log(imagge)
+      console.log(storagee)
+         uploadBytes(imagge, imageupload)
+  }
+  catch(err){
+      console.log(err)
+  }
+}
+}
 
    async function enteredDetails(){
 
@@ -76,7 +73,9 @@ const [imageUrls2,setImageUrls2]=useState(null)
            
              console.log('already exists')
              console.log(check, employerdetails.email)
-             
+             setadded(false)
+             setclicked(false)
+            // setprogress(25)
             
           }
           else { 
@@ -87,15 +86,21 @@ const [imageUrls2,setImageUrls2]=useState(null)
                 email: employerdetails.email,
                 password: employerdetails.password,
                 repassword: employerdetails.repassword,
-            image:imageUrls2,
                 bio: employerdetails.bio
             })
             console.log('success')
+            setclicked(false)
+           navigate('/EmployerHome')
           }
           await console.log(employerdetails.email)
-        
+    
       
     }
+    // const override= css`
+    // display:block;
+    // border-width: 5px;
+    // ` ;
+
   return (
 <>
 <Nav/>
@@ -108,6 +113,7 @@ const [imageUrls2,setImageUrls2]=useState(null)
 <BiArrowBack style={{color:'black',height:'26px',width:'26px',cursor:'pointer'}} onClick={()=>{
         setprogress((i)=>i-25)
         seterr(false)
+        setadded(true)
 }}/>
 :
 <Link to='./..' className='link'>
@@ -178,32 +184,6 @@ err==true &&
 {
     progress ==75 &&
     <>
-            <Header text={'Enter a secure password'} style={{fontSize:'25px'}}/>
-<TextField onChange={changed} id="outlined-basic" label="Password" variant="outlined" type='password' name='password' value={employerdetails.password}/>
-        <Paragraph text={'Re-enter password'}/>
-<TextField onChange={changed} id="outlined-basic" label="Re-password" variant="outlined" type='password' name='repassword' value={employerdetails.repassword} />
-{
-err==true &&
-<p style={{color:'red',fontSize: '13px'}}>please enter valid password details</p>
-    }
-
-<BlueButton text={'Continue'} style={{marginTop:'10px'}} click={()=>{
-    if(employerdetails.password.length < 8 || employerdetails.repassword!=employerdetails.password )
-    {
-        seterr(true)
-    }
-    else{
-        setprogress(i=>i+25)
-        seterr(false)
-    }
-}}/>
-
-    </>
-}
-
-{
-    progress==100&&
-    <>
     <Paragraph text={'Enter company picture'}/>
     <input 
   type="file"  accept="image/*"  name="image" onChange={(e)=>{
@@ -218,21 +198,64 @@ setimageupload(e.target.files[0])
     err &&
 <p style={{color:'red',fontSize: '13px'}}>please enter valid details</p>
 }
-<BlueButton text='submit' click={()=>{
+<BlueButton text='Continue' click={()=>{
     if(employerdetails.bio.length > 5)
-    {async function i(){
+    {
+         
 
+             setprogress(i=>i+25);
+console.log(progress)
+        uploadpic();
+        seterr(false)
 
-       await uploadpic();
-        await enteredDetails()
-       await seterr(false)
-    }
-    i();
     }
     else{
 seterr(true)
     }
     }}/>
+    </>
+}
+
+{
+    progress==100&&
+    <>
+           <Header text={'Enter a secure password'} style={{fontSize:'25px'}}/>
+<TextField onChange={changed} id="outlined-basic" label="Password" variant="outlined" type='password' name='password' value={employerdetails.password}/>
+        <Paragraph text={'Re-enter password'}/>
+<TextField onChange={changed} id="outlined-basic" label="Re-password" variant="outlined" type='password' name='repassword' value={employerdetails.repassword} />
+{
+err==true &&
+<p style={{color:'red',fontSize: '13px'}}>please enter valid password details</p>
+    }
+
+{
+
+added==false &&
+<p style={{color:'red',fontSize: '13px'}}>Email and/or Company name already being used</p>
+}
+{
+    clicked &&
+    <ScaleLoader
+ size={120}
+ color={'rgb(22, 64, 129)'}
+ borderwidth= {'7px'}
+//  css={override} 
+/>
+}
+<BlueButton text={'Submit'} style={{marginTop:'10px'}} click={()=>{
+    if(employerdetails.password.length < 8 || employerdetails.repassword!=employerdetails.password )
+    {
+        seterr(true)
+    }
+    else{
+        
+        seterr(false)
+setclicked(true);
+         enteredDetails()
+    }
+
+}}/>
+
   </>
 }
 </div>

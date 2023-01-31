@@ -6,7 +6,8 @@ import Notfound from './Components/Home/Notfound';
 import Home from './Components/Home/Home';
 import Signin from './Components/SigninComponents/Signin';
 import Signup from './Components/SigninComponents/Signup';
-import EmployerSignupform from './Components/SigninComponents/EmployerSignup/EmployerSignupform';
+import EmployerSignupform from './Components/SigninComponents/Employer/EmployerSignupform';
+import EmployerHome from './Components/SigninComponents/Employer/EmployerHome';
 function App() 
 {
  return (
@@ -19,6 +20,7 @@ function App()
 <Route path='Signin' element={<Signin/>}/>
 <Route path='Signup' element={<Signup/>}/>
 <Route path='Signup/Employer' element={<EmployerSignupform/>}/>
+<Route path='/EmployerHome' element={<EmployerHome/>}/>
 </Routes>
 </Router>
    </>

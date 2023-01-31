@@ -735,3 +735,8 @@ text-align: initial;
     height: 30px;
     width: 25px;
 }
+
+.link{
+    text-decoration: none;
+    color:inherit;
+}

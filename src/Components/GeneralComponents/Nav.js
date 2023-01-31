@@ -4,6 +4,7 @@ import {FaUserAlt} from 'react-icons/fa'
 import {FaAlignJustify} from  'react-icons/fa' 
 import {IoIosArrowForward} from  'react-icons/io' 
 import '../../App.css'
+import { Link } from "react-router-dom";
  const Nav=()=>{
     const [sidebar,setsidebar]=useState(false);
    const refOne=useRef(null);
@@ -46,11 +47,15 @@ return(
     </span>
     <span className='navspan2'>
 <a className='a2'>Upload your CV</a>
+<Link to='/signin' className="link">
 <a className='a21'>Sign in</a>
+</Link>
     </span>
     <a className='a2'>Employers / Post job</a>
     
         <div className="smallnav">
+
+
     <a className="usericon"><FaUserAlt/> Signin</a>
     <a ><FaAlignJustify className="hamburger" onClick={()=>{setsidebar(true)}}/></a>
     {
