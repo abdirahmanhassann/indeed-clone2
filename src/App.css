@@ -1,10 +1,11 @@
 body{
-    font-family: 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif ;
+    font-family: 'Noto Sans',@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital@1&family=Roboto:wght@300&display=swap');    ;
 }
 nav{
     border-bottom: 1px #e4e2e0 solid;
     margin-bottom: 58px;
     height: 42px;
+    font-family: sans-serif;
     margin-top: 35px;
     font-weight: 200;
     color: #2a2a2a;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Footer from '../GeneralComponents/Footer'
 import Nav from '../GeneralComponents/Nav'
 import logo from '../../img/indeedsvg.png'
@@ -8,9 +8,48 @@ import Subaparagraph from '../../ElementComponents/subaparagraph'
 import './signin.css'
 import BlueButton from '../../ElementComponents/bluebutton'
 import { TextField } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { collection, getDocs } from '@firebase/firestore'
+import { db } from '../../Firebase/Firebase'
+import { useDispatch } from 'react-redux'
+import { employerlogin } from '../../ReduxStore/Redux'
 function Signin() {
-    return (
+const [signin,setsignin]=useState({email:'',password:''})
+const [err,seterr]=useState(false);
+const navigate=useNavigate()
+const dispatch=useDispatch()
+function changed(e){
+     
+    console.log(signin)
+    setsignin(i=>
+ {     
+return{ 
+ ...i,
+    [e.target.name]:e.target.value
+    }
+}
+)
+
+}
+async function signinclick(){
+    const  usersCollectionRef= await collection (db,'employer')
+    const po=  await getDocs(usersCollectionRef)
+    const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+  await  console.log(userss);
+  const check= await userss.find(i=>i.email==signin.email)
+   console.log(check)
+   if (check==undefined|| check.email==signin.email && check.password!=signin.password )
+{
+
+    seterr(true)
+}
+else {
+    dispatch(employerlogin(true));
+    navigate('/Employerhome')
+
+}
+}
+return (
         <>
                 <div className='largestdiv'>
             <div className='largediv'>
@@ -25,10 +64,14 @@ function Signin() {
                 <BlueButton text={'Create an account'}/>
                     </Link>
                 <Paragraph text={'or login to your account'}/>
-                <TextField id="outlined-basic" label="Email" variant="outlined" />
-                <TextField id="outlined-basic" label="Password" variant="outlined" type='password' 
-                onChange={(e)=> console.log(e.target.value)}/>
-<BlueButton text={'Continue'} click={()=>console.log('clicked')}/>
+                
+                {  err==true &&
+               <p style={{color:'red',fontSize: '13px'}}>please enter the valid email/password</p>
+                }
+                <TextField id="outlined-basic" label="Email" variant="outlined" name='email'  onChange={changed}/>
+                <TextField id="outlined-basic" label="Password" variant="outlined" name='password' type='password' 
+                onChange={changed}/>
+<BlueButton text={'Continue'} click={signinclick}/>
                 </div>
                 </div>
             </div>

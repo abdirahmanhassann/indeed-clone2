@@ -26,6 +26,19 @@ reducers:{
 }
     }
 )
+const employerloginslice=createSlice(
+    {
+        name:'employerlogin',
+        initialState:false,
+reducers:{
+    employerlogin :(state,action)=>{
+        return {...state, employerlogin: action.payload};
+    },
+   
+  
+}
+    }
+)
 const persistConfig={
     key:"root",
     version:1,
@@ -33,11 +46,14 @@ const persistConfig={
 };
 const reducer= combineReducers({
     search: searchslice.reducer,
+    employerloginstatus:employerloginslice.reducer
 })
 const persistedReducer=persistReducer(persistConfig,reducer);
 
 
 export const {addby} =searchslice.actions;
+
+export const {employerlogin}=employerloginslice.actions;
 const store=configureStore({
     reducer:{ 
                reducer:persistedReducer,

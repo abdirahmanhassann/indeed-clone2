@@ -20,6 +20,8 @@ import {
     uploadBytesResumable,
   } from "firebase/storage"; 
 import { FaSpinner } from 'react-icons/fa'
+import { useDispatch } from 'react-redux'
+import { employerlogin } from '../../../ReduxStore/Redux'
 
 
 function EmployerSignupform() {
@@ -30,6 +32,7 @@ const [imageupload,setimageupload]=useState(null)
 const [added,setadded]=useState(true)
 const [clicked,setclicked]=useState(false)
 const [imageUrls2,setImageUrls2]=useState(null)
+const dispatch =useDispatch()
 const navigate=useNavigate()
     function changed(e){
      
@@ -91,6 +94,7 @@ const navigate=useNavigate()
             console.log('success')
             setclicked(false)
            navigate('/EmployerHome')
+           dispatch(employerlogin(true))
           }
           await console.log(employerdetails.email)
     

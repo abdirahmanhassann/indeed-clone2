@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital@1&family=Roboto:wght@300&display=swap');
 .employernav{
     width: 100%;
     height: 64px;
@@ -11,7 +11,7 @@
     font-size: 14px;
     color: white;
     margin-top: 0px;
-
+font-family:'roboto',sans-serif
 }
 .pic{
     height: 22px;
@@ -38,14 +38,43 @@
 
 .usericon2{
     width: fit-content;
+    font-family: sans-serif;
     background-color: #2557a7;
     color: white;
     font-size: 16px;
-    font-weight: bold;
-    padding: 9px;
+    font-weight: 700;
+    padding: 8px;
     padding-inline: 16px;
     cursor: pointer;
     border-radius: 9px;
     margin-top: 3px;
+
+}
+
+.largediv3{
+    text-align: center;
+    padding: 29px;
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 13px;
+    justify-content: center;
+    margin: auto;
+}
+.sublargediv{
+    display:flex;
+    flex-direction:column;
+
+
+}
+.largeitalic{
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 54px;
+    color: #2d2d2d;
+}
+.largepic{
+    width: 650px;
+    height: 270px;
 
 }
