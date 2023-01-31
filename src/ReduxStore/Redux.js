@@ -39,6 +39,19 @@ reducers:{
 }
     }
 )
+const employeremailslice=createSlice(
+    {
+        name:'employeremail',
+        initialState:'',
+reducers:{
+    employeremail :(state,action)=>{
+        return {...state, employeremail: action.payload};
+    },
+   
+  
+}
+    }
+)
 const persistConfig={
     key:"root",
     version:1,
@@ -46,7 +59,8 @@ const persistConfig={
 };
 const reducer= combineReducers({
     search: searchslice.reducer,
-    employerloginstatus:employerloginslice.reducer
+    employerloginstatus:employerloginslice.reducer,
+    employeremailstatus:employeremailslice.reducer
 })
 const persistedReducer=persistReducer(persistConfig,reducer);
 
@@ -54,6 +68,8 @@ const persistedReducer=persistReducer(persistConfig,reducer);
 export const {addby} =searchslice.actions;
 
 export const {employerlogin}=employerloginslice.actions;
+export const {employeremail}=employeremailslice.actions;
+
 const store=configureStore({
     reducer:{ 
                reducer:persistedReducer,

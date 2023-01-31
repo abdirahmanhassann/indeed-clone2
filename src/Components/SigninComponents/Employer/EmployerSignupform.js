@@ -21,7 +21,7 @@ import {
   } from "firebase/storage"; 
 import { FaSpinner } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
-import { employerlogin } from '../../../ReduxStore/Redux'
+import { employeremail, employerlogin } from '../../../ReduxStore/Redux'
 
 
 function EmployerSignupform() {
@@ -93,8 +93,9 @@ const navigate=useNavigate()
             })
             console.log('success')
             setclicked(false)
-           navigate('/EmployerHome')
-           dispatch(employerlogin(true))
+            dispatch(employerlogin(true))
+            dispatch(employeremail(check))
+            navigate('/EmployerHome')
           }
           await console.log(employerdetails.email)
     

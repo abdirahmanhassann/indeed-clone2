@@ -12,7 +12,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { collection, getDocs } from '@firebase/firestore'
 import { db } from '../../Firebase/Firebase'
 import { useDispatch } from 'react-redux'
-import { employerlogin } from '../../ReduxStore/Redux'
+import { employeremail, employerlogin } from '../../ReduxStore/Redux'
 function Signin() {
 const [signin,setsignin]=useState({email:'',password:''})
 const [err,seterr]=useState(false);
@@ -44,7 +44,9 @@ async function signinclick(){
     seterr(true)
 }
 else {
+
     dispatch(employerlogin(true));
+    dispatch(employeremail(check))
     navigate('/Employerhome')
 
 }
