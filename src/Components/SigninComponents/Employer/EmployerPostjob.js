@@ -14,7 +14,7 @@ import { arrayUnion, collection, doc, getDocs, setDoc } from '@firebase/firestor
 import { db } from '../../../Firebase/Firebase'
 // import { Textarea } from '@mui/joy'
 function Postjob() {
-  const [formm,setform]=useState({title:'',location:'',rate:'',min:null,max:null,description:'',time:''});
+  const [formm,setform]=useState({title:'',location:'',rate:'',min:null,max:null,description:'',time:'',createdAt:''});
 const selector=useSelector((state)=>state.reducer.employeremailstatus.employeremail.email)
 
   function changed(e){
@@ -37,11 +37,19 @@ const selector=useSelector((state)=>state.reducer.employeremailstatus.employerem
     await  console.log(userss);
     const check= await userss.find(i=>i.email==selector)
       if (check) {
-     const p = await setDoc(doc(db,'employer',check.id),{jobpostings:arrayUnion(formm) },{merge:true})
+        setform(i=>{
+          return{
+            ...i,
+createdAt:new Date().getTime()
+          }
+        }
+        )
+     const p = await setDoc(doc(db,'employer',check.id),{jobpostings:arrayUnion(formm) },{merge:true});
 
       }
       else { 
         console.log('doesnt exist')
+        
     }
   }}
   return (

@@ -116,3 +116,11 @@ margin-bottom: 0px;
 .postjobpic{
     height:150px;   
 }
+
+.columndiv{
+    display:flex;
+    flex-direction:column;
+    height:'fit-content';
+    width:'fit-content';
+    align-items: baseline;
+}
