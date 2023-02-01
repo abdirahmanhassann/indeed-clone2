@@ -121,6 +121,23 @@ margin-bottom: 0px;
     display:flex;
     flex-direction:column;
     height:'fit-content';
-    width:'fit-content';
+    width: inherit;
     align-items: baseline;
 }
+.divrow{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+
+    gap:5px;
+}
+.colored-circle {
+    border-radius: 50%;
+    height: 5px;
+    width: 5px;
+  }
+  .postjobsubdiv5{
+    display:flex;
+    flex-direction:row;
+    align-self:center;
+  }

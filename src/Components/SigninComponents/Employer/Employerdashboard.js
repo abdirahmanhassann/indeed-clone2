@@ -1,4 +1,5 @@
 import { collection, getDocs } from '@firebase/firestore'
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { check } from 'prettier'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -15,6 +16,22 @@ function EmployerDashboard() {
   const email=useSelector(state=>state.reducer.employeremailstatus.employeremail.email);
   const [jobinfo,setjobinfo]=useState()
   const [loggedout,setloggedout]=useState(false)
+  const greenstyle={
+    background:`green`
+  }
+  const redstyle={
+    background:`red`
+  }
+  const divstyle={
+    background:'#f3f2f1',
+    paddingInline: '24px',
+    width: '28px',
+    height: 'auto',
+    alignItems: 'center'
+  }
+  const uptext={
+    marginBottom:'-10px'
+  }
   useEffect(()=>{
 async function details(){
   const  usersCollectionRef= await collection (db,'employer')
@@ -42,17 +59,59 @@ details()
   <Header text={'loading'}/>
   :
 <div className='largedivpostjob'>
+
   {
 jobinfo ?
 jobinfo.jobpostings.map((i)=>{
 return(
   <>
+
   <div className='postjobsubdiv'>
+
 <div className='columndiv'>
 <Paragraphblue text={i.title}/>
 <Subaparagraph text={i.location}/>
 <Subaparagraph text={'Created:'+i.createdAt}/>
   </div>
+  <div className='postjobsubdiv5'>
+  <div className='columndiv' style={divstyle}>
+    <Paragraphblue text={'0'} style={uptext}/>
+    <Subaparagraph text={'Active'} style={{marginTop:'-10px'}}/>
+  </div>
+  <div className='columndiv' style={divstyle}>
+    <Paragraphblue text={'0'} style={uptext}/>
+    <Subaparagraph text={'Active'} style={{marginTop:'-10px'}}/>
+  </div>
+  <div className='columndiv' style={divstyle}>
+    <Paragraphblue text={'0'} style={uptext}/>
+    <Subaparagraph text={'Active'} style={{marginTop:'-10px'}}/>
+  </div>
+  </div>
+  <FormControl fullWidth sx={{width:'221px',height:'50px',alignItems: 'center',
+    alignSelf: 'baseline'}}>
+  <InputLabel id="demo-simple-select-label">Status</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+  //  name='rate' value={formm.rate}
+    label="Open"
+//    onChange={changed}
+  >
+    <MenuItem value={'hourly'} >
+      <div className='divrow'>
+      <span className="colored-circle" style={greenstyle}/>
+      <p>Online </p>
+      </div>
+      </MenuItem>
+    <MenuItem value={'monthly'} >
+    <div className='divrow'>
+      <span className="colored-circle" style={redstyle} />
+      <p>Offline</p>
+      </div>
+
+    </MenuItem>
+  </Select>
+</FormControl>
 </div>
   </>
   ) 
