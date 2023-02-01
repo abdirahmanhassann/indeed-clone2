@@ -102,6 +102,7 @@ margin-bottom: 0px;
     padding:20px;
     background-color:white;
     align-items: center;
+    gap: 18px;
 }
 .postjobsubdiv2{
     display:flex;
