@@ -25,7 +25,11 @@ function Signup() {
                 
 <InverseButton text={'Employer'} click={()=>console.log('clicked')}/>
                 </Link>
+
+                <Link to ='./jobseeker' className='link'>
+
 <InverseButton text={'Job seeker'} click={()=>console.log('clicked')}/>
+                </Link>
                     </div>
 
 </div>

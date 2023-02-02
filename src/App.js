@@ -10,6 +10,7 @@ import EmployerSignupform from './Components/SigninComponents/Employer/EmployerS
 import EmployerHome from './Components/SigninComponents/Employer/EmployerHome';
 import Postjob from './Components/SigninComponents/Employer/EmployerPostjob';
 import EmployerDashboard from './Components/SigninComponents/Employer/Employerdashboard';
+import JobseekerSignup from './Components/SigninComponents/Jobseeker/JobseekerSignup';
 function App() 
 {
  return (
@@ -25,6 +26,7 @@ function App()
 <Route path='/EmployerHome' element={<EmployerHome/>}/>
 <Route path='/EmployerHome/Postjob' element={<Postjob/>}/>
 <Route path='/EmployerHome/EmployerDashboard' element={<EmployerDashboard/>}/>
+<Route path='/Signup/Jobseeker' element={<JobseekerSignup/>}/>
 </Routes>
 </Router>
    </>

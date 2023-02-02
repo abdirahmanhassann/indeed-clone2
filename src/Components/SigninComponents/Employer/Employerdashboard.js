@@ -76,19 +76,19 @@ return(
   <div className='postjobsubdiv5'>
   <div className='columndiv' style={divstyle}>
     <Paragraphblue text={'0'} style={uptext}/>
-    <Subaparagraph text={'Active'} style={{marginTop:'-10px'}}/>
+    <Subaparagraph text={'Active'} style={{marginTop:'-8px'}}/>
   </div>
   <div className='columndiv' style={divstyle}>
     <Paragraphblue text={'0'} style={uptext}/>
-    <Subaparagraph text={'Active'} style={{marginTop:'-10px'}}/>
+    <Subaparagraph text={'Candidates'} style={{marginTop:'-8px'}}/>
   </div>
   <div className='columndiv' style={divstyle}>
     <Paragraphblue text={'0'} style={uptext}/>
-    <Subaparagraph text={'Active'} style={{marginTop:'-10px'}}/>
+    <Subaparagraph text={'Interviews'} style={{marginTop:'-8px'}}/>
   </div>
   </div>
   <FormControl fullWidth sx={{width:'221px',height:'50px',alignItems: 'center',
-    alignSelf: 'baseline'}}>
+    alignSelf: 'center'}}>
   <InputLabel id="demo-simple-select-label">Status</InputLabel>
   <Select
     labelId="demo-simple-select-label"
@@ -96,6 +96,8 @@ return(
   //  name='rate' value={formm.rate}
     label="Open"
 //    onChange={changed}
+sx={{width:'111px',height:'50px',alignItems: 'center',
+    alignSelf: 'center'}}
   >
     <MenuItem value={'hourly'} >
       <div className='divrow'>

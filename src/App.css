@@ -12,6 +12,7 @@ nav{
     font-size: 0.875rem;
     text-align: center;
 }
+
 .navspan2{
     margin-left: 420px;
 }
@@ -72,6 +73,7 @@ input{
     border: 1px gray solid;
     margin-left: 15px;
     text-align: center;
+    outline:none;
     
 }
 .inputbutton{

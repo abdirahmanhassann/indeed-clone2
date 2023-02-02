@@ -39,6 +39,19 @@ reducers:{
 }
     }
 )
+const jobseekerloginslice=createSlice(
+    {
+        name:'jobseekerlogin',
+        initialState:false,
+reducers:{
+    jobseekerlogin :(state,action)=>{
+        return {...state, jobseekerlogin: action.payload};
+    },
+   
+  
+}
+    }
+)
 const employeremailslice=createSlice(
     {
         name:'employeremail',
@@ -46,6 +59,19 @@ const employeremailslice=createSlice(
 reducers:{
     employeremail :(state,action)=>{
         return {...state, employeremail: action.payload};
+    },
+   
+  
+}
+    }
+)
+const jobseekeremailslice=createSlice(
+    {
+        name:'jobseekeremail',
+        initialState:{},
+reducers:{
+    jobseekeremail :(state,action)=>{
+        return {...state, jobseekeremail: action.payload};
     },
    
   
@@ -60,15 +86,18 @@ const persistConfig={
 const reducer= combineReducers({
     search: searchslice.reducer,
     employerloginstatus:employerloginslice.reducer,
-    employeremailstatus:employeremailslice.reducer
+    employeremailstatus:employeremailslice.reducer,
+    jobseekeremailstatus:jobseekeremailslice.reducer,
+    jobseekerloginstatus:jobseekerloginslice.reducer
 })
 const persistedReducer=persistReducer(persistConfig,reducer);
 
 
 export const {addby} =searchslice.actions;
-
 export const {employerlogin}=employerloginslice.actions;
 export const {employeremail}=employeremailslice.actions;
+export const {jobseekeremail}=jobseekeremailslice.actions;
+export const {jobseekerlogin}=jobseekerloginslice.actions;
 
 const store=configureStore({
     reducer:{ 

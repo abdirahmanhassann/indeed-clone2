@@ -4,9 +4,14 @@ import {FaUserAlt} from 'react-icons/fa'
 import {FaAlignJustify} from  'react-icons/fa' 
 import {IoIosArrowForward} from  'react-icons/io' 
 import '../../App.css'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { jobseekeremail, jobseekerlogin } from "../../ReduxStore/Redux";
  const Nav=()=>{
     const [sidebar,setsidebar]=useState(false);
+    const jobseekerloginselector=useSelector(state=>state.reducer.jobseekerloginstatus.jobseekerlogin);
+    const dispatch=useDispatch();
+    const navigate=useNavigate();
    const refOne=useRef(null);
 
     useEffect(()=>{
@@ -47,9 +52,23 @@ return(
     </span>
     <span className='navspan2'>
 <a className='a2'>Upload your CV</a>
+{
+jobseekerloginselector==true ? 
+
+<a className='a21' onClick={()=>{
+    dispatch(jobseekerlogin(false));
+    dispatch(jobseekeremail(null));
+    navigate('/')
+    console.log(jobseekerloginselector)
+}}>Sign out</a>
+
+:
 <Link to='/signin' className="link">
 <a className='a21'>Sign in</a>
 </Link>
+
+
+}
     </span>
 
     <Link to='/EmployerHome' className="link">
@@ -58,8 +77,12 @@ return(
     
         <div className="smallnav">
 
-
-    <a className="usericon"><FaUserAlt/> Signin</a>
+{
+jobseekerloginselector==true ?
+<a className="usericon"><FaUserAlt/> Sign out</a>
+:
+<a className="usericon"><FaUserAlt/> Sign in</a>
+}
     <a ><FaAlignJustify className="hamburger" onClick={()=>{setsidebar(true)}}/></a>
     {
         sidebar &&
