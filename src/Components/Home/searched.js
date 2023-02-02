@@ -10,6 +10,11 @@ import {css} from "@emotion/react"
 import Footer from "../GeneralComponents/Footer";
 import BookData from "../../Data.json";
 import Jobs from "../../Jobs.json"
+import Paragraphblue from "../../ElementComponents/paragraphblue";
+import Paragraph from "../../ElementComponents/paragraph";
+import Subaparagraph from "../../ElementComponents/subaparagraph";
+import { collection, getDocs } from "@firebase/firestore";
+import { db } from "../../Firebase/Firebase";
 
 const Searched=(props)=>{
 const location=useLocation();
@@ -29,9 +34,15 @@ const location=useLocation();
     const [apikey,setapikey]=useState('c20809c96dmsh0b41db4c1c11af4p1f6953jsn3cf0793e646b')
     const [borderstate,setborder]=useState({border:'1px solid lightgray'})
     const [isactive,setactive]=useState(false)
+    const [externalApi,setexternalApi]=useState(0);
+    const [fbjobs,setfbjobs]=useState();
  //  const [apitime,setapitime]=useState('')
-    function changewhat(e) {
-
+const divstyle={
+    cursor: 'pointer',
+    borderBottom: '5px solid rgb(8 81 192 / 85%)',
+    marginTop: '5px'
+}  
+  function changewhat(e) {
         let changed = e.target.value;
         setWordEntered(changed)
 setwhereexists(true)
@@ -62,37 +73,58 @@ function jobchange(e){
     }    
 }
 
-const apiasync=async()=>{
-    const response= await fetch('https://jsonplaceholder.typicode.com/posts')
-    const body= await (response.json());
-return body
-}
 
 
-
-
-
-useLayoutEffect(()=>{
+useEffect(()=>{
     const options = {
         method: 'GET',
         headers: {
-            //'3080ae25famsh2a48333bf8619d4p118e5djsnbca874ca3480'
-            'X-RapidAPI-Key': 'ac7e8fcd59msha3e59fbda262531p147ad9jsn732b1de1990f',
+          //  'X-RapidAPI-Key': 'ac7e8fcd59msha3e59fbda262531p147ad9jsn732b1de1990f',
+            'X-RapidAPI-Key': '3080ae25famsh2a48333bf8619d4p118e5djsnbca874ca3480',
             'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
         }
     }
-fetch('https://jsearch.p.rapidapi.com/search?query='+searched.whatd+'%20in%20'+searched.whered+'&num_pages=1', options)
-	.then(response => response.json())
-	.then(response => {
-        setisloading(false)
-        api.current=response.data;
-    console.log(api.current)
-    })
-	.catch(err => {console.error(err)
-    setstatus(false)
-    setapikey('ac7e8fcd59msha3e59fbda262531p147ad9jsn732b1de1990f')
-    });
-},[]);
+
+    async function clicked(){
+try{
+const res=await  fetch('https://jsearch.p.rapidapi.com/search?query='+searched.whatd+'%20in%20'+searched.whered+'&num_pages=1', options)
+    const jsonresult= await res.json()
+         await setisloading(false)
+          api.current=await jsonresult.data; 
+}
+catch(err){
+    console.error(err)
+         setstatus(false)
+     setapikey('ac7e8fcd59msha3e59fbda262531p147ad9jsn732b1de1990f')
+}
+}
+async function internalapi(){
+    const  usersCollectionRef= await collection (db,'employer')
+    const po=  await getDocs(usersCollectionRef)
+    const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+ console.log(userss);
+let g=[]
+userss.map((i)=>{
+i.jobpostings.map((j)=>{
+    g.push(j)
+    
+})
+})
+setfbjobs(g);
+  //const check= await userss.find(i=>i.email==signin.email)
+   //console.log(check)
+
+}
+
+    if(externalApi==1){
+clicked();
+    }
+    else{{
+        internalapi()
+    }}
+},[externalApi]);
+
+
 const submit =(e)=>{
         e.preventDefault();
    //   const res=await apiasync();
@@ -133,7 +165,7 @@ const submit =(e)=>{
         <>
         <Nav/>
          <div className='div33'>
-         <form className='inputdiv2' onSubmit={submit} >
+         <form className='inputdiv2' onSubmit={submit}  >
    
 <input placeholder='job title,keywords,company' name='whatd'  onChange={jobchange} value={whatsearched} autocomplete="off"></input>
 {jobapidata.length !=0 && exists &&(
@@ -169,7 +201,30 @@ const submit =(e)=>{
 <button className="searchbutton" >search</button>
    </form>
    </div>
+   <div className="postjobsubdiv" style={{width:'100%',margin:'auto',borderBottom:'1px solid rgb(199 199 199)'
+,borderRadius:'0px',padding:'0px',placeContent:'center',gap:'100px'
+}}>
+    <div onClick={()=>setexternalApi(0)} style={externalApi==0 ?  divstyle : {cursor:'pointer'}}>
+        {
+            externalApi==0?
+<Paragraphblue text={'Internal job posts'}/>
+:
+
+<p style={{fontSize:'initial',marginTop:'18px',color:'#221f1fe8',fontWeight:'400',marginTop:'16.5px'}}> Internal job posts</p>
+     }
+    </div>
+    <div onClick={()=>setexternalApi(1)} style={externalApi==1 ? divstyle :  {cursor:'pointer'}}>
+        {
+            externalApi==1?
+<Paragraphblue text={'External job posts'} />
+:
+<p style={{fontSize:'initial',marginTop:'18px',color:'#221f1fe8',fontWeight:'400',marginTop:'16.5px'}}> External job posts</p>
+        }
+    </div>
+   </div>
 {   
+ externalApi ==1 
+ ?
 isloading ? 
 <div className="loader"><ScaleLoader
  size={150}
@@ -241,6 +296,18 @@ let kkey=Math.random();
 </div>}
 </div>
 </div>
+:
+fbjobs &&
+fbjobs.map((i)=>{
+
+return(
+
+    <div className="apiinfo">
+     <Paragraphblue   text={i.title}/>
+    </div>
+)
+})
+
 }
 
    <Footer/>

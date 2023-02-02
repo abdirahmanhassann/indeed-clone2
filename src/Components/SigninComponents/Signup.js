@@ -15,7 +15,7 @@ function Signup() {
             <div className='largediv'>
                 <div className='signindiv2'>
                     <div className='subdiv2'>
-                    <img src={svg} className='svg'/>
+                    <img src={svg} className='svg2'/>
                     <Paragraph text={'Welcome'}/>
                     </div>
                     <div className='subdiv3'>

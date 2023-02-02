@@ -63,7 +63,7 @@ nav{
     margin-top: 21px;
     display: flex;
     flex-direction: row;
-    margin-left: 130px;
+ /* margin-left: 130px; */
    place-content:center;
 }
 input{
@@ -703,7 +703,7 @@ text-align: initial;
 }
 .svg{
     height: 25px;
-    width: 29px;
+    width: 25px;
 }
 .salarypara{
     background-color: #f4f4f4;
