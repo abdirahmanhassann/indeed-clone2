@@ -104,13 +104,31 @@ async function internalapi(){
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
  console.log(userss);
 let g=[]
+
 userss.map((i)=>{
+    setfbjobs(i)
 i.jobpostings.map((j)=>{
+ j={
+        ...j,
+        name:i.name,
+        id:i.id
+ }
     g.push(j)
-    
 })
+
 })
-setfbjobs(g);
+setfbjobs(await g);
+console.log(await fbjobs);
+let clint=[]
+await fbjobs.forEach((i)=>{
+
+ //let j=i.find(p=>p==userss)
+ if(userss.includes(i)){
+console.log(userss)
+ }
+})
+console.log(clint)
+
   //const check= await userss.find(i=>i.email==signin.email)
    //console.log(check)
 
@@ -206,7 +224,7 @@ const submit =(e)=>{
 }}>
     <div onClick={()=>setexternalApi(0)} style={externalApi==0 ?  divstyle : {cursor:'pointer'}}>
         {
-            externalApi==0?
+            externalApi==0 ?
 <Paragraphblue text={'Internal job posts'}/>
 :
 
@@ -304,6 +322,7 @@ return(
 
     <div className="apiinfo">
      <Paragraphblue   text={i.title}/>
+     <Subaparagraph   text={i.name}/>
     </div>
 )
 })
