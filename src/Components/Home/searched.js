@@ -3,7 +3,7 @@ import Nav from "../GeneralComponents/Nav";
 import { useState } from "react";
 import ScaleLoader from "react-spinners/ClipLoader";
 import {AiOutlineHeart} from 'react-icons/ai';
-import {FaMoneyBillWave} from 'react-icons/fa'
+import {FaBriefcase, FaMoneyBillWave} from 'react-icons/fa'
 import {BiDotsVerticalRounded} from 'react-icons/bi'
 import { Link, useFetcher, useLocation } from "react-router-dom";
 import {css} from "@emotion/react"
@@ -316,17 +316,34 @@ let kkey=Math.random();
 </div>
 :
 fbjobs &&
+<>
+<div className="apidivsearch">
+<div className="subapidiv">
+    
+{
 fbjobs.map((i)=>{
-
-return(
-
-    <div className="apiinfo">
-     <Paragraphblue   text={i.title}/>
-     <Subaparagraph   text={i.name}/>
+    
+    return(
+        
+        <div className="apiinfo">
+        <div className="headerdiv">
+     <p className="apih44"  >{i.title}</p>
+</div>
+     <p className="apih">{i.name}</p>
+     <p className="apih">{i.location}</p>
+     <span className="detspan">  {
+            
+     <p className="salarypara"><FaMoneyBillWave/> £{i.min}-£{i.max} {i.rate}</p>  } 
+     <p className="salarypara"><FaBriefcase/>{i.time}</p>
+     </span>
+     <p className="apipara11">{i.description}</p>
     </div>
 )
 })
-
+}
+</div>
+</div>
+</>
 }
 
    <Footer/>
