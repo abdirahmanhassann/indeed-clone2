@@ -159,9 +159,7 @@ h2{
 }
 .uploadbutton{
     background: #285cad;
-    margin-top: 32px;
     border: none;
-    margin-top: 20px;
     padding-inline: 26px;
     margin-bottom: 20px;
     border-radius: 9px;
@@ -260,7 +258,7 @@ h2{
   }
   
   .apidiv{
-    margin-top: 139px;
+
     margin-left: 120px;
     font-size: 15px;
     display: flex;
@@ -689,16 +687,14 @@ text-align: initial;
 
 .buttonn{
     margin-left: 19px;
-    margin-top: 19px;
-    height: 42px;
     width: 43px;
-    padding-top: -11px;
     position: absolute;
     border-radius: 6px;
     background: #dedede;
     border: 0.0625rem solid transparent!important;
     color: #2d2d2d!important;
     box-shadow: none!important;
+    padding-block: 7px 4px;
     cursor: pointer;
 }
 .svg{
@@ -758,12 +754,12 @@ text-align: initial;
 
 .apidivsearch{
  
-        margin-top: 139px;
-        margin-left: 120px;
-        font-size: 15px;
-        display: flex;
-        flex-direction: row;
-      /* place-content: center; */
+    margin-top: 50px;
+    /* margin-left: 120px; */
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+    /* place-content: center*/
     
 }
 .apih{

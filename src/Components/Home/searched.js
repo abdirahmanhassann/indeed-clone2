@@ -13,8 +13,12 @@ import Jobs from "../../Jobs.json"
 import Paragraphblue from "../../ElementComponents/paragraphblue";
 import Paragraph from "../../ElementComponents/paragraph";
 import Subaparagraph from "../../ElementComponents/subaparagraph";
-import { collection, getDocs } from "@firebase/firestore";
+import { arrayRemove, arrayUnion, collection, doc, getDocs, setDoc, updateDoc } from "@firebase/firestore";
 import { db } from "../../Firebase/Firebase";
+import moment from "moment/moment";
+import Header from "../../ElementComponents/Header";
+import { useSelector } from "react-redux";
+import { jobseekeremail } from "../../ReduxStore/Redux";
 
 const Searched=(props)=>{
 const location=useLocation();
@@ -36,7 +40,13 @@ const location=useLocation();
     const [isactive,setactive]=useState(false)
     const [externalApi,setexternalApi]=useState(0);
     const [fbjobs,setfbjobs]=useState();
+    const [clickedjob,setclickedjob]=useState(false);
+    const jobseekerlogin=useSelector(state=>state.reducer.jobseekerloginstatus.jobseekerlogin);
+    const jobseekeremaill=useSelector((state)=>state.reducer.jobseekeremailstatus.jobseekeremail);
+    const [applyclickstate,setapplyclickstate]=useState(false);
+    const [applied,setapplied]=useState(false)
  //  const [apitime,setapitime]=useState('')
+
 const divstyle={
     cursor: 'pointer',
     borderBottom: '5px solid rgb(8 81 192 / 85%)',
@@ -179,6 +189,49 @@ const submit =(e)=>{
     border-width: 7px;
 
     ` ;
+    
+    useEffect(()=>{
+
+        async function applyclick(){
+            if(clickedjob==true){
+                const  usersCollectionRef2= await collection (db,'jobseeker')
+                const po2=  await getDocs(usersCollectionRef2)
+                const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
+              await  console.log(userss2);
+              const check2= await userss2.find(i=>i.email==jobseekeremaill)
+               console.log(check2)            
+      //  const f= await updateDoc(doc(db,'employer',jobft.id),({jobpostings:arrayRemove(jobft)}))  
+    console.log(jobft.id)
+    await setDoc(doc(db,'jobseeker',check2.id),{jobpostings:arrayUnion(jobft) },{merge:true})
+}
+if(jobseekerlogin==true){
+}
+else {
+    alert('Please sign in as a jobseeker')
+}}
+applyclick()
+    },[applyclickstate])
+
+
+    useEffect(()=>{
+async function checker(){
+        const  usersCollectionRef2= await collection (db,'jobseeker')
+        const po2=  await getDocs(usersCollectionRef2)
+            const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
+          await  console.log(userss2);
+          const check2= await userss2.find(i=>i.email==jobseekeremaill)
+const postingchecker=check2.jobpostings.find(i=>i.createdAt+i.description==jobft.createdAt+jobft.description)
+console.log(postingchecker)
+if (postingchecker==null || postingchecker==undefined)
+{
+     return null
+}
+else{
+    setapplied(true)
+}
+}
+checker();
+    },[jobft])
     return(
         <>
         <Nav/>
@@ -201,7 +254,8 @@ const submit =(e)=>{
     )}
 
  <input placeholder='city or postcode'  name='whered' onChange={changewhat} value={wordEntered} autocomplete="off"></input>
- {apidata.length !=0 && whereexists &&(
+ {
+ apidata.length !=0 && whereexists &&(
 <div className="dataResult">
  
         { apidata.slice(0, 15).map((value,key) => {
@@ -322,10 +376,23 @@ fbjobs &&
     
 {
 fbjobs.map((i)=>{
-    
+    const timeago=moment(i.createdAt).fromNow();
+    i={
+        ...i,
+timeago:timeago
+    }
     return(
-        
-        <div className="apiinfo">
+        <div className="apidiv">
+
+        <div className="apiinfo" onClick={()=>{
+            setapplied(false)
+            setclickedjob(true) 
+        setjobft(i)
+        setactive((id)=>{
+            return{
+            ...false,
+            id:true
+          } })}}>
         <div className="headerdiv">
      <p className="apih44"  >{i.title}</p>
 </div>
@@ -336,16 +403,55 @@ fbjobs.map((i)=>{
      <p className="salarypara"><FaMoneyBillWave/> £{i.min}-£{i.max} {i.rate}</p>  } 
      <p className="salarypara"><FaBriefcase/>{i.time}</p>
      </span>
+     {
+i.description.length > 251 ? 
+     <p className="apipara11">{i.description.slice(0,250)}...</p>
+     :
      <p className="apipara11">{i.description}</p>
+     }
+     <div style={{position:'absolute',bottom:'5px'}}>
+        <Subaparagraph text={`posted ${timeago}`}/>
+     </div>
+    </div>    
+</div>
+)})}
+
+</div>
+
+
+{
+    clickedjob &&
+    <div className="applicationdiv">
+    <button className="Xbutton" onClick={()=>setclickedjob(false)} >X </button>
+
+    <h2 className="apih">{jobft.title}</h2>
+    <p className="bluepara">{jobft.name} </p>
+    <p className="apih" style={{fontSize:'16px'}}>{jobft.time}</p>
+
+    {
+        jobseekerlogin==true ?
+
+        <button className="uploadbutton"  onClick={()=>{setapplyclickstate(true)}}>{applied==true ? 'Application sent' :'Apply now'}</button>
+        :
+        <button className="uploadbutton"  onClick={()=>alert('Please login to apply')}>Apply now</button>
+    }
+  <button className="buttonn"><AiOutlineHeart className="svg"/></button>
+<Header text={'Job details'}/>
+
+    <p className="apih" style={{fontWeight:'bold',marginTop:'10px'}} >Salary</p>
+    <p className="apih" style={{fontSize:'15.5px'}}> £{jobft.min}-£{jobft.max} {jobft.rate}</p>
+    <p className="apih" style={{fontWeight:'bold',marginTop:'10px'}} >Job type</p>
+    <p className="apih" style={{fontSize:'15.5px'}}>{jobft.time}</p>
+    <p className="apih" style={{fontWeight:'bold',marginTop:'10px'}} >Description</p>
+    <p className="apih" style={{fontSize:'15.5px'}}>{jobft.description}</p>
+    <p className="apih" style={{fontWeight:'bold',marginTop:'10px'}} >Hiring Insights</p>
+    <p className="apih" style={{fontSize:'15.5px'}}>Posted {jobft.timeago}</p>
     </div>
-)
-})
-}
+    }
 </div>
-</div>
+
 </>
 }
-
    <Footer/>
         </>
     ) 

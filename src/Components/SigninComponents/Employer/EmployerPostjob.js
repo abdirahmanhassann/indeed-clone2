@@ -37,10 +37,10 @@ const selector=useSelector((state)=>state.reducer.employeremailstatus.employerem
     await  console.log(userss);
     const check= await userss.find(i=>i.email==selector)
       if (check) {
-        setform(i=>{
+      await  setform(i=>{
           return{
             ...i,
-createdAt:new Date().getTime()
+createdAt: new Date().getTime()
           }
         }
         )
