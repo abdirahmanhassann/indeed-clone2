@@ -26,14 +26,15 @@ import InverseButton from '../../../ElementComponents/InverseButton'
 
 
 function EmployerSignupform() {
-    const [progress,setprogress]=useState(25);
+    const [progress,setprogress]=useState(0);
     const [err,seterr]=useState(false)
     const [imageupload,setimageupload]=useState(null)
     const [added,setadded]=useState(true)
     const [clicked,setclicked]=useState(false)
     const [imageUrls2,setImageUrls2]=useState(null)
     const [inputs, setInputs] = useState([1]);
-    const [employerdetails,setemployerdetails]=useState({Firstname:'',Surname:'',country:'',city:'',email:'',password:'',repassword:''})
+    const [employerdetails,setemployerdetails]=useState({Firstname:'',Surname:'',country:'',city:'',email:''
+    ,password:'',repassword:'',RecentExperience:'',startdate:null,enddate:null,role:''})
 const dispatch =useDispatch()
 const navigate=useNavigate()
 
@@ -104,7 +105,11 @@ const handleAddInput = () => {
                    email: employerdetails.email,
                    password: employerdetails.password,
                    repassword: employerdetails.repassword,
-                skills: inputs
+                skills: inputs,
+                RecentExperience:employerdetails.RecentExperience,
+                startdate:employerdetails.startdate,
+                enddate:employerdetails.enddate,
+                role:employerdetails.role
                })
                console.log('success')
                setclicked(false)
@@ -137,7 +142,7 @@ const handleAddInput = () => {
     <div className='employeroptions'>
         {
 
-            progress >49 ?
+            progress >24 ?
 <BiArrowBack style={{color:'black',height:'26px',width:'26px',cursor:'pointer'}} onClick={()=>{
         setprogress((i)=>i-25)
         seterr(false)
@@ -159,9 +164,9 @@ const handleAddInput = () => {
         ,borderRadius:'10px'
         }} />
 {
-progress==25 &&
+progress==0 &&
     <>
-    <Header text={'What is the name?'} style={{fontSize:'25px'}}/>
+    <Header text={'What is your name?'} style={{fontSize:'25px'}}/>
     <TextField onChange={changed} id="outlined-basic" label="FirstName" variant="outlined" name='Firstname' value={employerdetails.Firstname} />
     <TextField onChange={changed} id="outlined-basic" label="SurName" variant="outlined" name='Surname' value={employerdetails.Surname} />
     {
@@ -178,6 +183,27 @@ err==true &&
             seterr(false)
         }
         
+        }}/>
+    </>
+}
+{
+progress==25 &&
+    <>
+    <Header text={'What is your most recent held position?'} style={{fontSize:'25px'}}/>
+    <TextField onChange={changed} id="outlined-basic" label="Job title" variant="outlined" name='role' value={employerdetails.role} />
+    <Paragraph text={'Please enter the company name'}/>
+    <TextField onChange={changed} id="outlined-basic" label="Company name" variant="outlined" name='RecentExperience' value={employerdetails.RecentExperience} />
+   
+    <Header text={'How long did you hold this position?'} style={{fontSize:'25px'}}/>
+    <Subaparagraph text={'leave blank if you have no recent experience '}/>
+
+    <TextField onChange={changed} id="outlined-basic" type='number' label="Starting date" variant="outlined" 
+    name='startdate' value={employerdetails.startdate}/>
+    <TextField onChange={changed} id="outlined-basic" type='number' label="End date" variant="outlined"
+     name='enddate' value={employerdetails.enddate}/>
+    <BlueButton text={'Continue'} click={()=>{
+       setprogress(i=>i+25)
+            seterr(false)
         }}/>
     </>
 }
