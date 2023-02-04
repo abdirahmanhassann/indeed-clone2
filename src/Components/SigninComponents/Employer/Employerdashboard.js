@@ -17,6 +17,7 @@ function EmployerDashboard() {
   const email=useSelector(state=>state.reducer.employeremailstatus.employeremail.email);
   const [jobinfo,setjobinfo]=useState()
   const [loggedout,setloggedout]=useState(false)
+  const [active,setactive]=useState()
   const greenstyle={
     background:`green`
   }
@@ -49,7 +50,33 @@ else {
   setloggedout(false)
 }
 }
-details()
+async function applicantchecker(){
+
+
+const  usersCollectionRef2= await collection (db,'jobseeker')
+const po2=  await getDocs(usersCollectionRef2)
+const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
+console.log(userss2);
+let g=[]
+userss2.map((i)=>{
+
+  i.jobpostings.map((j)=>{
+    console.log(j)
+    if(g.includes(j.name)){
+      console.log('correct')   
+    }
+    else{
+      g.push(j)
+    }
+})
+
+})
+setactive(g)
+console.log(g)
+}
+details().then(()=>
+applicantchecker()
+)
   },[])
   return (
 <>
@@ -63,7 +90,18 @@ details()
 
   {
 jobinfo ?
-jobinfo.jobpostings.map((i)=>{
+active &&
+jobinfo.jobpostings.map((i,index=0)=>{ 
+
+active.map((p)=>{
+  console.log(p.createdAt);
+  console.log(i.createdAt)
+  if(p.createdAt==i.createdAt){
+   return console.log(index++)
+  }
+  else return null
+})
+console.log(index)
 return(
   <>
 
@@ -76,7 +114,7 @@ return(
   </div>
   <div className='postjobsubdiv5'>
   <div className='columndiv' style={divstyle}>
-    <Paragraphblue text={'0'} style={uptext}/>
+    <Paragraphblue text={index} style={uptext}/>
     <Subaparagraph text={'Active'} style={{marginTop:'-8px'}}/>
   </div>
   <div className='columndiv' style={divstyle}>

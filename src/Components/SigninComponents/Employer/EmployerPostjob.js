@@ -15,7 +15,7 @@ import { db } from '../../../Firebase/Firebase'
 // import { Textarea } from '@mui/joy'
 function Postjob() {
   const [formm,setform]=useState({title:'',location:'',rate:'',min:null,max:null,description:'',time:'',createdAt:''});
-const selector=useSelector((state)=>state.reducer.employeremailstatus.employeremail.email)
+const selector=useSelector((state)=>state.reducer.employeremailstatus.employeremail)
 
   function changed(e){
     console.log(formm)
@@ -56,6 +56,7 @@ createdAt: new Date().getTime()
     <div>
         <>
         <EmployerNav/>
+      {  selector &&
         <div className='largedivpostjob'>
             <div className='postjobsubdiv'>
 <Largeheader text={'Provide basic information'} style={{fontSize:'25px'}}/>
@@ -150,6 +151,7 @@ onChange={changed}
             </div>
             
         </div>
+      }
         </>
     </div>
   )
