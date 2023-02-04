@@ -51,7 +51,7 @@ return(
     <a className='a1'>Salary guide</a>
     </span>
     <span className='navspan2'>
-<a className='a2'>Upload your CV</a>
+<a className='a2'>Applications</a>
 {
 jobseekerloginselector==true ? 
 

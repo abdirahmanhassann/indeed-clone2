@@ -193,18 +193,22 @@ const submit =(e)=>{
     useEffect(()=>{
 
         async function applyclick(){
+      
             if(clickedjob==true){
                 const  usersCollectionRef2= await collection (db,'jobseeker')
                 const po2=  await getDocs(usersCollectionRef2)
                 const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
               await  console.log(userss2);
+              await  setclickedjob(true)
               const check2= await userss2.find(i=>i.email==jobseekeremaill)
                console.log(check2)            
       //  const f= await updateDoc(doc(db,'employer',jobft.id),({jobpostings:arrayRemove(jobft)}))  
     console.log(jobft.id)
+    setapplied(true);
     await setDoc(doc(db,'jobseeker',check2.id),{jobpostings:arrayUnion(jobft) },{merge:true})
 }
 if(jobseekerlogin==true){
+
 }
 else {
     alert('Please sign in as a jobseeker')
@@ -215,19 +219,21 @@ applyclick()
 
     useEffect(()=>{
 async function checker(){
+    console.log('checker running')
         const  usersCollectionRef2= await collection (db,'jobseeker')
         const po2=  await getDocs(usersCollectionRef2)
             const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
           await  console.log(userss2);
           const check2= await userss2.find(i=>i.email==jobseekeremaill)
-const postingchecker=check2.jobpostings.find(i=>i.createdAt+i.description==jobft.createdAt+jobft.description)
-console.log(postingchecker)
-if (postingchecker==null || postingchecker==undefined)
+          const postingchecker=check2.jobpostings.find(i=>i.createdAt+i.description+i.title==jobft.createdAt+jobft.description+jobft.title)
+          console.log(await postingchecker)
+if(postingchecker!=undefined)
 {
-     return null
+    setapplied(true)
+    setclickedjob(true)
 }
 else{
-    setapplied(true)
+    return null
 }
 }
 checker();
@@ -431,7 +437,7 @@ i.description.length > 251 ?
     {
         jobseekerlogin==true ?
 
-        <button className="uploadbutton"  onClick={()=>{setapplyclickstate(true)}}>{applied==true ? 'Application sent' :'Apply now'}</button>
+        <button className="uploadbutton"  onClick={()=>{setapplyclickstate(i=>!i)}}>{applied==true ? 'Application sent' :'Apply now'}</button>
         :
         <button className="uploadbutton"  onClick={()=>alert('Please login to apply')}>Apply now</button>
     }

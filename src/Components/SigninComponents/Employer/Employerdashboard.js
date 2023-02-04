@@ -9,7 +9,8 @@ import Paragraphblue from '../../../ElementComponents/paragraphblue'
 import Subaparagraph from '../../../ElementComponents/subaparagraph'
 import { db } from '../../../Firebase/Firebase'
 import './employer.css'
-import EmployerNav from './EmployerNav'
+import EmployerNav from './EmployerNav' 
+
 
 function EmployerDashboard() {
   const login=useSelector(state=>state.reducer.employerloginstatus.employerlogin);
