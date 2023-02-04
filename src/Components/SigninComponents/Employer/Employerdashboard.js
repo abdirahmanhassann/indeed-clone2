@@ -91,13 +91,13 @@ applicantchecker()
   {
 jobinfo ?
 active &&
-jobinfo.jobpostings.map((i,index=0)=>{ 
-
+jobinfo.jobpostings.map((i,index)=>{ 
+index=0;
 active.map((p)=>{
   console.log(p.createdAt);
   console.log(i.createdAt)
-  if(p.createdAt==i.createdAt){
-   return console.log(index++)
+  if(p.title==i.title){
+   return index++
   }
   else return null
 })
@@ -115,7 +115,7 @@ return(
   <div className='postjobsubdiv5'>
   <div className='columndiv' style={divstyle}>
     <Paragraphblue text={index} style={uptext}/>
-    <Subaparagraph text={'Active'} style={{marginTop:'-8px'}}/>
+    <Subaparagraph text={'Applicants'} style={{marginTop:'-8px'}}/>
   </div>
   <div className='columndiv' style={divstyle}>
     <Paragraphblue text={'0'} style={uptext}/>
