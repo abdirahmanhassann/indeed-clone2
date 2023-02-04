@@ -78,6 +78,19 @@ reducers:{
 }
     }
 )
+const clickedjobslice=createSlice(
+    {
+        name:'clickedjob',
+        initialState:{},
+reducers:{
+    clickedjob :(state,action)=>{
+        return {...state, clickedjob: action.payload};
+    },
+   
+  
+}
+    }
+)
 const persistConfig={
     key:"root",
     version:1,
@@ -88,7 +101,8 @@ const reducer= combineReducers({
     employerloginstatus:employerloginslice.reducer,
     employeremailstatus:employeremailslice.reducer,
     jobseekeremailstatus:jobseekeremailslice.reducer,
-    jobseekerloginstatus:jobseekerloginslice.reducer
+    jobseekerloginstatus:jobseekerloginslice.reducer,
+    clickedjobslicestatus:clickedjobslice.reducer
 })
 const persistedReducer=persistReducer(persistConfig,reducer);
 
@@ -98,7 +112,7 @@ export const {employerlogin}=employerloginslice.actions;
 export const {employeremail}=employeremailslice.actions;
 export const {jobseekeremail}=jobseekeremailslice.actions;
 export const {jobseekerlogin}=jobseekerloginslice.actions;
-
+export const {clickedjob}=clickedjobslice.actions;
 const store=configureStore({
     reducer:{ 
                reducer:persistedReducer,

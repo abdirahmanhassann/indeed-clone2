@@ -11,6 +11,7 @@ import EmployerHome from './Components/SigninComponents/Employer/EmployerHome';
 import Postjob from './Components/SigninComponents/Employer/EmployerPostjob';
 import EmployerDashboard from './Components/SigninComponents/Employer/Employerdashboard';
 import JobseekerSignup from './Components/SigninComponents/Jobseeker/JobseekerSignup';
+import EmployerJobInsights from './Components/SigninComponents/Employer/EmployerJobInsights';
 function App() 
 {
  return (
@@ -26,6 +27,7 @@ function App()
 <Route path='/EmployerHome' element={<EmployerHome/>}/>
 <Route path='/EmployerHome/Postjob' element={<Postjob/>}/>
 <Route path='/EmployerHome/EmployerDashboard' element={<EmployerDashboard/>}/>
+<Route path='/EmployerHome/EmployerDashboard/:name' element={<EmployerJobInsights/>}/>
 <Route path='/Signup/Jobseeker' element={<JobseekerSignup/>}/>
 </Routes>
 </Router>

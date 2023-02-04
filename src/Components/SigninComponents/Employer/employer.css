@@ -83,6 +83,7 @@ margin-bottom: 0px;
     padding: 19px;
     padding-inline: 20%;
     height: fit-content;
+    min-height:100vh;
     display: flex;
     flex-direction: column;
     gap: 30px;

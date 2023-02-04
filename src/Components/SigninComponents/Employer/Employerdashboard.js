@@ -1,13 +1,16 @@
 import { collection, getDocs } from '@firebase/firestore'
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import moment from 'moment'
 import { check } from 'prettier'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Header from '../../../ElementComponents/Header'
 import Paragraph from '../../../ElementComponents/paragraph'
 import Paragraphblue from '../../../ElementComponents/paragraphblue'
 import Subaparagraph from '../../../ElementComponents/subaparagraph'
 import { db } from '../../../Firebase/Firebase'
+import { clickedjob } from '../../../ReduxStore/Redux'
 import './employer.css'
 import EmployerNav from './EmployerNav' 
 
@@ -15,6 +18,8 @@ import EmployerNav from './EmployerNav'
 function EmployerDashboard() {
   const login=useSelector(state=>state.reducer.employerloginstatus.employerlogin);
   const email=useSelector(state=>state.reducer.employeremailstatus.employeremail.email);
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
   const [jobinfo,setjobinfo]=useState()
   const [loggedout,setloggedout]=useState(false)
   const [active,setactive]=useState()
@@ -102,15 +107,21 @@ active.map((p)=>{
   else return null
 })
 console.log(index)
+
+const timeago=moment(i.createdAt).fromNow();
 return(
   <>
 
-  <div className='postjobsubdiv'>
+  <div className='postjobsubdiv' onClick={()=>{
+    console.log(i)
+    dispatch(clickedjob(i))
+    navigate(`./:${i.title}`)
+  }} style={{cursor:'pointer'}}>
 
 <div className='columndiv'>
 <Paragraphblue text={i.title}/>
 <Subaparagraph text={i.location}/>
-<Subaparagraph text={'Created:'+i.createdAt}/>
+<Subaparagraph text={'Created '+timeago}/>
   </div>
   <div className='postjobsubdiv5'>
   <div className='columndiv' style={divstyle}>
