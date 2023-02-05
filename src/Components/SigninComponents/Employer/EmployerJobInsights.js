@@ -1,4 +1,4 @@
-import { collection, getDocs } from '@firebase/firestore'
+import { arrayRemove, arrayUnion, collection, doc, getDocs, setDoc, updateDoc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
 import { useSelector } from 'react-redux'
@@ -15,6 +15,10 @@ import { getDownloadURL, ref } from '@firebase/storage'
 function EmployerJobInsights() {
     const jobselector=useSelector(state=>state.reducer.clickedjobslicestatus.clickedjob);
     const [applicants,setapplicants]=useState()
+    const [checked,setchecked]=useState();
+const [ifcheck,setifcheck]=useState();
+const [jobp,setjobp]=useState();
+
     console.log(jobselector)
 
     const divstyle={
@@ -53,10 +57,29 @@ async function Candidatescheck(){
 Candidatescheck();
     },[])
         
-    // function cvfunction()
-    // {
-    //     getDownloadURL(ref(storage, `jobseeker/${}`))
-    // }
+// useEffect(()=>{
+
+//     async function checkedfunc(i)
+//     {
+//    await i.jobpostings.map((k)=>{
+//         if(k.title,k.description==jobselector.title,jobselector.description){
+//             setchecked(true)
+//             k={
+//                 ...k,
+//                 accepted:checked
+//             }
+//             setifcheck(k)
+//             console.log(ifcheck)
+//     }
+//     else return null
+// })
+
+// await setDoc(doc(db,'jobseeker',i.id),{jobpostings:arrayUnion(ifcheck) },{merge:true})
+// console.log(ifcheck)
+//     }
+//     checkedfunc()          
+// },[])
+    
   return (
     <>
     <EmployerNav/>
@@ -69,6 +92,8 @@ Candidatescheck();
 {
     applicants &&
     applicants.map((i)=>{
+
+       /// checkedfunc(i);
         return(
 
             <div className='postjobsubdiv' >
@@ -93,7 +118,7 @@ else return null;
 <Subaparagraph text={i.RecentExperience}/>
 <Subaparagraph text={i.startdate+'-'+i.enddate}/>
     </div>
-    <InverseButton text={'view CV'} click={()=>{
+    <InverseButton text={'View CV'} click={()=>{
           const po=  getDownloadURL(ref(storagee, `jobseeker/${i.email}`)).then((url)=>
                 {
                     console.log(url);
@@ -102,8 +127,34 @@ else return null;
     }}/>
 
     <div className='postjobsubdiv5' style={{paddingBlock:'10px'}}>
-  <div className='columndiv' style={divstyle}>
-<AiOutlineCheck style={{height:'20px',width:'20px',color:'rgb(22, 64, 129)'}}/>
+  <div className='columndiv' style={divstyle} 
+ onClick={()=>
+{      
+    async function checkedfunc(i)
+    {
+       const c=await i.jobpostings.map((k)=>{
+        console.log(k);
+       if( k.description==jobselector.description)   
+      {      
+        updateDoc(doc(db,'jobseeker',i.id),({jobpostings:arrayRemove(k)}))
+        .then(()=>{ k={...k,accepted:false}
+        setDoc(doc(db,'jobseeker',i.id),{jobpostings:arrayUnion(k) },{merge:true})
+      })
+    }
+       else return null;
+
+    })
+// console.log(ifcheck)
+    }
+    checkedfunc(i)
+}}
+  >
+{       
+    i.accepted==true ?
+<AiOutlineCheck style={{height:'20px',width:'20px',color:'green'}} />
+:
+<AiOutlineCheck style={{height:'20px',width:'20px',color:'rgb(22, 64, 129)'}} />
+}
   </div>
   <div className='columndiv' style={divstyle}>
 <AiOutlineClose style={{height:'20px',width:'20px',color:'rgb(22, 64, 129)'}}/>
