@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Header from '../../../ElementComponents/Header'
+import InverseButton from '../../../ElementComponents/InverseButton'
 import Paragraph from '../../../ElementComponents/paragraph'
 import Paragraphblue from '../../../ElementComponents/paragraphblue'
 import Subaparagraph from '../../../ElementComponents/subaparagraph'
@@ -115,11 +116,7 @@ const timeago=moment(i.createdAt).fromNow();
 return(
   <>
 
-  <div className='postjobsubdiv' onClick={()=>{
-    console.log(i)
-    dispatch(clickedjob(i))
-    navigate(`./:${i.title}`)
-  }} style={{cursor:'pointer'}}>
+  <div className='postjobsubdiv' >
 
 <div className='columndiv'>
 <Paragraphblue text={i.title}/>
@@ -140,8 +137,9 @@ return(
     <Subaparagraph text={'Rejected'} style={{marginTop:'-8px'}}/>
   </div>
   </div>
+
   <FormControl fullWidth sx={{width:'221px',height:'50px',alignItems: 'center',
-    alignSelf: 'center'}}>
+    alignSelf: 'center', marginInline: '15px'}}>
   <InputLabel id="demo-simple-select-label">Status</InputLabel>
   <Select
     labelId="demo-simple-select-label"
@@ -150,7 +148,7 @@ return(
     label="Open"
 //    onChange={changed}
 sx={{width:'111px',height:'50px',alignItems: 'center',
-    alignSelf: 'center'}}
+    alignSelf: 'center', marginInline: '15px'  }}
   >
     <MenuItem value={'hourly'} >
       <div className='divrow'>
@@ -167,6 +165,17 @@ sx={{width:'111px',height:'50px',alignItems: 'center',
     </MenuItem>
   </Select>
 </FormControl>
+<div style={{width:'400px'}}>
+  <InverseButton click={()=>{
+    console.log(i)
+    dispatch(clickedjob(i))
+    navigate(`./:${i.title}`)
+  }}
+  text={'View applicants'}
+  style={{marginleft:'20px'}}
+  />
+  </div>
+
 </div>
   </>
   ) 

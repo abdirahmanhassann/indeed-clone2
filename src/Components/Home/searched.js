@@ -19,6 +19,7 @@ import moment from "moment/moment";
 import Header from "../../ElementComponents/Header";
 import { useSelector } from "react-redux";
 import { jobseekeremail } from "../../ReduxStore/Redux";
+import { async } from "@firebase/util";
 
 const Searched=(props)=>{
 const location=useLocation();
@@ -45,6 +46,7 @@ const location=useLocation();
     const jobseekeremaill=useSelector((state)=>state.reducer.jobseekeremailstatus.jobseekeremail);
     const [applyclickstate,setapplyclickstate]=useState(false);
     const [applied,setapplied]=useState(false)
+    const [research,setresearch]=useState(false);
  //  const [apitime,setapitime]=useState('')
 
 const divstyle={
@@ -127,21 +129,13 @@ i.jobpostings.map((j)=>{
 })
 
 })
-setfbjobs(await g);
-console.log(await fbjobs);
-let clint=[]
-await fbjobs.forEach((i)=>{
+console.log(g);
 
- //let j=i.find(p=>p==userss)
- if(userss.includes(i)){
-console.log(userss)
- }
-})
-console.log(clint)
-
-  //const check= await userss.find(i=>i.email==signin.email)
-   //console.log(check)
-
+    const internaljobfilter = g.filter((i) => {
+           return i.title.toLowerCase().includes(searched.whatd.toLowerCase()) &&
+           i.location.toLowerCase().includes(searched.whered.toLowerCase())
+       })
+setfbjobs(internaljobfilter)
 }
 
     if(externalApi==1){
@@ -152,32 +146,72 @@ clicked();
     }}
 },[externalApi]);
 
-
 const submit =(e)=>{
         e.preventDefault();
    //   const res=await apiasync();
-   
-   const options = {
-    method: 'GET',
-    headers: {
-        //'3080ae25famsh2a48333bf8619d4p118e5djsnbca874ca3480'
-        'X-RapidAPI-Key': 'c20809c96dmsh0b41db4c1c11af4p1f6953jsn3cf0793e646b',
-        'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
-    }
-}
-   fetch('https://jsearch.p.rapidapi.com/search?query='+whatsearched+'%20in%20'+wordEntered+'&num_pages=1', options)
-   .then(response => response.json())
-   .then(response => {
-       setisloading(false)
-       api.current=response.data;
-   console.log(api.current)
-   })
-   .catch(err => {console.error(err)
-   setstatus(false)
-   setapikey('ac7e8fcd59msha3e59fbda262531p147ad9jsn732b1de1990f')
-   });
+}  
+useEffect(()=>{
 
-    }        
+    
+    async function reenter() 
+    {
+       const options = {
+        method: 'GET',
+        headers: {
+            //'3080ae25famsh2a48333bf8619d4p118e5djsnbca874ca3480'
+            'X-RapidAPI-Key': 'c20809c96dmsh0b41db4c1c11af4p1f6953jsn3cf0793e646b',
+            'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+        }
+    }
+
+    fetch('https://jsearch.p.rapidapi.com/search?query='+whatsearched+'%20in%20'+wordEntered+'&num_pages=1', options)
+    .then(response => response.json())
+    .then(response => {
+        setisloading(false)
+        api.current=response.data;
+        console.log(api.current)
+    })
+    .catch(err => {console.error(err)
+        setstatus(false)
+        setapikey('ac7e8fcd59msha3e59fbda262531p147ad9jsn732b1de1990f')
+    });
+} 
+async function internalapi(){
+    const  usersCollectionRef= await collection (db,'employer')
+    const po=  await getDocs(usersCollectionRef)
+    const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+ console.log(userss);
+let g=[]
+
+userss.map((i)=>{
+    setfbjobs(i)
+i.jobpostings.map((j)=>{
+ j={
+        ...j,
+        name:i.name,
+        id:i.id
+ }
+    g.push(j)
+})
+
+})
+console.log(g);
+
+    const internaljobfilter = g.filter((i) => {
+           return i.title.toLowerCase().includes(whatsearched.toLowerCase()) &&
+           i.location.toLowerCase().includes(wordEntered.toLowerCase())
+       })
+setfbjobs(internaljobfilter)
+}
+if(externalApi==1){
+
+reenter();
+}
+else { 
+    internalapi()
+}
+},[research])
+
     function clickeditem(item){
         setWordEntered(item);
 
@@ -225,7 +259,7 @@ async function checker(){
             const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
           await  console.log(userss2);
           const check2= await userss2.find(i=>i.email==jobseekeremaill)
-          const postingchecker=check2.jobpostings.find(i=>i.createdAt+i.description+i.title==jobft.createdAt+jobft.description+jobft.title)
+          const postingchecker=check2.jobpostings.find(i=>i.description+i.title==jobft.description+jobft.title)
           console.log(await postingchecker)
 if(postingchecker!=undefined)
 {
@@ -238,6 +272,16 @@ else{
 }
 checker();
     },[jobft])
+
+    // useEffect(()=>{
+    //      function internaljobsearch(){
+    //      const newjobFilter = fbjobs.filter((value) => {
+    //             return value.title.toLowerCase().includes(whatsearched.toLowerCase()) ;     
+    //         })
+    //         console.log(newjobFilter)
+    // }
+    //     internaljobsearch()
+    // },[externalApi])
     return(
         <>
         <Nav/>
@@ -276,7 +320,7 @@ checker();
 )})}
     </div>
     )}
-<button className="searchbutton" >search</button>
+<button className="searchbutton"  onClick={()=>setresearch(i=>!i)}>search</button>
    </form>
    </div>
    <div className="postjobsubdiv" style={{width:'100%',margin:'auto',borderBottom:'1px solid rgb(199 199 199)'

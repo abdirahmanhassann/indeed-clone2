@@ -26,9 +26,29 @@ function clicked(){
   return (
 <nav color='employerName' className='employernav'>
 <div className='subnav'>
-<img src={pic} className='pic'/>
-<a>Post a job</a>
-<a>Find resumes</a>
+<img src={pic} className='pic' onClick={()=>navigate('/employerhome')} style={{cursor:'pointer'}}/>
+
+<a onClick={()=>{
+     if(employerloginn.employerlogin==true){
+        navigate('/EmployerHome/Postjob')
+    }
+        else{
+            alert('Please signin as employer');
+        }
+    }
+}
+style={{cursor:'pointer'}}
+>Post a job</a>
+
+<a onClick={()=>{
+     if(employerloginn.employerlogin==true){
+        navigate('/EmployerHome/EmployerDashboard')
+    }
+        else{
+            alert('Please signin as employer');
+        }
+    }
+}  style={{cursor:'pointer'}}>Dashboard</a>
 </div>
 <div className='subnav2'>
 <a className="usericon2" onClick={clicked}>{employerloginn.employerlogin==false ? 'Sign in' : 'Sign out'}</a>
