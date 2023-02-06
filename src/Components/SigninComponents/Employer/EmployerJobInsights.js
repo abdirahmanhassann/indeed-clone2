@@ -171,19 +171,52 @@ return(
 }
 
   </div>
-  <div className='columndiv' style={divstyle}>
-<AiOutlineClose style={{height:'20px',width:'20px',color:'rgb(22, 64, 129)'}}/>
-  </div>
-  </div>
+  <div className='columndiv' style={divstyle} onClick={()=>{
+         
+         async function checkedfunc(i)
+         {
+            const c=await i.jobpostings.map((k)=>{
+             console.log(k);
+            if( k.description==jobselector.description)   
+           {      
+               updateDoc(doc(db,'jobseeker',i.id),({jobpostings:arrayRemove(k)}))
+               .then(()=>{ k={...k,accepted:false}
+               setDoc(doc(db,'jobseeker',i.id),{jobpostings:arrayUnion(k) },{merge:true})
+               .then(()=>setchecked(i=>!i))
+             
+           })
+         }
+            else return null;
+     
+         })
+     // console.log(ifcheck)
+         }
+         checkedfunc(i)
+  }}>
+    {       
    
-    </div>
-            )
-    })
+   i.jobpostings.map((k)=>{
+
+return(
+    <>
+    {
+        k.description==jobselector.description &&
+     
+<AiOutlineClose style={{height:'20px',width:'20px',color:k.accepted==false ?'red':'rgb(22, 64, 129)'}}/>
 }
-    </div>
-    }
-    </>
-  )
+</>
+)
+})
+}
+  </div>
+  </div>
+  </div>
+ )})}
+ </div>
+}
+
+</>
+)
 }
 
 export default EmployerJobInsights
