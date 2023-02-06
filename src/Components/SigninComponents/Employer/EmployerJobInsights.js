@@ -155,15 +155,15 @@ else return null;
 {       
    
    i.jobpostings.map((k)=>{
-
 return(
     <>
     {
-        k.description==jobselector.description &&
-     
+        k.description==jobselector.description ?
+<AiOutlineCheck style={{height:'20px',width:'20px',color:k.accepted==true ?'#35d335':'rgb(22, 64, 129)' }} />
+:null
+}
 
-<AiOutlineCheck style={{height:'20px',width:'20px',color:k.accepted==true ?'green':'rgb(22, 64, 129)' }} />
-   }</>
+   </>
 
 
 )
@@ -201,7 +201,6 @@ return(
     <>
     {
         k.description==jobselector.description &&
-     
 <AiOutlineClose style={{height:'20px',width:'20px',color:k.accepted==false ?'red':'rgb(22, 64, 129)'}}/>
 }
 </>

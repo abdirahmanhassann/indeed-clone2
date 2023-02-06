@@ -96,13 +96,16 @@ applicantchecker()
   {
 jobinfo ?
 active &&
-jobinfo.jobpostings.map((i,index)=>{ 
+jobinfo.jobpostings.map((i,index,accepted,rejected)=>{ 
 index=0;
+accepted=0;
+rejected=0;
 active.map((p)=>{
-  console.log(p.createdAt);
-  console.log(i.createdAt)
-  if(p.title==i.title){
-   return index++
+  console.log(p);
+  if(p.description==i.description){
+    index++
+    if(p.accepted==true)return accepted ++
+    if(p.accepted==false) return rejected ++
   }
   else return null
 })
@@ -129,12 +132,12 @@ return(
     <Subaparagraph text={'Applicants'} style={{marginTop:'-8px'}}/>
   </div>
   <div className='columndiv' style={divstyle}>
-    <Paragraphblue text={'0'} style={uptext}/>
-    <Subaparagraph text={'Candidates'} style={{marginTop:'-8px'}}/>
+    <Paragraphblue text={accepted} style={uptext}/>
+    <Subaparagraph text={'Accepted'} style={{marginTop:'-8px'}}/>
   </div>
   <div className='columndiv' style={divstyle}>
-    <Paragraphblue text={'0'} style={uptext}/>
-    <Subaparagraph text={'Interviews'} style={{marginTop:'-8px'}}/>
+    <Paragraphblue text={rejected} style={uptext}/>
+    <Subaparagraph text={'Rejected'} style={{marginTop:'-8px'}}/>
   </div>
   </div>
   <FormControl fullWidth sx={{width:'221px',height:'50px',alignItems: 'center',
