@@ -15,7 +15,7 @@ import { getDownloadURL, ref } from '@firebase/storage'
 function EmployerJobInsights() {
     const jobselector=useSelector(state=>state.reducer.clickedjobslicestatus.clickedjob);
     const [applicants,setapplicants]=useState()
-    const [checked,setchecked]=useState();
+    const [checked,setchecked]=useState(false);
 const [ifcheck,setifcheck]=useState();
 const [jobp,setjobp]=useState();
 
@@ -55,7 +55,7 @@ async function Candidatescheck(){
 
 }
 Candidatescheck();
-    },[])
+    },[checked])
         
 // useEffect(()=>{
 
@@ -94,9 +94,9 @@ Candidatescheck();
     applicants.map((i)=>{
 
        /// checkedfunc(i);
-        return(
-
-            <div className='postjobsubdiv' >
+        return( 
+        
+        <div className='postjobsubdiv' >
 <div className='columndiv'>
 <Paragraphblue text={i.Firstname+' '+i.Surname}/>
 <Subaparagraph text={i.city}/>
@@ -105,6 +105,7 @@ Candidatescheck();
   <div className='columndiv'>
     <Paragraphblue text={'Skills'}/>
     {
+        i.skills &&
         i.skills.length > 0 &&
 i.skills.map((j, index=0)=>{
 index++
@@ -136,9 +137,11 @@ else return null;
         console.log(k);
        if( k.description==jobselector.description)   
       {      
-        updateDoc(doc(db,'jobseeker',i.id),({jobpostings:arrayRemove(k)}))
-        .then(()=>{ k={...k,accepted:false}
-        setDoc(doc(db,'jobseeker',i.id),{jobpostings:arrayUnion(k) },{merge:true})
+          updateDoc(doc(db,'jobseeker',i.id),({jobpostings:arrayRemove(k)}))
+          .then(()=>{ k={...k,accepted:true}
+          setDoc(doc(db,'jobseeker',i.id),{jobpostings:arrayUnion(k) },{merge:true})
+          .then(()=>setchecked(i=>!i))
+        
       })
     }
        else return null;
@@ -150,11 +153,23 @@ else return null;
 }}
   >
 {       
-    i.accepted==true ?
-<AiOutlineCheck style={{height:'20px',width:'20px',color:'green'}} />
-:
-<AiOutlineCheck style={{height:'20px',width:'20px',color:'rgb(22, 64, 129)'}} />
+   
+   i.jobpostings.map((k)=>{
+
+return(
+    <>
+    {
+        k.description==jobselector.description &&
+     
+
+<AiOutlineCheck style={{height:'20px',width:'20px',color:k.accepted==true ?'green':'rgb(22, 64, 129)' }} />
+   }</>
+
+
+)
+   })
 }
+
   </div>
   <div className='columndiv' style={divstyle}>
 <AiOutlineClose style={{height:'20px',width:'20px',color:'rgb(22, 64, 129)'}}/>
