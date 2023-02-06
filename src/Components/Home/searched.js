@@ -136,6 +136,7 @@ console.log(g);
            i.location.toLowerCase().includes(searched.whered.toLowerCase())
        })
 setfbjobs(internaljobfilter)
+setclickedjob(false)
 }
 
     if(externalApi==1){
@@ -155,6 +156,7 @@ useEffect(()=>{
     
     async function reenter() 
     {
+        setisloading(true)
        const options = {
         method: 'GET',
         headers: {
@@ -177,6 +179,7 @@ useEffect(()=>{
     });
 } 
 async function internalapi(){
+    setisloading(true)
     const  usersCollectionRef= await collection (db,'employer')
     const po=  await getDocs(usersCollectionRef)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
@@ -197,12 +200,14 @@ i.jobpostings.map((j)=>{
 })
 console.log(g);
 
-    const internaljobfilter = g.filter((i) => {
+    const internaljobfilter = await g.filter((i) => {
            return i.title.toLowerCase().includes(whatsearched.toLowerCase()) &&
            i.location.toLowerCase().includes(wordEntered.toLowerCase())
        })
-setfbjobs(internaljobfilter)
-}
+await setfbjobs(internaljobfilter)
+ await setisloading(false)
+} 
+
 if(externalApi==1){
 
 reenter();
@@ -419,6 +424,16 @@ let kkey=Math.random();
 </div>
 </div>
 :
+isloading ? 
+<div className="loader"><ScaleLoader
+ size={150}
+ margin={'auto'}
+ color={'#2557a7'}
+ borderwidth= {'7px'}
+ css={override} 
+/></div>
+    :
+
 fbjobs &&
 <>
 <div className="apidivsearch">
@@ -470,7 +485,7 @@ i.description.length > 251 ?
 
 
 {
-    clickedjob &&
+    clickedjob==true &&
     <div className="applicationdiv">
     <button className="Xbutton" onClick={()=>setclickedjob(false)} >X </button>
 
