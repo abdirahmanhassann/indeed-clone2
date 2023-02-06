@@ -13,6 +13,7 @@ import Subaparagraph from '../../../ElementComponents/subaparagraph'
 import { db } from '../../../Firebase/Firebase'
 import { clickedjob } from '../../../ReduxStore/Redux'
 import './employer.css'
+import ScaleLoader from "react-spinners/ClipLoader";
 import EmployerNav from './EmployerNav' 
 
 
@@ -23,7 +24,8 @@ function EmployerDashboard() {
   const navigate=useNavigate();
   const [jobinfo,setjobinfo]=useState()
   const [loggedout,setloggedout]=useState(false)
-  const [active,setactive]=useState()
+  const [active,setactive]=useState();
+  const [isloading,setisloading]=useState(false);
   const greenstyle={
     background:`green`
   }
@@ -42,6 +44,7 @@ function EmployerDashboard() {
   }
   useEffect(()=>{
 async function details(){
+  setisloading(true)
   const  usersCollectionRef= await collection (db,'employer')
   const po=  await getDocs(usersCollectionRef)
   const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
@@ -74,11 +77,13 @@ userss2.map((i)=>{
     else{
       g.push(j)
     }
+
 })
 
 })
 setactive(g)
 console.log(g)
+setisloading(false)
 }
 details().then(()=>
 applicantchecker()
@@ -88,10 +93,19 @@ applicantchecker()
 <>
 <EmployerNav/>
 {
-  loggedout==false ?
+  login==false ?
   
-  <Header text={'loading'}/>
+  <Header text={'Please Login'}/>
   :
+  isloading ? 
+<div className="loader" style={{justifySelf:'center'}}><ScaleLoader
+ size={150}
+ margin={'auto'}
+ color={'#2557a7'}
+ borderwidth= {'7px'}
+/></div>
+    :
+
 <div className='largedivpostjob'>
 
   {

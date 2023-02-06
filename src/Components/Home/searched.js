@@ -27,8 +27,8 @@ const location=useLocation();
   const [exists,setexists]=useState(true)
     const [apidata, setapidata] = useState([]);
     const [jobapidata, setjobapidata] = useState([]);
-    const [wordEntered, setWordEntered] = useState('');
-    const [whatsearched, setwhatsearched] = useState('');
+    const [wordEntered, setWordEntered] = useState(location.state.whered);
+    const [whatsearched, setwhatsearched] = useState(location.state.whatd);
     const [isloading,setisloading]=useState(true)
     const [status,setstatus]=useState(true);
     //const [api,setapi]=useState(apifile);
@@ -110,7 +110,8 @@ catch(err){
      setapikey('ac7e8fcd59msha3e59fbda262531p147ad9jsn732b1de1990f')
 }
 }
-async function internalapi(){
+
+async function internalapi1(){
     const  usersCollectionRef= await collection (db,'employer')
     const po=  await getDocs(usersCollectionRef)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
@@ -118,7 +119,6 @@ async function internalapi(){
 let g=[]
 
 userss.map((i)=>{
-    setfbjobs(i)
 i.jobpostings.map((j)=>{
  j={
         ...j,
@@ -131,20 +131,21 @@ i.jobpostings.map((j)=>{
 })
 console.log(g);
 
-    const internaljobfilter = g.filter((i) => {
-           return i.title.toLowerCase().includes(searched.whatd.toLowerCase()) &&
-           i.location.toLowerCase().includes(searched.whered.toLowerCase())
-       })
-setfbjobs(internaljobfilter)
-setclickedjob(false)
+const internaljobfilter = await g.filter((i) => {
+    return i.title.toLowerCase().includes(whatsearched.toLowerCase()) &&
+    i.location.toLowerCase().includes(wordEntered.toLowerCase())
+})
+await setfbjobs(internaljobfilter)
+await setisloading(false)
+//setisloading(false)
 }
 
     if(externalApi==1){
 clicked();
     }
-    else{{
-        internalapi()
-    }}
+    else{
+        internalapi1()
+    }
 },[externalApi]);
 
 const submit =(e)=>{

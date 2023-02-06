@@ -1,0 +1,54 @@
+
+
+.headerjobapplication{
+    color:
+}
+
+.largedivapp {
+    width: 84%;
+    padding-inline: 50px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-family: 'Roboto', sans-serif;
+    margin-top:-50px;
+    /* place-content: center; */
+    background: #f3f2f1;
+    /* text-align-last: center; */
+    /* margin: auto; */
+}
+
+.accepted{
+    color: #3c9e02;
+    border: 1px solid lightgreen;
+    border-radius: 14px;
+    background: #f7fff5;
+    padding: 9px;
+    padding-inline:23px;
+    font-size: 18px;
+}
+
+.rejected{
+    color: #d30000;
+    border: 1px solid #f10000;
+    border-radius: 14px;
+    background: #fff6f6;
+    padding: 5px;
+    padding-inline: 14px;
+    padding: 9px;
+    padding-inline: 23px;
+    font-size: 18px;
+}
+
+.applied{
+    color: #3f49d3;
+    border: 1px solid #7b8ac7;
+    border-radius: 14px;
+    background: #f6f6ff;
+    padding: 5px;
+    padding-inline: 14px;
+    padding: 9px;
+    padding-inline: 23px;
+    font-size: 18px;
+}

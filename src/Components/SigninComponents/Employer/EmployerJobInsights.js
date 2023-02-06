@@ -11,14 +11,14 @@ import Subaparagraph from '../../../ElementComponents/subaparagraph'
 import { db, storagee } from '../../../Firebase/Firebase'
 import EmployerNav from './EmployerNav'
 import { getDownloadURL, ref } from '@firebase/storage'
-
+import ScaleLoader from "react-spinners/ClipLoader";
 function EmployerJobInsights() {
     const jobselector=useSelector(state=>state.reducer.clickedjobslicestatus.clickedjob);
     const [applicants,setapplicants]=useState()
     const [checked,setchecked]=useState(false);
 const [ifcheck,setifcheck]=useState();
 const [jobp,setjobp]=useState();
-
+const [isloading,setisloading]=useState(false)
     console.log(jobselector)
 
     const divstyle={
@@ -35,7 +35,7 @@ const [jobp,setjobp]=useState();
 
     useEffect(()=>{
 async function Candidatescheck(){
-
+setisloading(true)
     const  usersCollectionRef= await collection (db,'jobseeker')
     const po=  await getDocs(usersCollectionRef)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
@@ -52,7 +52,7 @@ async function Candidatescheck(){
     console.log(g)
     setapplicants(g);
    }) 
-
+setisloading(false)
 }
 Candidatescheck();
     },[checked])
@@ -83,7 +83,16 @@ Candidatescheck();
   return (
     <>
     <EmployerNav/>
-    {
+ {   isloading ? 
+<div className="loader" style={{justifySelf:'center'}}><ScaleLoader
+ size={150}
+ margin={'auto'}
+ color={'#2557a7'}
+ borderwidth= {'7px'}
+/></div>
+    :
+ 
+    
   jobselector==false ?
   
   <Header text={'loading'}/>
