@@ -10,7 +10,6 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 30px;
     font-family: 'Roboto', sans-serif;
     margin-top:-50px;
     /* place-content: center; */
