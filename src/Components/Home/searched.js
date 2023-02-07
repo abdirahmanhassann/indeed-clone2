@@ -99,6 +99,7 @@ useEffect(()=>{
 
     async function clicked(){
 try{
+    setisloading(true)
 const res=await  fetch('https://jsearch.p.rapidapi.com/search?query='+searched.whatd+'%20in%20'+searched.whered+'&num_pages=1', options)
     const jsonresult= await res.json()
          await setisloading(false)
@@ -369,8 +370,9 @@ isloading ?
    <div className="subapidiv">
 {  api.current.map((value)=>{
     let header=value.job_title.slice(0,35);
-let desc=value.job_description.slice(0,180)
+let desc=value.job_description.slice(0,230)
     let qual=value.job_highlights.Qualifications
+    let timeposted=moment(value.job_posted_at_datetime_utc).fromNow()
  //  setapitime(value.job_posted_at_datetime_utc)
 let kkey=Math.random();
     return(
@@ -394,13 +396,14 @@ let kkey=Math.random();
         { value.job_is_remote==true ? <p className="apipara" key={kkey} >Remote</p>
     : <p key={kkey} >{value.job_city}</p>    
     }
-        <p key={kkey} >{qual}</p> 
+       {/* <p key={kkey} >{qual}</p>  */}
         <span className="detspan">  {
             value.job_min_salary && value.job_max_salary&&
      <p className="salarypara"><FaMoneyBillWave/> £{value.job_min_salary}-£{value.job_max_salary}</p>  } 
      <p className="salarypara">{value.job_employment_type}</p>
      </span>
      <p className="descpara">{desc}...</p>
+     <Subaparagraph text={`Posted ${timeposted}`}/>
             </div>
     )
 })}
@@ -412,10 +415,8 @@ let kkey=Math.random();
     <h2 className="apih">{jobft.job_title}</h2>
    { jobft.employer_website &&<a className="bluepara" href={jobft.employer_website.slice(12)}>{jobft.employer_name}.com</a>}
    <p className="bluepara">{jobft.employer_name}</p>
-   <a href={jobft.job_apply_link}>
-   <button className="uploadbutton" >Apply on company site</button>
+   <button className="uploadbutton" onClick={()=> window.open(jobft.job_apply_link)} >Apply on company site</button>
   <button className="buttonn"><AiOutlineHeart className="svg"/></button>
-   </a>
    { jobft.job_is_remote==true ? <p className="apipara">Remote</p>
     : <p>{jobft.job_city} • {jobft.job_employment_type}</p>    
 }
@@ -497,7 +498,12 @@ i.description.length > 251 ?
     {
         jobseekerlogin==true ?
 
-        <button className="uploadbutton"  onClick={()=>{setapplyclickstate(i=>!i)}}>{applied==true ? 'Application sent' :'Apply now'}</button>
+        <button className="uploadbutton"  onClick={()=>{  
+       applied==false && setapplyclickstate(i=>!i) 
+    }
+
+            
+        }>{applied==true ? 'Application sent' :'Apply now'}</button>
         :
         <button className="uploadbutton"  onClick={()=>alert('Please login to apply')}>Apply now</button>
     }
