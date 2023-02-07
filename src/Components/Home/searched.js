@@ -121,6 +121,7 @@ async function internalapi1(){
 let g=[]
 
 userss.map((i)=>{
+    if(i.jobpostings.length >0){
 i.jobpostings.map((j)=>{
  j={
         ...j,
@@ -129,7 +130,7 @@ i.jobpostings.map((j)=>{
  }
     g.push(j)
 })
-
+    }
 })
 console.log(g);
 
@@ -190,7 +191,8 @@ async function internalapi(){
 let g=[]
 
 userss.map((i)=>{
-    setfbjobs(i)
+    if(i.jobpostings){
+        setfbjobs(i)
 i.jobpostings.map((j)=>{
  j={
         ...j,
@@ -199,7 +201,7 @@ i.jobpostings.map((j)=>{
  }
     g.push(j)
 })
-
+    }
 })
 console.log(g);
 
@@ -269,7 +271,8 @@ async function checker(){
             const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
           await  console.log(userss2);
           const check2= await userss2.find(i=>i.email==jobseekeremaill)
-          const postingchecker=check2.jobpostings.find(i=>i.description+i.title==jobft.description+jobft.title)
+          if(!check2.jobpostings==undefined){
+        const postingchecker=check2.jobpostings.find(i=>i.description+i.title==jobft.description+jobft.title)
           console.log(await postingchecker)
 if(postingchecker!=undefined)
 {
@@ -278,7 +281,7 @@ if(postingchecker!=undefined)
 }
 else{
     return null
-}
+}}
 }
 checker();
     },[jobft])

@@ -22,6 +22,7 @@ import {
 import { FaSpinner } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import { employeremail, employerlogin } from '../../../ReduxStore/Redux'
+import InverseButton from '../../../ElementComponents/InverseButton'
 
 
 function EmployerSignupform() {
@@ -94,7 +95,7 @@ const navigate=useNavigate()
             console.log('success')
             setclicked(false)
             dispatch(employerlogin(true))
-            dispatch(employeremail(check))
+            dispatch(employeremail(employerdetails))
             navigate('/EmployerHome')
           }
           await console.log(employerdetails.email)
@@ -129,7 +130,9 @@ const navigate=useNavigate()
 </Link>
 
 }
-<Paragraphblue text={'Save & exit'}/>
+<div style={{width:'100px'}}>
+<InverseButton text={'Exit'} click={()=>navigate('../../')}/>
+</div>
     </div>
     <LinearProgress variant="determinate" value={progress} style={{
         backgroundColor:'lightgray', color:'rgb(22, 64, 129)'

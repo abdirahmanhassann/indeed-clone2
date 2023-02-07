@@ -15,6 +15,7 @@ import { clickedjob } from '../../../ReduxStore/Redux'
 import './employer.css'
 import ScaleLoader from "react-spinners/ClipLoader";
 import EmployerNav from './EmployerNav' 
+import Largeheader from '../../../ElementComponents/Largeheader'
 
 
 function EmployerDashboard() {
@@ -52,7 +53,7 @@ await  console.log(userss);
 const check= await userss.find(i=>i.email==email)
   if (check) {
     setloggedout(true);
-    setjobinfo(check);
+  setjobinfo(check);
     console.log(jobinfo);
 }
 else {
@@ -111,6 +112,9 @@ applicantchecker()
   {
 jobinfo ?
 active &&
+ ! jobinfo.jobpostings ?
+ <Largeheader text={'Please post a job to view dashboard'}/>
+ :
 jobinfo.jobpostings.map((i,index,accepted,rejected)=>{ 
 index=0;
 accepted=0;
@@ -152,7 +156,7 @@ return(
   </div>
   </div>
 
-  <FormControl fullWidth sx={{width:'221px',height:'50px',alignItems: 'center',
+  {/* <FormControl fullWidth sx={{width:'221px',height:'50px',alignItems: 'center',
     alignSelf: 'center', marginInline: '15px'}}>
   <InputLabel id="demo-simple-select-label">Status</InputLabel>
   <Select
@@ -174,11 +178,10 @@ sx={{width:'111px',height:'50px',alignItems: 'center',
     <div className='divrow'>
       <span className="colored-circle" style={redstyle} />
       <p>Offline</p>
-      </div>
-
-    </MenuItem>
+      </div> 
+         </MenuItem>
   </Select>
-</FormControl>
+</FormControl> */}
 <div style={{width:'400px'}}>
   <InverseButton click={()=>{
     console.log(i)

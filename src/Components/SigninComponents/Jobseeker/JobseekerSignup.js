@@ -157,7 +157,9 @@ const handleAddInput = () => {
 </Link>
 
 }
-<Paragraphblue text={'Save & exit'}/>
+<div style={{width:'100px'}}>
+<InverseButton text={'Exit'} click={()=>navigate('../../')}/>
+</div>
     </div>
     <LinearProgress variant="determinate" value={progress} style={{
         backgroundColor:'lightgray', color:'rgb(22, 64, 129)'

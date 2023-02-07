@@ -12,11 +12,13 @@ import pic2 from '../../../img/indeed-Hub-illustrations-How-to-Consistently-Attr
 import { useSelector } from 'react-redux'
 import { arrayUnion, collection, doc, getDocs, setDoc } from '@firebase/firestore'
 import { db } from '../../../Firebase/Firebase'
+import { useNavigate } from 'react-router-dom'
+import moment from 'moment'
 // import { Textarea } from '@mui/joy'
 function Postjob() {
-  const [formm,setform]=useState({title:'',location:'',rate:'',min:null,max:null,description:'',time:'',createdAt:''});
-const selector=useSelector((state)=>state.reducer.employeremailstatus.employeremail)
-
+  const [formm,setform]=useState({title:'',location:'',rate:'',min:null,max:null,description:'',time:'',status:true,createdAt:Date.now()});
+const selector=useSelector((state)=>state.reducer.employeremailstatus.employeremail.email)
+const navigate=useNavigate();
   function changed(e){
     console.log(formm)
     setform(i=>{
@@ -35,17 +37,19 @@ const selector=useSelector((state)=>state.reducer.employeremailstatus.employerem
       const po=  await getDocs(usersCollectionRef)
       const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
     await  console.log(userss);
-    const check= await userss.find(i=>i.email==selector)
+    const check= await userss.find(i=>i.email==selector);
+    const timme= Date.now();
+    console.log(timme)
       if (check) {
-      await  setform(i=>{
-          return{
+        await  setform(i=>{
+        return{
             ...i,
-createdAt: new Date().getTime()
+createdAt:timme
           }
         }
         )
      const p = await setDoc(doc(db,'employer',check.id),{jobpostings:arrayUnion(formm) },{merge:true});
-
+navigate('/employerhome/employerdashboard')
       }
       else { 
         console.log('doesnt exist')
@@ -58,7 +62,7 @@ createdAt: new Date().getTime()
         <EmployerNav/>
       {  selector &&
         <div className='largedivpostjob'>
-            <div className='postjobsubdiv'>
+            <div className='postjobsubdivAlt'>
 <Largeheader text={'Provide basic information'} style={{fontSize:'25px'}}/>
 <img src={picc} className='postjobpic'/>
             </div>
@@ -80,7 +84,7 @@ onChange={changed}
 
 <Header text={'What is the salary you are willing to provide?'}/>
 <Subaparagraph text={'Consider GBP the currency'}/>
-<div className='postjobsubdiv'>
+<div className='postjobsubdivAlt'>
 <FormControl fullWidth>
   <InputLabel id="demo-simple-select-label">Rate</InputLabel>
   <Select
@@ -106,7 +110,7 @@ onChange={changed}
 />
 </div>
             </div>
-            <div className='postjobsubdiv'>
+            <div className='postjobsubdivAlt'>
 <Largeheader text={'Describe the job'} style={{fontSize:'25px'}}/>
 <img src={pic2} className='postjobpic'/>
             </div>
@@ -145,8 +149,8 @@ onChange={changed}
 </FormControl>
             </div>
 
-            <div className='postjobsubdiv'>
-<InverseButton text={'Back'}/>
+            <div className='postjobsubdivAlt'>
+<InverseButton text={'Back'} click={()=>navigate('../employerhome')}/>
 <BlueButton text = {'Continue'} click={clicked}/>
             </div>
             

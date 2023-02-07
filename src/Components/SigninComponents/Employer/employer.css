@@ -142,3 +142,16 @@ margin-bottom: 0px;
     flex-direction:row;
     align-self:center;
   }
+
+  .postjobsubdivAlt {
+    display: flex;
+    font-size: 25px;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    align-items: center;
+    gap: 18px;
+}
