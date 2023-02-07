@@ -20,6 +20,7 @@ import Header from "../../ElementComponents/Header";
 import { useSelector } from "react-redux";
 import { jobseekeremail } from "../../ReduxStore/Redux";
 import { async } from "@firebase/util";
+import BlueButton from "../../ElementComponents/bluebutton";
 
 const Searched=(props)=>{
 const location=useLocation();
@@ -248,12 +249,14 @@ else {
     setapplied(true);
     await setDoc(doc(db,'jobseeker',check2.id),{jobpostings:arrayUnion(jobft) },{merge:true})
 }
-if(jobseekerlogin==true){
+if(isloading==false){
 
+    if(jobseekerlogin==false){
+        
+        alert('Please sign in as a jobseeker')
+    }
 }
-else {
-    alert('Please sign in as a jobseeker')
-}}
+}
 applyclick()
     },[applyclickstate])
 
@@ -327,7 +330,9 @@ checker();
 )})}
     </div>
     )}
-<button className="searchbutton"  onClick={()=>setresearch(i=>!i)}>search</button>
+    <div style={{width:'100px',marginLeft:'5px'}}>
+<BlueButton text={'Find jobs'}  click={()=>setresearch(i=>!i)}/>
+    </div>
    </form>
    </div>
    <div className="postjobsubdiv" style={{width:'100%',margin:'auto',borderBottom:'1px solid rgb(199 199 199)'

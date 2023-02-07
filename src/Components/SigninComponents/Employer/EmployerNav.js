@@ -52,7 +52,9 @@ style={{cursor:'pointer'}}
 </div>
 <div className='subnav2'>
 <a className="usericon2" onClick={clicked}>{employerloginn.employerlogin==false ? 'Sign in' : 'Sign out'}</a>
-<a style={{borderLeft:' 1px solid #7c6f6f',paddingLeft:'12px'}}>Find jobs</a>
+<a style={{borderLeft:' 1px solid #7c6f6f',paddingLeft:'12px',cursor:'pointer'}}
+onClick={()=>navigate('/')}
+>Find jobs</a>
 </div>
 </nav>
     )

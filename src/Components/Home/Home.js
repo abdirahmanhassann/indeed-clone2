@@ -5,6 +5,7 @@ import Footer from '../GeneralComponents/Footer';
 import '../../App.css';
 import Jobs from '../../Jobs.json'
 import Data from '../../Data.json'
+import BlueButton from '../../ElementComponents/bluebutton';
 function Home() 
 
 {
@@ -87,7 +88,9 @@ console.log(search);
 )})}
     </div>
     )}
-<Link to='/searched'state={{whered:wheresearch, whatd:search}} className='inputbutton' >find jobs</Link>
+<Link to='/searched'state={{whered:wheresearch, whatd:search}} style={{marginLeft:'10px'}}>
+   <BlueButton text={'Find jobs'}/>
+   </Link>
 
    </form>
    <div className='div3'>

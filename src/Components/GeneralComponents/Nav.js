@@ -44,14 +44,19 @@ return null;
 return(
     <>
     <nav>
-    <img src={logo} className="indeedlogo"></img>
+    <img src={logo} className="indeedlogo" onClick={()=>navigate('/')}></img>
     <span className='navspan1'>
-    <a className='a1'>Find jobs</a>
-    <a className='a1'>Company reviews</a>
-    <a className='a1'>Salary guide</a>
+    <a className='a1' onClick={()=>navigate('/')}>Find jobs</a>
+    <a className='a1' onClick={()=>{
+    if(jobseekerloginselector==true){
+        navigate('/Applications')
+    }
+    else {
+        alert('You must sign in as a jobseeker to view Jobs')
+    }
+}}>My jobs</a>
     </span>
     <span className='navspan2'>
-<a className='a2'>Applications</a>
 {
 jobseekerloginselector==true ? 
 

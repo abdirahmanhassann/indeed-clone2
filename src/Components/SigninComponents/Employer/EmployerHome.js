@@ -8,13 +8,14 @@ import { employerlogin } from '../../../ReduxStore/Redux'
 import { useNavigate } from 'react-router-dom'
 function EmployerHome() {
     const navigate=useNavigate()
+    const employerlogin=useSelector(state=>state.reducer.employerloginstatus)
     function clicked(){
         if (employerlogin.employerlogin==true){
 navigate('/EmployerHome/postjob')
 }
 else{
    // navigate('/signin')
-    navigate('/EmployerHome/postjob')
+    alert('Please signin as an employer')
         }
     }
   return (

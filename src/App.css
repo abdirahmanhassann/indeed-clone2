@@ -93,7 +93,7 @@ input{
 }
 .div3{
     text-align-last: center;
-  
+    margin-top: 20px;
 }
 .div4{
     text-align-last: center;
@@ -400,7 +400,7 @@ h2{
 }
 @media (min-width:1278px){
 .navspan2{
-    margin-left:20vw;
+    margin-left: 52vw;
 }
 .usericon{
     display:none;
