@@ -43,6 +43,7 @@ setisloading(true)
    // const check= await userss.find(i=>i.email==email)
    let g=[]
    userss.map((i)=>{
+    if(i.jobpostings){
     i.jobpostings.map((j)=>{
         if(j.title==jobselector.title){
  return g.push(i)
@@ -51,6 +52,7 @@ setisloading(true)
     })
     console.log(g)
     setapplicants(g);
+}
    }) 
 setisloading(false)
 }

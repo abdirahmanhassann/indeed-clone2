@@ -69,6 +69,9 @@ const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
 console.log(userss2);
 let g=[]
 userss2.map((i)=>{
+console.log(i);
+if(i.jobpostings){
+
 
   i.jobpostings.map((j)=>{
     console.log(j)
@@ -80,6 +83,7 @@ userss2.map((i)=>{
     }
 
 })
+}
 
 })
 setactive(g)

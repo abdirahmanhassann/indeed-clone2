@@ -21,7 +21,8 @@ import { useSelector } from "react-redux";
 import { jobseekeremail } from "../../ReduxStore/Redux";
 import { async } from "@firebase/util";
 import BlueButton from "../../ElementComponents/bluebutton";
-
+import notfound from '../../img/notfound.png'
+import Largeheader from "../../ElementComponents/Largeheader";
 const Searched=(props)=>{
 const location=useLocation();
   const [searched, setsearched] = useState({ whatd: location.state.whatd, whered: location.state.whered })
@@ -448,8 +449,18 @@ fbjobs &&
 <>
 <div className="apidivsearch">
 <div className="subapidiv">
-    
-{
+{fbjobs.length==0 ?
+<>
+        <div style={{paddingInline:'7%'}}>
+
+    <Largeheader text={'Not too many searches found unfortunately'}/>
+    <Paragraphblue text={'Try a different search'}/>
+    <Paragraphblue text={'Or try looking through External jobs for better results'}/>
+    <img src={notfound} style={{height:'168px',width:'auto'}}/>
+</div>
+</>
+    :
+
 fbjobs.map((i)=>{
     const timeago=moment(i.createdAt).fromNow();
     i={
@@ -528,6 +539,7 @@ i.description.length > 251 ?
     <p className="apih" style={{fontSize:'15.5px'}}>Posted {jobft.timeago}</p>
     </div>
     }
+
 </div>
 
 </>
