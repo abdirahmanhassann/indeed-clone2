@@ -456,7 +456,7 @@ fbjobs &&
     <Largeheader text={'Not too many searches found unfortunately'}/>
     <Paragraphblue text={'Try a different search'}/>
     <Paragraphblue text={'Or try looking through External jobs for better results'}/>
-    <img src={notfound} style={{height:'168px',width:'auto'}}/>
+    <img src={notfound} style={{height:'200px',width:'auto'}}/>
 </div>
 </>
     :

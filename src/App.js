@@ -13,8 +13,11 @@ import EmployerDashboard from './Components/SigninComponents/Employer/Employerda
 import JobseekerSignup from './Components/SigninComponents/Jobseeker/JobseekerSignup';
 import EmployerJobInsights from './Components/SigninComponents/Employer/EmployerJobInsights';
 import JobseekerApplications from './Components/SigninComponents/Jobseeker/JobseekerApplications';
+import { useSelector } from 'react-redux';
 function App() 
 {
+  const employerlogin=useSelector(state=>state.reducer.employerloginstatus.employerlogin);
+  const jobseekerlogin=useSelector(state=>state.reducer.jobseekerloginstatus.jobseekerlogin);
  return (
    <>
 <Router>
@@ -26,11 +29,11 @@ function App()
 <Route path='Signup' element={<Signup/>}/>
 <Route path='Signup/Employer' element={<EmployerSignupform/>}/>
 <Route path='/EmployerHome' element={<EmployerHome/>}/>
-<Route path='/EmployerHome/Postjob' element={<Postjob/>}/>
-<Route path='/EmployerHome/EmployerDashboard' element={<EmployerDashboard/>}/>
-<Route path='/EmployerHome/EmployerDashboard/:name' element={<EmployerJobInsights/>}/>
+<Route path='/EmployerHome/Postjob' element={employerlogin ? <Postjob/> : <Signin/>}/>
+<Route path='/EmployerHome/EmployerDashboard' element={employerlogin ? <EmployerDashboard/>: <Signin/>}/>
+<Route path='/EmployerHome/EmployerDashboard/:name' element={employerlogin ? <EmployerJobInsights/> :<Signin/>}/>
 <Route path='/Signup/Jobseeker' element={<JobseekerSignup/>}/>
-<Route path='/Applications' element={<JobseekerApplications/>}/>
+<Route path='/Applications' element={jobseekerlogin ? <JobseekerApplications/>: <Signin/>}/>
 </Routes>
 </Router>
    </>
