@@ -7,7 +7,8 @@ import '../../App.css'
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { jobseekeremail, jobseekerlogin } from "../../ReduxStore/Redux";
- const Nav=()=>{
+ 
+const Nav=()=>{
     const [sidebar,setsidebar]=useState(false);
     const jobseekerloginselector=useSelector(state=>state.reducer.jobseekerloginstatus.jobseekerlogin);
     const dispatch=useDispatch();

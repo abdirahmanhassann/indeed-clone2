@@ -16,7 +16,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 const searchslice=createSlice(
     {
         name:'search',
-        initialState:'',
+        initialState:null,
 reducers:{
     addby :(state,action)=>{
         return {...state, search: action.payload};
@@ -55,7 +55,7 @@ reducers:{
 const employeremailslice=createSlice(
     {
         name:'employeremail',
-        initialState:'',
+        initialState:null,
 reducers:{
     employeremail :(state,action)=>{
         return {...state, employeremail: action.payload};
@@ -113,6 +113,14 @@ export const {employeremail}=employeremailslice.actions;
 export const {jobseekeremail}=jobseekeremailslice.actions;
 export const {jobseekerlogin}=jobseekerloginslice.actions;
 export const {clickedjob}=clickedjobslice.actions;
+
+export const reducerss={
+employerlogin:employerloginslice,
+employeremail:employeremailslice,
+jobseekeremail:jobseekeremailslice,
+jobseekerlogin:jobseekerloginslice,
+clickedjob:clickedjobslice
+}
 const store=configureStore({
     reducer:{ 
                reducer:persistedReducer,
@@ -128,7 +136,5 @@ const store=configureStore({
 
 
 export  let persistor= persistStore(store)
-
-
 
 export default store;

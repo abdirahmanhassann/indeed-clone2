@@ -57,7 +57,7 @@ console.log(search);
    <div className='thelargestdiv' style={{margin:'auto'}}>
   <Nav/>
    <form className='inputdiv' onSubmit={submit}>
-<input placeholder='job title,keywords,company' name='what' value={search} onChange={change} autocomplete="off"></input>
+<input placeholder='job title,keywords,company' name='what' value={search} onChange={change} autoComplete="off"></input>
 {jobapidata.length !=0 && exists &&(
 <div className="dataResult2">
  

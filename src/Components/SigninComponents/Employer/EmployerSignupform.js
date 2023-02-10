@@ -134,7 +134,7 @@ const navigate=useNavigate()
 <InverseButton text={'Exit'} click={()=>navigate('../../')}/>
 </div>
     </div>
-    <LinearProgress variant="determinate" value={progress} style={{
+    <LinearProgress variant="determinate" data-testid='bar' value={progress} style={{
         backgroundColor:'lightgray', color:'rgb(22, 64, 129)'
         ,borderRadius:'10px'
         }} />
