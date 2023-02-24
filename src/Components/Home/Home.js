@@ -6,6 +6,7 @@ import '../../App.css';
 import Jobs from '../../Jobs.json'
 import Data from '../../Data.json'
 import BlueButton from '../../ElementComponents/bluebutton';
+import { useEffect } from 'react';
 function Home() 
 
 {
@@ -53,7 +54,8 @@ e.preventDefault();
 console.log(search);
 
 }
-  return (
+ 
+return (
    <div className='thelargestdiv' style={{margin:'auto'}}>
   <Nav/>
    <form className='inputdiv' onSubmit={submit}>
@@ -71,12 +73,12 @@ console.log(search);
 )})}
     </div>
     )}
-
+ 
 <input placeholder='city or postcode'  name='where' value={wheresearch} onChange={wherechange} autocomplete="off"></input>
 {apidata.length !=0 && wherexist &&(
-<div className="dataResult">
- 
-        { apidata.slice(0, 15).map((value,key) => {
+<div className="dataResult"> 
+  { apidata.slice(0, 15).map((value,key) => {
+
     return(
 
     <div className="dataItem" key ={key}

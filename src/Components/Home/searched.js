@@ -270,12 +270,10 @@ async function checker(){
         const  usersCollectionRef2= await collection (db,'jobseeker')
         const po2=  await getDocs(usersCollectionRef2)
             const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
-          await  console.log(userss2);
           const check2= await userss2.find(i=>i.email==jobseekeremaill)
-          if(!check2.jobpostings==undefined){
+          if(check2.jobpostings!==undefined){
         const postingchecker=check2.jobpostings.find(i=>i.description+i.title==jobft.description+jobft.title)
-          console.log(await postingchecker)
-if(postingchecker!=undefined)
+if(postingchecker!==undefined)
 {
     setapplied(true)
     setclickedjob(true)

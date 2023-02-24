@@ -8,7 +8,7 @@ import { Router } from 'react-router-dom'
  function render(
   ui,
   {
-    preloadedState,
+    preloadedState={},
     // Automatically create a store instance if no store was passed in
     store = configureStore({ reducer: rootReducer, preloadedState}),
      ...renderOptions
