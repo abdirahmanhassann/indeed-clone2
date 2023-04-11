@@ -2,7 +2,7 @@ import React, { useEffect, useRef,useLayoutEffect } from "react";
 import Nav from "../GeneralComponents/Nav";
 import { useState } from "react";
 import ScaleLoader from "react-spinners/ClipLoader";
-import {AiOutlineHeart} from 'react-icons/ai';
+import {AiFillHeart, AiOutlineHeart} from 'react-icons/ai';
 import {FaBriefcase, FaMoneyBillWave} from 'react-icons/fa'
 import {BiDotsVerticalRounded} from 'react-icons/bi'
 import { Link, useFetcher, useLocation } from "react-router-dom";
@@ -49,6 +49,7 @@ const location=useLocation();
     const [applyclickstate,setapplyclickstate]=useState(false);
     const [applied,setapplied]=useState(false)
     const [research,setresearch]=useState(false);
+    const [saved,setsaved]=useState(false)
  //  const [apitime,setapitime]=useState('')
 
 const divstyle={
@@ -273,6 +274,7 @@ async function checker(){
           const check2= await userss2.find(i=>i.email==jobseekeremaill)
           if(check2.jobpostings!==undefined){
         const postingchecker=check2.jobpostings.find(i=>i.description+i.title==jobft.description+jobft.title)
+        //const savedjobs
 if(postingchecker!==undefined)
 {
     setapplied(true)
@@ -285,15 +287,25 @@ else{
 checker();
     },[jobft])
 
-    // useEffect(()=>{
-    //      function internaljobsearch(){
-    //      const newjobFilter = fbjobs.filter((value) => {
-    //             return value.title.toLowerCase().includes(whatsearched.toLowerCase()) ;     
-    //         })
-    //         console.log(newjobFilter)
-    // }
-    //     internaljobsearch()
-    // },[externalApi])
+   async function functionSaved(i){
+console.log(i.id)
+setsaved(i=>!i)
+const  usersCollectionRef2= collection (db,'jobseeker')
+const po2= await getDocs(usersCollectionRef2)
+    const  userss2=  po2.docs.map((i)=>{return{...i.data(),id:i.id}})
+  const check2= userss2.find(i=>i.email==jobseekeremaill)
+if(saved===false){
+    setsaved(true)
+      await setDoc(doc(db,'jobseeker',check2.id),{savedjobs:arrayUnion(i) },{merge:true})
+
+}
+else{
+    setsaved(false)
+    await updateDoc(doc(db,'jobseeker',check2.id),({savedjobs:arrayRemove(i)}))
+
+}
+
+    }
     return(
         <>
         <Nav/>
@@ -524,7 +536,15 @@ i.description.length > 251 ?
         :
         <button className="uploadbutton"  onClick={()=>alert('Please login to apply')}>Apply now</button>
     }
-  <button className="buttonn"><AiOutlineHeart className="svg"/></button>
+  <button className="buttonn" onClick={()=>jobseekerlogin ? functionSaved(jobft): alert('Please login to save job')}>
+    {
+        saved?
+<AiFillHeart className='svg'/>    
+        :
+        <AiOutlineHeart className="svg"/>
+}
+    
+    </button>
 <Header text={'Job details'}/>
 
     <p className="apih" style={{fontWeight:'bold',marginTop:'10px'}} >Salary</p>
