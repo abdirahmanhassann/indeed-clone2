@@ -272,6 +272,12 @@ async function checker(){
         const po2=  await getDocs(usersCollectionRef2)
             const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
           const check2= await userss2.find(i=>i.email==jobseekeremaill)
+          setsaved(false) 
+          if(check2.savedjobs){
+            console.log('checker saved jobs')
+            const postingchecker=check2.savedjobs.find(i=>i.title+i.description===jobft.title+jobft.description)
+            if(postingchecker) return setsaved(true),console.log('saved has been found',postingchecker,jobft.id,jobft.title)
+          }
           if(check2.jobpostings!==undefined){
         const postingchecker=check2.jobpostings.find(i=>i.description+i.title==jobft.description+jobft.title)
         //const savedjobs
