@@ -11,15 +11,17 @@ import { TextField } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import { collection, getDocs } from '@firebase/firestore'
 import { db } from '../../Firebase/Firebase'
+import ScaleLoader from "react-spinners/ClipLoader";
 import { useDispatch } from 'react-redux'
 import { employeremail, employerlogin, jobseekeremail, jobseekerlogin } from '../../ReduxStore/Redux'
 function Signin() {
 const [signin,setsignin]=useState({email:'',password:''})
 const [err,seterr]=useState(false);
+const [loading,setloading]=useState(false)
 const navigate=useNavigate()
 const dispatch=useDispatch()
 function changed(e){
-     
+    seterr(false)
     console.log(signin)
     setsignin(i=>
  {     
@@ -31,7 +33,9 @@ return{
 )
 
 }
-async function signinclick(){
+async function signinclick(e){
+    e.preventDefault();
+    setloading(true)
     const  usersCollectionRef= await collection (db,'employer')
     const po=  await getDocs(usersCollectionRef)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
@@ -50,6 +54,7 @@ async function signinclick(){
 {
 
     seterr(true)
+    setloading(false)
 }
 else{
     dispatch(jobseekerlogin(true));
@@ -57,14 +62,15 @@ else{
     navigate('/');
     dispatch(employerlogin(false));
     dispatch(employeremail(null));
-
+setloading(false)
 }
 }
 else {
-
+    
     dispatch(employerlogin(true));
     dispatch(employeremail(check))
     navigate('/Employerhome')
+    setloading(false)
 
 }
 }
@@ -73,7 +79,7 @@ return (
                 <div className='largestdiv'>
             <div className='largediv'>
                 <img src={logo} className='logo' />
-                <div className='signindiv'>
+                <form className='signindiv' onSubmit={signinclick}>
                     <div className='subdiv'>
                         <Header text={'Ready to take the next step?'}/>
 <Paragraph text={'Create an account or sign in.'}/>
@@ -87,11 +93,20 @@ return (
                 {  err==true &&
                <p style={{color:'red',fontSize: '13px'}}>please enter the valid email/password</p>
                 }
-                <TextField id="outlined-basic" label="Email" variant="outlined" name='email'  onChange={changed}/>
-                <TextField id="outlined-basic" label="Password" variant="outlined" name='password' type='password' 
+                <TextField id="outlined-basic" type='email' required='true' label="Email"  variant="outlined" name='email'  onChange={changed}/>
+                <TextField id="outlined-basic" required='true' label="Password" variant="outlined" name='password' type='password' 
                 onChange={changed}/>
-<BlueButton text={'Continue'} click={signinclick}/>
-                </div>
+<BlueButton text={'Continue'} />
+{
+    loading &&
+    <div className="loader" style={{paddingTop:'0px'}}><ScaleLoader
+ size={50}
+ color={'#2557a7'}
+ borderwidth= {'10px'}
+/></div>
+
+}
+                </form>
                 </div>
             </div>
             <Footer />

@@ -169,8 +169,8 @@ const handleAddInput = () => {
 progress==0 &&
     <>
     <Header text={'What is your name?'} style={{fontSize:'25px'}}/>
-    <TextField onChange={changed} id="outlined-basic" label="FirstName" variant="outlined" name='Firstname' value={employerdetails.Firstname} />
-    <TextField onChange={changed} id="outlined-basic" label="SurName" variant="outlined" name='Surname' value={employerdetails.Surname} />
+    <TextField onChange={changed} id="outlined-basic" required={true} label="FirstName" variant="outlined" name='Firstname' value={employerdetails.Firstname} />
+    <TextField onChange={changed} id="outlined-basic" required={true} label="SurName" variant="outlined" name='Surname' value={employerdetails.Surname} />
     {
 err==true &&
 <p style={{color:'red',fontSize: '13px'}}>please enter a valid name</p>
@@ -215,10 +215,10 @@ progress==25 &&
     <>
             <Header text={'Where do you live?'} style={{fontSize:'25px'}}/>
         <Paragraph text={'This process helps us match you with Employers nearby'}/>
-<TextField onChange={changed} id="outlined-basic" label="Country" variant="outlined" name='country' value={employerdetails.country} />
-<TextField onChange={changed} id="outlined-basic" label="City" variant="outlined" name='city' value={employerdetails.city}/>
+<TextField onChange={changed} id="outlined-basic" label="Country" required={true} variant="outlined" name='country' value={employerdetails.country} />
+<TextField onChange={changed} id="outlined-basic" label="City" required={true} variant="outlined" name='city' value={employerdetails.city}/>
     <Header text={'What is your Email?'} style={{fontSize:'25px'}}/>
-    <TextField onChange={changed} id="outlined-basic" label="Email" variant="outlined"  name='email' value={employerdetails.email}/>
+    <TextField onChange={changed} id="outlined-basic" label="Email" required={true} type='email' variant="outlined"  name='email' value={employerdetails.email}/>
     {
 err==true &&
 <p style={{color:'red',fontSize: '13px'}}>please enter valid details</p>
@@ -243,7 +243,7 @@ err==true &&
     <>
     <Paragraph text={'Enter Your CV/resume'}/>
     <input 
-  type="file"    accept=".pdf" name="resume" onChange={(e)=>{
+  type="file" required='true'   accept=".pdf" name="resume" onChange={(e)=>{
 setimageupload(e.target.files[0])
   }}
   style={{width:'100%',border:'none'}}
@@ -285,7 +285,7 @@ seterr(true)
     progress==100&&
     <>
            <Header text={'Enter a secure password'} style={{fontSize:'25px'}}/>
-<TextField onChange={changed} id="outlined-basic" label="Password" variant="outlined" type='password' name='password' value={employerdetails.password}/>
+<TextField onChange={changed}  id="outlined-basic" label="Password" variant="outlined" type='password' name='password' value={employerdetails.password}/>
         <Paragraph text={'Re-enter password'}/>
 <TextField onChange={changed} id="outlined-basic" label="Re-password" variant="outlined" type='password' name='repassword' value={employerdetails.repassword} />
 {

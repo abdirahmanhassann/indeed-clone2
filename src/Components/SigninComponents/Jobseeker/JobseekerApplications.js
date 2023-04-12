@@ -20,6 +20,13 @@ function JobseekerApplications() {
     const [isloading,setisloading]=useState(false);
     const [info,setinfo]=useState()
     const[ischange,setischange]=useState(false);
+    const [externalApi,setexternalApi]=useState(0);
+    const divstyle={
+      cursor: 'pointer',
+      borderBottom: '5px solid rgb(8 81 192 / 85%)',
+      marginTop: '5px'
+  }  
+  
     useEffect(()=>{
         async function details(){
           setisloading(true)
@@ -57,11 +64,32 @@ isloading ?
 
 <div className='largedivapp' style={{background:'white',width:'84%'}}>
 {/* <<h1 className='headerjobapplication'>Find jobs</h1> */}
-<div className='columndiv'>
-<Largeheader text={'My jobs'}/>
-</div>
+
+<div className="postjobsubdiv" style={{width:'100%',borderBottom:'1px solid rgb(199 199 199)'
+,borderRadius:'0px',padding:'0px',placeContent:'center',gap:'100px'
+}}>
+    <div onClick={()=>setexternalApi(0)} style={externalApi==0 ?  divstyle : {cursor:'pointer'}}>
+        {
+            externalApi==0 ?
+<Paragraphblue text={'Applications'}/>
+:
+<p style={{fontSize:'initial',marginTop:'18px',color:'#221f1fe8',fontWeight:'400',marginTop:'16.5px'}}> Applications</p>
+     }
+    </div>
+    <div onClick={()=>setexternalApi(1)} style={externalApi==1 ? divstyle :  {cursor:'pointer'}}>
+        {
+            externalApi==1?
+<Paragraphblue text={'Saved posts'} />
+:
+<p style={{fontSize:'initial',marginTop:'18px',color:'#221f1fe8',fontWeight:'400',marginTop:'16.5px'}}> Saved posts</p>
+        }
+    </div>
+   </div>
+
+
+
 {
-    info &&
+  externalApi==0 &&  info.jobpostings &&
 info.jobpostings.map((i)=>{
     const timeago=moment(i.createdAt).fromNow();
     return(
@@ -76,6 +104,7 @@ info.jobpostings.map((i)=>{
   {
     i.accepted==true &&
 <p className='accepted'>Accepted</p>
+
 }
 {
 i.accepted==false &&
@@ -91,10 +120,44 @@ i.accepted==false &&
               setischange(i=>!i)
 }}/>
   </div>
+
 </div>
 </>
 )
 })
+}
+{
+  externalApi ==1&& info.savedjobs ?
+  (
+    <>
+    {
+      info.savedjobs.map((i)=>{
+        const timeago=moment(i.createdAt).fromNow()
+        return (
+          <>
+          <div className='postjobsubdiv' style={{borderBottom:'1px solid lightgray'}}>
+<div className='columndiv'>
+<Header text={i.title} style={{margin:'-3px'}}/>
+<Paragraphblue text={i.name} style={{marginBlock:'14px'}}/>
+<Subaparagraph text={i.location}/>
+<Subaparagraph text={'Created '+timeago}/>
+  </div>
+ 
+  <div style={{minWidth:'255px'}}>
+<BlueButton text={'Remove job'} click={()=>{
+              updateDoc(doc(db,'jobseeker',info.id),({savedjobs:arrayRemove(i)}))
+              setischange(i=>!i)
+}}/>
+  </div>
+</div>
+          </>
+        )
+      })
+    }
+    </>
+  )
+:
+<>No saved jobs</>
 }
 </div>
 }
