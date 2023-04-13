@@ -12,6 +12,9 @@ import { db, storagee } from '../../../Firebase/Firebase'
 import EmployerNav from './EmployerNav'
 import { getDownloadURL, ref } from '@firebase/storage'
 import ScaleLoader from "react-spinners/ClipLoader";
+import Largeheader from '../../../ElementComponents/Largeheader'
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import BlueButton from '../../../ElementComponents/bluebutton'
 function EmployerJobInsights() {
     const jobselector=useSelector(state=>state.reducer.clickedjobslicestatus.clickedjob);
     const [applicants,setapplicants]=useState()
@@ -20,7 +23,13 @@ const [ifcheck,setifcheck]=useState();
 const [jobp,setjobp]=useState();
 const [isloading,setisloading]=useState(false)
     console.log(jobselector)
-
+    const greenstyle={
+      background:`green`
+    }
+    const redstyle={
+      background:`red`
+    }
+  
     const divstyle={
         background:'#f3f2f1',
         paddingBlock: '10px',
@@ -100,6 +109,39 @@ Candidatescheck();
   <Header text={'loading'}/>
   :
 <div className='largedivpostjob'>
+  <div className='postjobsubdiv' style={{padding:'10px 39px'}}> 
+  <Paragraph text={jobselector.title}/>
+  <FormControl fullWidth sx={{width:'123px',height:'50px',alignItems: 'center',
+    alignSelf: 'center', marginInline: '15px'}}>
+  <InputLabel id="demo-simple-select-label">Status</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+  //  name='rate' value={formm.rate}
+    label="Open"
+//    onChange={changed}
+sx={{width:'111px',height:'50px',alignItems: 'center',
+    alignSelf: 'center', marginInline: '15px'  }}
+  >
+    <MenuItem value={'hourly'}  onClick={()=>console.log('online')}>
+      <div className='divrow'>
+      <span className="colored-circle" style={greenstyle}/>
+      <p>Online </p>
+      </div>
+      </MenuItem>
+    <MenuItem value={'monthly'} >
+    <div className='divrow'>
+      <span className="colored-circle" style={redstyle} />
+      <p>Offline</p>
+      </div> 
+         </MenuItem>
+  </Select>
+</FormControl>
+<div style={{width:'min-content'}}>
+
+<BlueButton text={'Continue with application'}/>
+</div>
+  </div>
 {
     applicants &&
     applicants.map((i)=>{

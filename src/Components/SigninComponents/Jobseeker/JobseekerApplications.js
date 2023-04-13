@@ -89,8 +89,8 @@ isloading ?
 
 
 {
-  externalApi==0 &&  info.jobpostings &&
-info.jobpostings.map((i)=>{
+  externalApi==0 &&  info?.jobpostings?.length>0 &&
+info.jobpostings?.map((i)=>{
     const timeago=moment(i.createdAt).fromNow();
     return(
 <>
@@ -127,22 +127,22 @@ i.accepted==false &&
 })
 }
 {
-  externalApi ==1&& info.savedjobs ?
+  externalApi ==1&& info.savedjobs?.length>0 &&
   (
     <>
     {
       info.savedjobs.map((i)=>{
         const timeago=moment(i.createdAt).fromNow()
         return (
-          <>
-          <div className='postjobsubdiv' style={{borderBottom:'1px solid lightgray'}}>
+        <>
+            <div className='postjobsubdiv' style={{borderBottom:'1px solid lightgray'}}>
 <div className='columndiv'>
 <Header text={i.title} style={{margin:'-3px'}}/>
 <Paragraphblue text={i.name} style={{marginBlock:'14px'}}/>
 <Subaparagraph text={i.location}/>
 <Subaparagraph text={'Created '+timeago}/>
   </div>
- 
+  
   <div style={{minWidth:'255px'}}>
 <BlueButton text={'Remove job'} click={()=>{
               updateDoc(doc(db,'jobseeker',info.id),({savedjobs:arrayRemove(i)}))
@@ -156,8 +156,7 @@ i.accepted==false &&
     }
     </>
   )
-:
-<>No saved jobs</>
+
 }
 </div>
 }
