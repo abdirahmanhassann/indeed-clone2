@@ -85,15 +85,21 @@ Candidatescheck();
         
   
 async function functionstatus(o) {
-  console.log('functionstatus')
+  console.log('functionstatus',o)
   const  usersCollectionRef= await collection (db,'employer')
   const po=  await getDocs(usersCollectionRef)
   const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
   const g= userss.find(d=>d.email===email)
+  console.log('email found')
   let k={...jobselector,status:o==='online'? true : false}
-  await    updateDoc(doc(db,'employer',g.id),({jobpostings:arrayRemove(jobselector)}))
-  await setDoc(doc(db,'employer',g.id),{jobpostings:arrayUnion(k) },{merge:true})
-  dispatch(clickedjob({...jobselector,status:o==='online'?true:false}))
+  
+  await updateDoc(doc(db,'employer',g.id),({jobpostings:arrayRemove(jobselector)}))
+  .then(async()=>{
+    await setDoc(doc(db,'employer',g.id),{jobpostings:arrayUnion(k) },{merge:true})
+    .then(()=>{
+      dispatch(clickedjob({...jobselector,status:o==='online'?true:false}))
+    })
+  })
 console.log(g)
  }
     

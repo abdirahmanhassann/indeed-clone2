@@ -196,13 +196,15 @@ userss.map((i)=>{
     if(i.jobpostings ){
         setfbjobs(i)
 i.jobpostings.map((j)=>{
-    if(j.status===false) return null
  j={
         ...j,
         name:i.name,
         id:i.id
  }
-    g.push(j)
+ if(j.status&& j.status===true) {
+     g.push(j)
+     console.log('true',j.title,j.status)
+ }
 })
     }
 })
