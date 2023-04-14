@@ -193,9 +193,10 @@ async function internalapi(){
 let g=[]
 
 userss.map((i)=>{
-    if(i.jobpostings){
+    if(i.jobpostings ){
         setfbjobs(i)
 i.jobpostings.map((j)=>{
+    if(j.status===false) return null
  j={
         ...j,
         name:i.name,
@@ -207,12 +208,12 @@ i.jobpostings.map((j)=>{
 })
 console.log(g);
 
-    const internaljobfilter = await g.filter((i) => {
+    const internaljobfilter =  g.filter((i) => {
            return i.title.toLowerCase().includes(whatsearched.toLowerCase()) &&
            i.location.toLowerCase().includes(wordEntered.toLowerCase())
        })
-await setfbjobs(internaljobfilter)
- await setisloading(false)
+ setfbjobs(internaljobfilter)
+  setisloading(false)
 } 
 
 if(externalApi==1){
@@ -226,7 +227,6 @@ else {
 
     function clickeditem(item){
         setWordEntered(item);
-
     }
     const override= css`
     display:block;
