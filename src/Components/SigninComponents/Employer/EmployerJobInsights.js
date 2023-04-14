@@ -1,7 +1,7 @@
 import { arrayRemove, arrayUnion, collection, doc, getDocs, setDoc, updateDoc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Header from '../../../ElementComponents/Header'
 import './employer.css'
 import InverseButton from '../../../ElementComponents/InverseButton'
@@ -13,14 +13,17 @@ import EmployerNav from './EmployerNav'
 import { getDownloadURL, ref } from '@firebase/storage'
 import ScaleLoader from "react-spinners/ClipLoader";
 import Largeheader from '../../../ElementComponents/Largeheader'
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { FormControl, FormLabel, InputLabel, MenuItem, Select } from '@mui/material'
 import BlueButton from '../../../ElementComponents/bluebutton'
+import { clickedjob } from '../../../ReduxStore/Redux'
 function EmployerJobInsights() {
     const jobselector=useSelector(state=>state.reducer.clickedjobslicestatus.clickedjob);
+    const email=useSelector(state=>state.reducer.employeremailstatus.employeremail.email);
     const [applicants,setapplicants]=useState()
     const [checked,setchecked]=useState(false);
 const [ifcheck,setifcheck]=useState();
 const [jobp,setjobp]=useState();
+const dispatch=useDispatch()
 const [isloading,setisloading]=useState(false)
     console.log(jobselector)
     const greenstyle={
@@ -48,8 +51,8 @@ setisloading(true)
     const  usersCollectionRef= await collection (db,'jobseeker')
     const po=  await getDocs(usersCollectionRef)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
-    await  console.log(userss);
-   // const check= await userss.find(i=>i.email==email)
+    await  console.log(userss)
+
    let g=[]
    userss.map((i)=>{
     if(i.jobpostings){
@@ -65,31 +68,32 @@ setisloading(true)
    }) 
 setisloading(false)
 }
+async function checkstatus(){
+  const  usersCollectionRef= await collection (db,'employer')
+  const po=  await getDocs(usersCollectionRef)
+  const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+const g=userss.find((i)=>i.email===email)
+const job=g.find(j=>j.title + j.description===jobselector.title + jobselector.description)
+
+dispatch(clickedjob(job))
+}
+checkstatus()
 Candidatescheck();
     },[checked])
         
-// useEffect(()=>{
-
-//     async function checkedfunc(i)
-//     {
-//    await i.jobpostings.map((k)=>{
-//         if(k.title,k.description==jobselector.title,jobselector.description){
-//             setchecked(true)
-//             k={
-//                 ...k,
-//                 accepted:checked
-//             }
-//             setifcheck(k)
-//             console.log(ifcheck)
-//     }
-//     else return null
-// })
-
-// await setDoc(doc(db,'jobseeker',i.id),{jobpostings:arrayUnion(ifcheck) },{merge:true})
-// console.log(ifcheck)
-//     }
-//     checkedfunc()          
-// },[])
+  
+async function functionstatus(o) {
+  console.log('functionstatus')
+  const  usersCollectionRef= await collection (db,'employer')
+  const po=  await getDocs(usersCollectionRef)
+  const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+  const g= userss.find(d=>d.email===email)
+  let k={...jobselector,status:o==='online'? true : false}
+  await    updateDoc(doc(db,'employer',g.id),({jobpostings:arrayRemove(jobselector)}))
+  await setDoc(doc(db,'employer',g.id),{jobpostings:arrayUnion(k) },{merge:true})
+  dispatch(clickedjob({...jobselector,status:o==='online'?true:false}))
+console.log(g)
+ }
     
   return (
     <>
@@ -114,22 +118,24 @@ Candidatescheck();
   <FormControl fullWidth sx={{width:'123px',height:'50px',alignItems: 'center',
     alignSelf: 'center', marginInline: '15px'}}>
   <InputLabel id="demo-simple-select-label">Status</InputLabel>
+
   <Select
     labelId="demo-simple-select-label"
     id="demo-simple-select"
   //  name='rate' value={formm.rate}
     label="Open"
-//    onChange={changed}
+    value={jobselector?.status===true ? 'hourly':'monthly'}
 sx={{width:'111px',height:'50px',alignItems: 'center',
     alignSelf: 'center', marginInline: '15px'  }}
   >
-    <MenuItem value={'hourly'}  onClick={()=>console.log('online')}>
+    <MenuItem value={'hourly'}  onClick={ ()=>functionstatus('online')}>
       <div className='divrow'>
       <span className="colored-circle" style={greenstyle}/>
       <p>Online </p>
       </div>
+
       </MenuItem>
-    <MenuItem value={'monthly'} >
+    <MenuItem value={'monthly'} onClick={()=>functionstatus('offline')}>
     <div className='divrow'>
       <span className="colored-circle" style={redstyle} />
       <p>Offline</p>
@@ -137,7 +143,7 @@ sx={{width:'111px',height:'50px',alignItems: 'center',
          </MenuItem>
   </Select>
 </FormControl>
-<div style={{width:'min-content'}}>
+<div style={{width:'300px'}}>
 
 <BlueButton text={'Continue with application'}/>
 </div>
@@ -145,7 +151,6 @@ sx={{width:'111px',height:'50px',alignItems: 'center',
 {
     applicants &&
     applicants.map((i)=>{
-
        /// checkedfunc(i);
         return( 
         
