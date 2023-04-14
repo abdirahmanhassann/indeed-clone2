@@ -14,6 +14,7 @@ import JobseekerSignup from './Components/SigninComponents/Jobseeker/JobseekerSi
 import EmployerJobInsights from './Components/SigninComponents/Employer/EmployerJobInsights';
 import JobseekerApplications from './Components/SigninComponents/Jobseeker/JobseekerApplications';
 import { useSelector } from 'react-redux';
+import EmployerEdit from './Components/SigninComponents/Employer/EmployerEdit';
 function App() 
 {
   const employerlogin=useSelector(state=>state.reducer.employerloginstatus.employerlogin);
@@ -32,6 +33,7 @@ function App()
 <Route path='/EmployerHome/Postjob' element={employerlogin ? <Postjob/> : <Signin/>}/>
 <Route path='/EmployerHome/EmployerDashboard' element={employerlogin ? <EmployerDashboard/>: <Signin/>}/>
 <Route path='/EmployerHome/EmployerDashboard/:name' element={employerlogin ? <EmployerJobInsights/> :<Signin/>}/>
+<Route path='/EmployerHome/EmployerDashboard/editjob' element={employerlogin ? <EmployerEdit/> :<Signin/>}/>
 <Route path='/Signup/Jobseeker' element={<JobseekerSignup/>}/>
 <Route path='/Applications' element={jobseekerlogin ? <JobseekerApplications/>: <Signin/>}/>
 </Routes>

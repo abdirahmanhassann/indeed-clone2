@@ -124,6 +124,8 @@ margin-bottom: 0px;
     height:'fit-content';
     width: inherit;
     align-items: baseline;
+    text-align-last: start;
+
 }
 .divrow{
     display:flex;
@@ -154,4 +156,10 @@ margin-bottom: 0px;
     background-color: white;
     align-items: center;
     gap: 18px;
+}
+.rowdiv{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    width: 2000px;
 }

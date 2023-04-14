@@ -16,11 +16,13 @@ import Largeheader from '../../../ElementComponents/Largeheader'
 import { FormControl, FormLabel, InputLabel, MenuItem, Select } from '@mui/material'
 import BlueButton from '../../../ElementComponents/bluebutton'
 import { clickedjob } from '../../../ReduxStore/Redux'
+import { useNavigate } from 'react-router-dom'
 function EmployerJobInsights() {
     const jobselector=useSelector(state=>state.reducer.clickedjobslicestatus.clickedjob);
     const email=useSelector(state=>state.reducer.employeremailstatus.employeremail.email);
     const [applicants,setapplicants]=useState()
     const [checked,setchecked]=useState(false);
+    const navigate=useNavigate()
 const [ifcheck,setifcheck]=useState();
 const [jobp,setjobp]=useState();
 const dispatch=useDispatch()
@@ -113,7 +115,7 @@ console.log(g)
   <Header text={'loading'}/>
   :
 <div className='largedivpostjob'>
-  <div className='postjobsubdiv' style={{padding:'10px 39px'}}> 
+  <div className='postjobsubdiv' style={{padding:'10px 39px',width:'110%'}}> 
   <Paragraph text={jobselector.title}/>
   <FormControl fullWidth sx={{width:'123px',height:'50px',alignItems: 'center',
     alignSelf: 'center', marginInline: '15px'}}>
@@ -145,7 +147,7 @@ sx={{width:'111px',height:'50px',alignItems: 'center',
 </FormControl>
 <div style={{width:'300px'}}>
 
-<BlueButton text={'Continue with application'}/>
+<BlueButton text={'Edit job posting'} click={()=>navigate('../EmployerHome/EmployerDashboard/editjob')}/>
 </div>
   </div>
 {
@@ -154,7 +156,7 @@ sx={{width:'111px',height:'50px',alignItems: 'center',
        /// checkedfunc(i);
         return( 
         
-        <div className='postjobsubdiv' >
+        <div className='postjobsubdiv' style={{width:'110%'}} >
 <div className='columndiv'>
 <Paragraphblue text={i.Firstname+' '+i.Surname}/>
 <Subaparagraph text={i.city}/>
@@ -177,6 +179,8 @@ else return null;
 <Subaparagraph text={i.RecentExperience}/>
 <Subaparagraph text={i.startdate+'-'+i.enddate}/>
     </div>
+    <div className='rowdiv'>
+
     <InverseButton text={'View CV'} click={()=>{
           const po=  getDownloadURL(ref(storagee, `jobseeker/${i.email}`)).then((url)=>
                 {
@@ -184,7 +188,8 @@ else return null;
                    window.open(url)
                 })
     }}/>
-
+    <BlueButton text={'Go forward'}/>
+</div>
     <div className='postjobsubdiv5' style={{paddingBlock:'10px'}}>
   <div className='columndiv' style={divstyle} 
  onClick={()=>
