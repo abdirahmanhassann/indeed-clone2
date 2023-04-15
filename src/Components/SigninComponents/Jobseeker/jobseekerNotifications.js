@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Nav from '../../GeneralComponents/Nav'
 import Largeheader from '../../../ElementComponents/Largeheader'
 import { useSelector } from 'react-redux';
-import { collection, getDocs } from '@firebase/firestore';
+import { arrayRemove, collection, doc, getDocs, updateDoc } from '@firebase/firestore';
 import { db } from '../../../Firebase/Firebase';
 import ScaleLoader from "react-spinners/ClipLoader";
 import Subaparagraph from '../../../ElementComponents/subaparagraph';
@@ -15,7 +15,7 @@ function JobseekerNotifications() {
     const jobseekerlogin=useSelector(state=>state.reducer.jobseekerloginstatus.jobseekerlogin);
     const jobseekeremaill=useSelector((state)=>state.reducer.jobseekeremailstatus.jobseekeremail);
     const [isloading,setisloading]=useState(false);
-
+const [id,setid]=useState()
     useEffect(()=>{
 async function loadnotifications(){
     setisloading(true)
@@ -24,7 +24,7 @@ async function loadnotifications(){
     const  userss=  po.docs.map((i)=>{return{...i.data(),id:i.id}})
   const check= userss.find(i=>i.email==jobseekeremaill)
     if (check) {
-        
+        setid(check.id)
 setnotifications(check.notifications.sort((a,b)=>b.createdAt - a.createdAt))
 setisloading(false)
 console.log(notifications)
@@ -33,6 +33,14 @@ console.log(notifications)
 loadnotifications()
 
     },[])
+async function deletenotification (i){
+
+    const po=notifications.filter((j)=> {return j!==i})
+    setnotifications(po)
+    await  updateDoc(doc(db,'jobseeker',id),({notifications:arrayRemove(i)}))
+    
+}
+
   return (
 <>
 <Nav/>
@@ -52,7 +60,7 @@ loadnotifications()
 <div className='notificationsdiv'>
       <div className='notificationsdivrow'>
     <Subaparagraph text={moment(i.createdAt).fromNow()} />
-    <ImCross className='navbaricons'/>
+    <ImCross className='navbaricons' onClick={()=>deletenotification(i)}/>
         </div>     
         <div className='columndiv'>
         {
@@ -62,8 +70,7 @@ loadnotifications()
         i.event==="Rejected" && <Paragraph text={'Your application has been rejected.'}/>
     } 
         {
-            i.event==="Accepted" && <Paragraph text={'Congratulations! You have moved on to the next stage.'}/>
-            
+            i.event==="Accepted" && <Paragraph text={'Congratulations! You have been moved on to the next stage.'}/>
         }
         <Paragraphblue text={i.title}/>
         <Subaparagraph text={i.location}/>
