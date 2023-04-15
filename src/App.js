@@ -15,6 +15,7 @@ import EmployerJobInsights from './Components/SigninComponents/Employer/Employer
 import JobseekerApplications from './Components/SigninComponents/Jobseeker/JobseekerApplications';
 import { useSelector } from 'react-redux';
 import EmployerEdit from './Components/SigninComponents/Employer/EmployerEdit';
+import JobseekerNotifications from './Components/SigninComponents/Jobseeker/jobseekerNotifications';
 function App() 
 {
   const employerlogin=useSelector(state=>state.reducer.employerloginstatus.employerlogin);
@@ -25,6 +26,7 @@ function App()
    <Routes>
    <Route  path='/' element={<Home />}exact/>
  <Route  path= '/searched' element={<Searched /> }exact/>
+ <Route  path= '/jobseekernotifications' element={jobseekerlogin? <JobseekerNotifications />:<Signin/> }exact/>
 <Route path='*' element={<Notfound/>}/>
 <Route path='Signin' element={<Signin/>}/>
 <Route path='Signup' element={<Signup/>}/>

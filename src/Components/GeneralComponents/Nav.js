@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import logo from '../../img/indeelogo.jpg';
 import {FaUserAlt} from 'react-icons/fa' 
 import {FaAlignJustify} from  'react-icons/fa' 
-import {IoIosArrowForward} from  'react-icons/io' 
+import {IoIosArrowForward, IoMdNotifications} from  'react-icons/io' 
+import {RiMessage2Fill} from 'react-icons/ri'
 import '../../App.css'
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { jobseekeremail, jobseekerlogin } from "../../ReduxStore/Redux";
- 
+
 const Nav=()=>{
     const [sidebar,setsidebar]=useState(false);
     const jobseekerloginselector=useSelector(state=>state.reducer.jobseekerloginstatus.jobseekerlogin);
@@ -57,7 +58,10 @@ return(
     }
 }}>My jobs</a>
     </span>
+    <div className="divrow2">
     <span className='navspan2'>
+        <RiMessage2Fill className='navbaricons'/>
+        <IoMdNotifications className="navbaricons" onClick={()=>navigate('/jobseekernotifications')}/>
 {
 jobseekerloginselector==true ? 
 
@@ -80,7 +84,7 @@ jobseekerloginselector==true ?
     <Link to='/EmployerHome' className="link">
     <a className='a2'>Employers / Post job</a>
     </Link>
-    
+    </div>
         <div className="smallnav">
 
 {

@@ -95,14 +95,30 @@ async function functionstatus(o) {
   
   await updateDoc(doc(db,'employer',g.id),({jobpostings:arrayRemove(jobselector)}))
   .then(async()=>{
-    await setDoc(doc(db,'employer',g.id),{jobpostings:arrayUnion(k) },{merge:true})
-    .then(()=>{
-      dispatch(clickedjob({...jobselector,status:o==='online'?true:false}))
-    })
+
+    dispatch(clickedjob({...jobselector,status:o==='online'?true:false}))
+     setDoc(doc(db,'employer',g.id),{jobpostings:arrayUnion(k) },{merge:true})
   })
 console.log(g)
  }
-    
+
+ function cvfunc(i){
+        getDownloadURL(ref(storagee, `jobseeker/${i.email}`)).then((url)=>
+            {
+             
+               window.open(url)
+            })
+            i.jobpostings.map(async(k)=>{
+              console.log(k);
+             if(k.title+ k.description==jobselector.title+jobselector.description)   
+            {  
+                      let  j={...k,createdAt:Date.now(),event:'Opened'}
+                    await  setDoc(doc(db,'jobseeker',i.id),{notifications:arrayUnion(j) },{merge:true})
+
+                }
+          })
+
+}
   return (
     <>
     <EmployerNav/>
@@ -187,13 +203,7 @@ else return null;
     </div>
     <div className='rowdiv'>
 
-    <InverseButton text={'View CV'} click={()=>{
-          const po=  getDownloadURL(ref(storagee, `jobseeker/${i.email}`)).then((url)=>
-                {
-                    console.log(url);
-                   window.open(url)
-                })
-    }}/>
+    <InverseButton text={'View CV'} click={()=>cvfunc(i)}/>
     <BlueButton text={'Go forward'}/>
 </div>
     <div className='postjobsubdiv5' style={{paddingBlock:'10px'}}>
@@ -208,9 +218,11 @@ else return null;
       {      
           updateDoc(doc(db,'jobseeker',i.id),({jobpostings:arrayRemove(k)}))
           .then(()=>{ k={...k,accepted:true}
+        let  j={...k,createdAt:Date.now(),event:'Accepted'}
           setDoc(doc(db,'jobseeker',i.id),{jobpostings:arrayUnion(k) },{merge:true})
+          setDoc(doc(db,'jobseeker',i.id),{notifications:arrayUnion(j) },{merge:true})
           .then(()=>setchecked(i=>!i))
-        
+    
       })
     }
        else return null;
@@ -250,7 +262,9 @@ return(
            {      
                updateDoc(doc(db,'jobseeker',i.id),({jobpostings:arrayRemove(k)}))
                .then(()=>{ k={...k,accepted:false}
+               let  j={...k,createdAt:Date.now(),event:'Rejected'}
                setDoc(doc(db,'jobseeker',i.id),{jobpostings:arrayUnion(k) },{merge:true})
+               setDoc(doc(db,'jobseeker',i.id),{notifications:arrayUnion(j) },{merge:true})
                .then(()=>setchecked(i=>!i))
              
            })

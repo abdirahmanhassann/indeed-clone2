@@ -11,10 +11,27 @@ nav{
     color: #2a2a2a;
     font-size: 0.875rem;
     text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
 }
 
 .navspan2{
-    margin-left: 420px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+.navbaricons{
+    height: 25px;
+    width: 25px;
+    margin-top: -5px;
+cursor:pointer;
+}
+.divrow2{
+    display: flex;
+    flex-direction: row;
+    gap:5px;
+    align-items: start;
 }
 .navspan1{
     margin-left: 138px;   
@@ -399,9 +416,7 @@ h2{
     right: 0px;
 }
 @media (min-width:1278px){
-.navspan2{
-    margin-left: 52vw;
-}
+
 .usericon{
     display:none;
 }
@@ -416,9 +431,7 @@ h2{
 }
 }
 @media (max-width:1072px){
-    .navspan2{
-        margin-left:10vw;
-    }
+
     .indeedlogo{
         height: 50px;
         top: 15px;
