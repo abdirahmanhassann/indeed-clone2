@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Nav from '../../GeneralComponents/Nav'
 import Largeheader from '../../../ElementComponents/Largeheader'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { arrayRemove, collection, doc, getDocs, updateDoc } from '@firebase/firestore';
 import { db } from '../../../Firebase/Firebase';
 import ScaleLoader from "react-spinners/ClipLoader";
@@ -10,11 +10,17 @@ import moment from 'moment';
 import  { ImCross } from 'react-icons/im'
 import Paragraphblue from '../../../ElementComponents/paragraphblue';
 import Paragraph from '../../../ElementComponents/paragraph';
+import { AiOutlineArrowRight } from 'react-icons/ai';
+import { BiX } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
+import { clickedjob } from '../../../ReduxStore/Redux';
 function JobseekerNotifications() {
     const [notifications,setnotifications]=useState()
     const jobseekerlogin=useSelector(state=>state.reducer.jobseekerloginstatus.jobseekerlogin);
     const jobseekeremaill=useSelector((state)=>state.reducer.jobseekeremailstatus.jobseekeremail);
     const [isloading,setisloading]=useState(false);
+    const dispatch=useDispatch()
+    const navigate=useNavigate()
 const [id,setid]=useState()
     useEffect(()=>{
 async function loadnotifications(){
@@ -28,7 +34,9 @@ async function loadnotifications(){
 setnotifications(check.notifications.sort((a,b)=>b.createdAt - a.createdAt))
 setisloading(false)
 console.log(notifications)
-  }
+
+}
+
 }
 loadnotifications()
 
@@ -39,6 +47,11 @@ async function deletenotification (i){
     setnotifications(po)
     await  updateDoc(doc(db,'jobseeker',id),({notifications:arrayRemove(i)}))
     
+}
+function clickedjobfunction(i){
+    dispatch(clickedjob(i))
+navigate('/jobseekerviewjob')
+
 }
 
   return (
@@ -58,10 +71,11 @@ async function deletenotification (i){
         return (
             <>
 <div className='notificationsdiv'>
-      <div className='notificationsdivrow'>
+      <div className='notificationsdivrowsmall' style={{ alignItems: 'flex-end'}}> 
     <Subaparagraph text={moment(i.createdAt).fromNow()} />
-    <ImCross className='navbaricons' onClick={()=>deletenotification(i)}/>
+    <BiX className='navbaricons' onClick={()=>deletenotification(i)}/>
         </div>     
+        <div className='notificationsdivrow'>
         <div className='columndiv'>
         {
             i.event==="Opened" && <Paragraph text={'Your application was recently viewed.'}/>
@@ -74,6 +88,11 @@ async function deletenotification (i){
         }
         <Paragraphblue text={i.title}/>
         <Subaparagraph text={i.location}/>
+        </div> 
+        <div className='notificationsrowdivbottom' onClick={()=>clickedjobfunction(i)}> 
+        <Paragraphblue text={'View job'}/>
+        <AiOutlineArrowRight className='navbaricons2'/>
+        </div>
         </div> 
 </div>
             </>
