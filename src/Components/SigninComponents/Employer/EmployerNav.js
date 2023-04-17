@@ -6,6 +6,8 @@ import pic from '../../../img/nn.png'
 import { employeremail } from '../../../ReduxStore/Redux'
 import { employerlogin } from '../../../ReduxStore/Redux'
 import './employer.css'
+import { RiMessage2Fill } from 'react-icons/ri'
+import { IoMdNotifications } from 'react-icons/io'
 function EmployerNav() {
     const employerloginn=useSelector((state)=>state.reducer.employerloginstatus);
     const navigate=useNavigate();
@@ -50,9 +52,12 @@ style={{cursor:'pointer'}}
     }
 }  style={{cursor:'pointer'}}>Dashboard</a>
 </div>
-<div className='subnav2'>
+<div className='subnav2' style={{gap:'25px'}}>
+<RiMessage2Fill className='navbaricons' style={{marginTop:'0px'}}/>
+<IoMdNotifications className='navbaricons' style={{marginTop:'0px'}}/>
+
 <a className="usericon2" onClick={clicked}>{employerloginn.employerlogin==false ? 'Sign in' : 'Sign out'}</a>
-<a style={{borderLeft:' 1px solid #7c6f6f',paddingLeft:'12px',cursor:'pointer'}}
+<a style={{borderLeft:' 1px solid #7c6f6f',paddingLeft:'25px',cursor:'pointer'}}
 onClick={()=>navigate('/')}
 >Find jobs</a>
 </div>

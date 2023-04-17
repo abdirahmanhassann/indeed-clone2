@@ -23,6 +23,7 @@ function JobseekerNotifications() {
     const navigate=useNavigate()
 const [id,setid]=useState()
     useEffect(()=>{
+
 async function loadnotifications(){
     setisloading(true)
     const  usersCollectionRef=  collection (db,'jobseeker')
@@ -67,7 +68,9 @@ navigate('/jobseekerviewjob')
 <Largeheader text={'Notifications'}/>
 {
     notifications &&
-    notifications.map((i)=>{
+    notifications?.length==0 ?<Paragraph text={'No notifications'}/>
+    :
+    notifications?.map((i)=>{
         return (
             <>
 <div className='notificationsdiv'>

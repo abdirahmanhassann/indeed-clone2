@@ -1,4 +1,4 @@
-import { arrayRemove, arrayUnion, collection, doc, getDocs, setDoc, updateDoc } from '@firebase/firestore'
+import { addDoc, arrayRemove, arrayUnion, collection, doc, getDocs, setDoc, updateDoc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,7 +16,7 @@ import Largeheader from '../../../ElementComponents/Largeheader'
 import { FormControl, FormLabel, InputLabel, MenuItem, Select } from '@mui/material'
 import BlueButton from '../../../ElementComponents/bluebutton'
 import { clickedjob } from '../../../ReduxStore/Redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 function EmployerJobInsights() {
     const jobselector=useSelector(state=>state.reducer.clickedjobslicestatus.clickedjob);
     const email=useSelector(state=>state.reducer.employeremailstatus.employeremail.email);
@@ -119,6 +119,12 @@ console.log(g)
           })
 
 }
+async function message(i){
+  const  usersCollectionRef= collection (db,'messages')
+ await addDoc(usersCollectionRef,{added:email,to:i.email,createdAt: Date.now()})
+  navigate('/employerhome/employermessages')
+}
+
   return (
     <>
     <EmployerNav/>
@@ -204,8 +210,8 @@ else return null;
     <div className='rowdiv'>
 
     <InverseButton text={'View CV'} click={()=>cvfunc(i)}/>
-    <BlueButton text={'Go forward'}/>
-</div>
+    <BlueButton text={'Message'} click={()=>message(i)} />
+    </div>
     <div className='postjobsubdiv5' style={{paddingBlock:'10px'}}>
   <div className='columndiv' style={divstyle} 
  onClick={()=>
