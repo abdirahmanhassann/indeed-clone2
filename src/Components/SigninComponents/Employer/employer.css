@@ -245,3 +245,9 @@ margin-bottom: 0px;
     padding-inline: 11px;
     cursor:pointer;
 }
+.chatlistdiv2{
+    border-bottom: 1px solid #d9d9d9;
+    padding-inline: 11px;
+    cursor:pointer;
+    background: #f4f3ff;
+}

@@ -22,6 +22,8 @@ function EmployerMessages() {
     const email=useSelector(state=>state.reducer.employeremailstatus.employeremail.email);
     const [current,setcurrent]=useState(employerchat)
     const [loading,setloading]=useState(false)
+    const dummy = useRef();
+
     useEffect(() => {
         setloading(true)
         const q = query(
@@ -37,19 +39,25 @@ function EmployerMessages() {
         });
         setMessages(messages);
         console.log(messages)
-            const g=messages.find(i=>i.data.employer===email && current?.data.jobseeker==i.data.jobseeker)
-            if(g)
-            {
+        if(employerchat)
+        {
+                const g=messages.find(i=>i.data.employer===email && current?.data.jobseeker==i.data.jobseeker)
                 setcurrent({data:g.data,messages:g.messages,id:g.id})
-        }
+            }
+            else{
+               const ge= messages.find(i=>i.data.employer===email)
+               if(ge) return setcurrent(ge)
+            }
             console.log(current)
-        setloading(false)
-      });
+            setloading(false)
+           // dummy.current.scrollIntoView({ behavior: 'smooth' });
+        
+    });
+    
+    return () => unsubscribe;
+}, []);
 
-      return () => unsubscribe;
-    }, []);
-
-   async function submitted(e)
+async function submitted(e)
     {
   e.preventDefault()
   const m=change.current.value
@@ -71,12 +79,13 @@ function EmployerMessages() {
         <Header text={'Messages'}/>
         </div>
         {
-        messages && 
+        loading && 
         messages.map((i)=>{
             const length=i.messages?.length-1
             console.log(length)
-            return(            
-            <div className='chatlistdiv' onClick={()=>currentfunc(i)}>
+            return(   
+            <div className={current.data?.jobseekerName===i.data?.jobseekerName ?'chatlistdiv2':'chatlistdiv' }
+             onClick={()=>currentfunc(i)}>
 <div className='notificationsdivrow' style={{color:'#6a6a6a'}}>
                  <p className='boldchatparagraph'>{i.data.jobseekerName}</p>
                  <p className='smallchatdiv'>{moment(length > 0 && i.messages[length].createdAt).fromNow()} </p>
@@ -87,7 +96,7 @@ function EmployerMessages() {
         }
         </div>
         <div className='chatroom'>
-  {loading ? (
+  { !loading ? (
     <div className="loader">
       <ScaleLoader size={50} color={'#2557a7'} borderWidth={'10px'} />
     </div>
@@ -98,7 +107,7 @@ function EmployerMessages() {
     (
         <>
                 <div className='chatlistheader' style={{borderBottom:'1px solid lightgray'}}>
-        <Header text= {current.data.jobName}/>
+        <Header text= {current.data.jobseekerName}/>
         <Subaparagraph text={`${current.data.city} ${current.data.country}`}/>
         </div> 
         <div className='chatroomscroll'>
@@ -114,6 +123,7 @@ function EmployerMessages() {
                         <p className='smallparagraph'> {i.createdAt&& moment(i.createdAt).fromNow()}</p>
                         </div>
                         <p className='chattext'>{i.message}</p>
+                        <span ref={dummy}></span>
                         </div>
                         </div>
                         )

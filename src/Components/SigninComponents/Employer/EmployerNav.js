@@ -3,7 +3,7 @@ import { FaUserAlt } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import pic from '../../../img/nn.png'
-import { employeremail } from '../../../ReduxStore/Redux'
+import { employerchat, employeremail } from '../../../ReduxStore/Redux'
 import { employerlogin } from '../../../ReduxStore/Redux'
 import './employer.css'
 import { RiMessage2Fill } from 'react-icons/ri'
@@ -53,7 +53,11 @@ style={{cursor:'pointer'}}
 }  style={{cursor:'pointer'}}>Dashboard</a>
 </div>
 <div className='subnav2' style={{gap:'25px'}}>
-<RiMessage2Fill className='navbaricons' style={{marginTop:'0px'}}/>
+<RiMessage2Fill className='navbaricons' style={{marginTop:'0px'}} onClick={
+    ()=>{
+        dispatch(employerchat(null))
+        navigate('/employerhome/employermessages')
+}}/>
 <IoMdNotifications className='navbaricons' style={{marginTop:'0px'}}/>
 
 <a className="usericon2" onClick={clicked}>{employerloginn.employerlogin==false ? 'Sign in' : 'Sign out'}</a>
