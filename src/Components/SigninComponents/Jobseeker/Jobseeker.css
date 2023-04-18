@@ -53,6 +53,7 @@
 }
 .notificationslargediv{
     margin-top: -58px;
+    min-height: 88vh;
     width: 100%;
     background: #fafafa;
 }

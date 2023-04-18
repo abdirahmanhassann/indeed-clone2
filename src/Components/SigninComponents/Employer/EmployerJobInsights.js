@@ -15,7 +15,7 @@ import ScaleLoader from "react-spinners/ClipLoader";
 import Largeheader from '../../../ElementComponents/Largeheader'
 import { FormControl, FormLabel, InputLabel, MenuItem, Select } from '@mui/material'
 import BlueButton from '../../../ElementComponents/bluebutton'
-import { clickedjob } from '../../../ReduxStore/Redux'
+import { clickedjob, employerchat } from '../../../ReduxStore/Redux'
 import { Link, useNavigate } from 'react-router-dom'
 function EmployerJobInsights() {
     const jobselector=useSelector(state=>state.reducer.clickedjobslicestatus.clickedjob);
@@ -121,7 +121,27 @@ console.log(g)
 }
 async function message(i){
   const  usersCollectionRef= collection (db,'messages')
- await addDoc(usersCollectionRef,{added:email,to:i.email,createdAt: Date.now()})
+  const po=  await getDocs(usersCollectionRef)
+  const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+  const g= userss.find(d=>d.added===email && d.to===i.email || d.to===email && d.added===i.email )
+  const data={
+    city:i.city, 
+    country:i.country,
+    jobseekerName:i.Firstname +i.Surname,  
+  //jobseekerName:`${i.Firstname} ${i.Surname}`,
+   jobseeker:i.email,
+   employer:email,
+   jobName:jobselector.title,
+   createdAt:Date.now()
+  }
+  console.log(data)
+  if(g){
+    await  setDoc(doc(db,'messages',g.id),{data:data},{merge:true}) 
+  }
+  else{
+    await addDoc(usersCollectionRef,{data:data})
+  }
+  dispatch(employerchat({data:data}))
   navigate('/employerhome/employermessages')
 }
 
