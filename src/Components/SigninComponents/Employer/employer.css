@@ -204,7 +204,7 @@ margin-bottom: 0px;
 }
 .chatroomscroll{
     height: 36vh;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 .inputdivchat{
     width: 96%;
@@ -234,4 +234,14 @@ margin-bottom: 0px;
 .chattext{
     margin-top: -10px;
     text-align: start;
+}
+
+.chatlistparagraph{
+    margin-top: -10px;
+    color: #5c5c5c;
+}
+.chatlistdiv{
+    border-bottom: 1px solid #d9d9d9;
+    padding-inline: 11px;
+    cursor:pointer;
 }

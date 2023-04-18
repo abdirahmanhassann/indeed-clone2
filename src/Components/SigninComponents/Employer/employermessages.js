@@ -54,8 +54,13 @@ function EmployerMessages() {
   e.preventDefault()
   const m=change.current.value
         console.log(current.id)
+        if (change.current.value.trim().length === 0) return null
+        change.current.value=''
  await setDoc(doc(db,'messages',current.id),{messages:arrayUnion({message:m,sender:email,createdAt:Date.now()})},{merge:true})
- change.current.value=''
+    }
+
+    function currentfunc(i){
+        setcurrent({data:i.data,messages:i.messages,id:i.id})
     }
     return (
 <>
@@ -65,7 +70,21 @@ function EmployerMessages() {
         <div className='chatlistheader'>
         <Header text={'Messages'}/>
         </div>
-        
+        {
+        messages && 
+        messages.map((i)=>{
+            const length=i.messages?.length-1
+            console.log(length)
+            return(            
+            <div className='chatlistdiv' onClick={()=>currentfunc(i)}>
+<div className='notificationsdivrow' style={{color:'#6a6a6a'}}>
+                 <p className='boldchatparagraph'>{i.data.jobseekerName}</p>
+                 <p className='smallchatdiv'>{moment(length > 0 && i.messages[length].createdAt).fromNow()} </p>
+             </div>
+             <p className='chatlistparagraph'> {length > 0 && i.messages[length].message}</p>
+                </div>
+        )})
+        }
         </div>
         <div className='chatroom'>
   {loading ? (
@@ -77,28 +96,28 @@ function EmployerMessages() {
   (
     current ?
     (
-        <div className='chatlistheader' style={{borderBottom:'1px solid lightgray'}}>
+        <>
+                <div className='chatlistheader' style={{borderBottom:'1px solid lightgray'}}>
         <Header text= {current.data.jobName}/>
         <Subaparagraph text={`${current.data.city} ${current.data.country}`}/>
+        </div> 
         <div className='chatroomscroll'>
            {
             current.messages&&
                 current.messages.map((i)=>{
                     return (
                         <div className='chatdivrow'>
-                            <img src={i.sender===email? companychat:userchat } className='chatimage'/>
+                        <img src={i.sender===email? companychat:userchat } className='chatimage'/>
                         <div className='smallchatdivrow'>
-                            <div className='chatdivrow'>
+                        <div className='chatdivrow'>
                         <p className='boldchatparagraph'> {i.sender===email? 'You': i.sender}</p>
-                        <p className='smallparagraph'> {i.createdAt&& moment(i.createdAt).fromNow()} </p>
+                        <p className='smallparagraph'> {i.createdAt&& moment(i.createdAt).fromNow()}</p>
                         </div>
                         <p className='chattext'>{i.message}</p>
                         </div>
                         </div>
-
                         )
                     })
-             
            }
         </div>
         <form className='inputdivchat' onSubmit={submitted} >
@@ -106,7 +125,7 @@ function EmployerMessages() {
            ref={change}/>
            <BlueButton text={'Send'}/>
             </form>
-            </div>    ) : (
+              </>) : (
       <>
         <img src={chat} className='chatlogo'/>
         <Paragraph text={'Select a conversation to read'}/>

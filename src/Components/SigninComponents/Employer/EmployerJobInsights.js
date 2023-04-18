@@ -123,7 +123,8 @@ async function message(i){
   const  usersCollectionRef= collection (db,'messages')
   const po=  await getDocs(usersCollectionRef)
   const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
-  const g= userss.find(d=>d.added===email && d.to===i.email || d.to===email && d.added===i.email )
+  const g= userss.find(d=>d.data.employer===email && d.data.jobseeker===i.email 
+    || d.data.jobseeker===i.email && d.data.employer===email )
   const data={
     city:i.city, 
     country:i.country,
@@ -136,8 +137,9 @@ async function message(i){
   }
   console.log(data)
   if(g){
-    await  setDoc(doc(db,'messages',g.id),{data:data},{merge:true}) 
-  }
+    dispatch(employerchat({data:data}))
+    navigate('/employerhome/employermessages')
+    }
   else{
     await addDoc(usersCollectionRef,{data:data})
   }
