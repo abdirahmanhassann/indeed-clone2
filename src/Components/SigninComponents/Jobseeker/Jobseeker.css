@@ -105,3 +105,9 @@
     padding-inline: 9px;
     padding-bottom: 5px;
 }
+
+.buttondivapp{
+    min-width: 248px;
+    display: flex;
+    gap: 9px;
+}

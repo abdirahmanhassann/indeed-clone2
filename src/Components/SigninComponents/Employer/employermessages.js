@@ -40,6 +40,7 @@ function EmployerMessages() {
           messages.push({ ...doc.data(), id: doc.id });
         });
       const newmesages=  messages.filter((i)=>{return i.data.employer===email})
+      
         setMessages(newmesages);
         console.log(newmesages)
       //  console.log('initial',employerchatselector.initial)
@@ -60,7 +61,6 @@ function EmployerMessages() {
                    console.log('else if statement')
                    console.log(ge)
                 setcurrent(ge)
-                dummy.current.scrollIntoView({ behavior: 'smooth' });
             }
             }
             else{
@@ -112,7 +112,7 @@ async function submitted(e)
               i.messages && 
                     <>
                     {
-            <div className={current?.data?.jobseekerName===i?.data?.jobseekerName ?'chatlistdiv2':'chatlistdiv' }
+            <div className={current?.data?.jobseeker===i?.data?.jobseeker ?'chatlistdiv2':'chatlistdiv' }
              onClick={()=>currentfunc(i)}>
 <div className='notificationsdivrow' style={{color:'#6a6a6a'}}>
                  <p className='boldchatparagraph'>{i?.data?.jobseekerName}</p>

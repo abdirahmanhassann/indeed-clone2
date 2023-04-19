@@ -1,7 +1,7 @@
-import { arrayRemove, collection, doc, getDocs, updateDoc } from '@firebase/firestore'
+import { addDoc, arrayRemove, collection, doc, getDocs, updateDoc } from '@firebase/firestore'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import BlueButton from '../../../ElementComponents/bluebutton'
 import Header from '../../../ElementComponents/Header'
 import InverseButton from '../../../ElementComponents/InverseButton'
@@ -14,13 +14,19 @@ import Nav from '../../GeneralComponents/Nav';
 import ScaleLoader from "react-spinners/ClipLoader";
 
 import './Jobseeker.css'
+import { jobseekerchat } from '../../../ReduxStore/Redux'
+import { useNavigate } from 'react-router-dom'
+import e from 'cors'
 function JobseekerApplications() {
     const jobseekerlogin=useSelector(state=>state.reducer.jobseekerloginstatus.jobseekerlogin);
     const jobseekeremaill=useSelector((state)=>state.reducer.jobseekeremailstatus.jobseekeremail);
     const [isloading,setisloading]=useState(false);
     const [info,setinfo]=useState()
     const[ischange,setischange]=useState(false);
+    const [findemail,setfindemail]=useState()
     const [externalApi,setexternalApi]=useState(0);
+    const navigate=useNavigate()
+    const dispatch=useDispatch()
     const divstyle={
       cursor: 'pointer',
       borderBottom: '5px solid rgb(8 81 192 / 85%)',
@@ -38,11 +44,65 @@ function JobseekerApplications() {
           if (check) {
 console.log(check)
 setinfo(check)
+
 setisloading(false)
         }
+  
     }
- details()   
+
+async function details2(){
+  const  usersCollectionRef= await collection (db,'employer')
+  const po=  await getDocs(usersCollectionRef)
+  const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
+  setfindemail(userss)
+}
+ details().then(()=>details2())   
 },[ischange])
+
+async function message(i){
+  const  usersCollectionRef= collection (db,'messages')
+  const arrayy=[]
+  const po=  await getDocs(usersCollectionRef)
+  const  userss=  po.docs.map((i)=>{return{...i.data(),id:i.id}})
+  
+  findemail.forEach(async(j)=>{
+    console.log(j)
+ let g=j.jobpostings.find(e=> e.title+e.description===i.title+i.description)
+if(g){
+  arrayy.push(g)
+  console.log(g,j)
+  const t= userss.find(d=>d.data.employer===i.email && d.data.jobseeker===jobseekeremaill)
+  const data={
+    city:j.city, 
+    country:j.country,
+    jobseekerName:i.Firstname +i.Surname,  
+   jobseeker:jobseekeremaill,
+   employer:j.email,
+   employerName:j.name,
+   jobName:i.title,
+   createdAt:Date.now()
+  }
+  console.log(data)
+  if(t){
+    console.log('if statement')
+    dispatch(jobseekerchat({data:data,initial:true}))
+    navigate('/jobseekermessages')
+    }
+  else{
+
+    console.log('else statement')
+  await addDoc(usersCollectionRef,{data:data})
+  dispatch(jobseekerchat({data:data,initial:true}))
+  navigate('/jobseekermessages')
+  }
+
+}
+else{
+  console.log('not found')
+}
+  })
+}
+
 
 
   return (
@@ -114,11 +174,12 @@ i.accepted==false &&
    i.accepted==null  &&
    <p className='applied'>Applied</p>
   }
-  <div style={{minWidth:'255px'}}>
+  <div className='buttondivapp'>
 <BlueButton text={'Remove job'} click={()=>{
               updateDoc(doc(db,'jobseeker',info.id),({jobpostings:arrayRemove(i)}))
               setischange(i=>!i)
 }}/>
+<InverseButton click={()=>message(i)} text={'message'}/>
   </div>
 
 </div>

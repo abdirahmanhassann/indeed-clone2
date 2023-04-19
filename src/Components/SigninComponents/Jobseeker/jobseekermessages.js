@@ -107,6 +107,7 @@ async function submitted(e)
         {
         messages && messages.map((i)=>{
             const length=i?.messages?.length-1
+            const employername=i?.data?.employer
             return(   
               i.messages && 
                     <>
@@ -114,7 +115,7 @@ async function submitted(e)
             <div className={current?.data?.employer===i?.data?.employer ?'chatlistdiv2':'chatlistdiv' }
              onClick={()=>currentfunc(i)}>
             <div className='notificationsdivrow' style={{color:'#6a6a6a'}}>
-                 <p className='boldchatparagraph'>{i?.data?.employer}</p>
+                 <p className='boldchatparagraph'>{employername.length>12 ? employername.slice(0,12)+'...' : employername}</p>
                  <p className='smallchatdiv'>{moment(length > 0 && i?.messages[length].createdAt).fromNow()} </p>
              </div>
              <p className='chatlistparagraph'> {length>0 &&  i?.messages[length]?.message?.length>30 ?
