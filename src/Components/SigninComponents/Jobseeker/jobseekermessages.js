@@ -111,9 +111,9 @@ async function submitted(e)
               i.messages && 
                     <>
                     {
-            <div className={current?.data?.jobseekerName===i?.data?.jobseekerName ?'chatlistdiv2':'chatlistdiv' }
+            <div className={current?.data?.employer===i?.data?.employer ?'chatlistdiv2':'chatlistdiv' }
              onClick={()=>currentfunc(i)}>
-<div className='notificationsdivrow' style={{color:'#6a6a6a'}}>
+            <div className='notificationsdivrow' style={{color:'#6a6a6a'}}>
                  <p className='boldchatparagraph'>{i?.data?.employer}</p>
                  <p className='smallchatdiv'>{moment(length > 0 && i?.messages[length].createdAt).fromNow()} </p>
              </div>
