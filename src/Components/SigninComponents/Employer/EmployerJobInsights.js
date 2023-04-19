@@ -137,13 +137,13 @@ async function message(i){
   }
   console.log(data)
   if(g){
-    dispatch(employerchat({data:data}))
+    dispatch(employerchat({data:data,initial:true}))
     navigate('/employerhome/employermessages')
     }
   else{
     await addDoc(usersCollectionRef,{data:data})
   }
-  dispatch(employerchat({data:data}))
+  dispatch(employerchat({data:data,initial:true}))
   navigate('/employerhome/employermessages')
 }
 

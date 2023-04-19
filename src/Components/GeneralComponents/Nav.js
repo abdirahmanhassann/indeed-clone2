@@ -7,7 +7,7 @@ import {RiMessage2Fill} from 'react-icons/ri'
 import '../../App.css'
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { jobseekeremail, jobseekerlogin } from "../../ReduxStore/Redux";
+import { jobseekerchat, jobseekeremail, jobseekerlogin } from "../../ReduxStore/Redux";
 
 const Nav=()=>{
     const [sidebar,setsidebar]=useState(false);
@@ -60,7 +60,9 @@ return(
     </span>
     <div className="divrow2">
     <span className='navspan2'>
-        <RiMessage2Fill className='navbaricons'/>
+        <RiMessage2Fill className='navbaricons' onClick={()=>{
+            dispatch(jobseekerchat(null))
+            navigate('/jobseekermessages')}}/>
         <IoMdNotifications className="navbaricons" onClick={()=>navigate('/jobseekernotifications')}/>
 {
 jobseekerloginselector==true ? 

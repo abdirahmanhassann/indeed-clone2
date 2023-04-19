@@ -78,6 +78,19 @@ reducers:{
 }
     }
 )
+const jobseekerchatslice=createSlice(
+    {
+        name:'jobseekerchat',
+        initialState:null,
+reducers:{
+    jobseekerchat :(state,action)=>{
+        return {...state, jobseekerchat: action.payload};
+    },
+   
+  
+}
+    }
+)
 const jobseekeremailslice=createSlice(
     {
         name:'jobseekeremail',
@@ -114,6 +127,7 @@ const reducer= combineReducers({
     employerloginstatus:employerloginslice.reducer,
     employeremailstatus:employeremailslice.reducer,
     employerchatstatus:employerchatslice.reducer,
+    jobseekerchatstatus:jobseekerchatslice.reducer,
     jobseekeremailstatus:jobseekeremailslice.reducer,
     jobseekerloginstatus:jobseekerloginslice.reducer,
     clickedjobslicestatus:clickedjobslice.reducer
@@ -125,6 +139,7 @@ export const {addby} =searchslice.actions;
 export const {employerlogin}=employerloginslice.actions;
 export const {employeremail}=employeremailslice.actions;
 export const {employerchat}=employerchatslice.actions;
+export const {jobseekerchat}=jobseekerchatslice.actions;
 export const {jobseekeremail}=jobseekeremailslice.actions;
 export const {jobseekerlogin}=jobseekerloginslice.actions;
 export const {clickedjob}=clickedjobslice.actions;

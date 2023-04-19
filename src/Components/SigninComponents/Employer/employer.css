@@ -205,6 +205,7 @@ margin-bottom: 0px;
 .chatroomscroll{
     height: 36vh;
     overflow-y: scroll;
+    line-break: anywhere;
 }
 .inputdivchat{
     width: 96%;
