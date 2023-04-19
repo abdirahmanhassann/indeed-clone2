@@ -204,11 +204,13 @@ i.accepted==false &&
 <Subaparagraph text={'Created '+timeago}/>
   </div>
   
-  <div style={{minWidth:'255px'}}>
+  <div className='buttondivapp'>
 <BlueButton text={'Remove job'} click={()=>{
               updateDoc(doc(db,'jobseeker',info.id),({savedjobs:arrayRemove(i)}))
               setischange(i=>!i)
 }}/>
+<InverseButton click={()=>message(i)} text={'message'}/>
+
   </div>
 </div>
           </>
