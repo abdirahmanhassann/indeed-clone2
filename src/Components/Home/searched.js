@@ -264,7 +264,15 @@ else {
         i.jobpostings.forEach(async (j)=>{
             if(j.title + j.description==jobft.title + jobft.description)
             {
-            await setDoc(doc(db,'employer',i.id),{notifications:arrayUnion(jobft) },{merge:true})
+            await setDoc(doc(db,'employer',i.id),
+            {notifications:arrayUnion(
+                {createdAt:Date.now(),
+                    title:jobft.title,
+                event:'Application',
+                email:jobseekeremaill,
+                jobft:jobft
+                }
+                ) },{merge:true})
         }
     })
  })  
