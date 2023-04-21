@@ -58,7 +58,10 @@ style={{cursor:'pointer'}}
         dispatch(employerchat(null))
         navigate('/employerhome/employermessages')
 }}/>
-<IoMdNotifications className='navbaricons' style={{marginTop:'0px'}}/>
+<IoMdNotifications className='navbaricons' style={{marginTop:'0px'}} onClick={
+    ()=>{
+        navigate('/employerhome/employernotifications')
+}}/>
 
 <a className="usericon2" onClick={clicked}>{employerloginn.employerlogin==false ? 'Sign in' : 'Sign out'}</a>
 <a style={{borderLeft:' 1px solid #7c6f6f',paddingLeft:'25px',cursor:'pointer'}}

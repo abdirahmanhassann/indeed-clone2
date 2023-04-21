@@ -101,7 +101,8 @@ async function submitted(e)
 <Nav/>
 <div className='notificationslargediv3' style={{marginTop: '-58px'}}>
     <div className='chatlist'>
-        <div className='chatlistheader'>
+        <div className='chatlistheader' style={{padding:' 7px 16px',
+    borderBottom: '1px solid #e0e0e0'}}>
         <Header text={'Messages'}/>
         </div>
         {

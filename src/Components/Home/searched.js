@@ -50,6 +50,7 @@ const location=useLocation();
     const [applied,setapplied]=useState(false)
     const [research,setresearch]=useState(false);
     const [saved,setsaved]=useState(false)
+    const [employerinfo,setemployerinfo]=useState()
  //  const [apitime,setapitime]=useState('')
 
 const divstyle={
@@ -81,9 +82,9 @@ function jobchange(e){
         return value.name.toLowerCase().includes(whatsearched.toLowerCase()) ;     
           });
     if (changedd === "") {
-      setjobapidata([]);
+        setjobapidata([]);
     } else {
-      setjobapidata(newjobFilter);
+        setjobapidata(newjobFilter);
     
     }    
 }
@@ -102,6 +103,7 @@ useEffect(()=>{
 
     async function clicked(){
 try{
+    setclickedjob(false)
     setisloading(true)
 const res=await  fetch('https://jsearch.p.rapidapi.com/search?query='+searched.whatd+'%20in%20'+searched.whered+'&num_pages=1', options)
     const jsonresult= await res.json()
@@ -114,12 +116,13 @@ catch(err){
      setapikey('ac7e8fcd59msha3e59fbda262531p147ad9jsn732b1de1990f')
 }
 }
-
 async function internalapi1(){
-    const  usersCollectionRef= await collection (db,'employer')
+    setclickedjob(false)
+    const  usersCollectionRef= collection (db,'employer')
     const po=  await getDocs(usersCollectionRef)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
  console.log(userss);
+ setemployerinfo(userss)
 let g=[]
 
 userss.map((i)=>{
@@ -148,6 +151,7 @@ await setisloading(false)
     if(externalApi==1){
 clicked();
     }
+
     else{
         internalapi1()
     }
@@ -155,6 +159,7 @@ clicked();
 
 const submit =(e)=>{
         e.preventDefault();
+        setclickedjob(false)
    //   const res=await apiasync();
 }  
 useEffect(()=>{
@@ -243,17 +248,26 @@ else {
         async function applyclick(){
       
             if(clickedjob==true){
-                const  usersCollectionRef2= await collection (db,'jobseeker')
+                const  usersCollectionRef2= collection (db,'jobseeker')
                 const po2=  await getDocs(usersCollectionRef2)
-                const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
-              await  console.log(userss2);
-              await  setclickedjob(true)
-              const check2= await userss2.find(i=>i.email==jobseekeremaill)
+                const  userss2=  po2.docs.map((i)=>{return{...i.data(),id:i.id}})
+                console.log(userss2);
+                setclickedjob(true)
+              const check2=  userss2.find(i=>i.email==jobseekeremaill)
                console.log(check2)            
       //  const f= await updateDoc(doc(db,'employer',jobft.id),({jobpostings:arrayRemove(jobft)}))  
     console.log(jobft.id)
     setapplied(true);
     await setDoc(doc(db,'jobseeker',check2.id),{jobpostings:arrayUnion(jobft) },{merge:true})
+    //    const employerQuery=await (collection(db,emloyer))
+    employerinfo.forEach((i)=>{
+        i.jobpostings.forEach(async (j)=>{
+            if(j.title + j.description==jobft.title + jobft.description)
+            {
+            await setDoc(doc(db,'employer',i.id),{notifications:arrayUnion(jobft) },{merge:true})
+        }
+    })
+ })  
 }
 if(isloading==false){
 
@@ -273,17 +287,22 @@ async function checker(){
         const  usersCollectionRef2= await collection (db,'jobseeker')
         const po2=  await getDocs(usersCollectionRef2)
             const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
-          const check2= await userss2.find(i=>i.email==jobseekeremaill)
+          const check2= await userss2.find(i=>i.email==jobseekeremaill)          
+          console.log('postchecker' + userss2)
           setsaved(false) 
           if(check2.savedjobs){
             console.log('checker saved jobs')
             const postingchecker=check2.savedjobs.find(i=>i.title+i.description===jobft.title+jobft.description)
-            if(postingchecker) return setsaved(true),console.log('saved has been found',postingchecker,jobft.id,jobft.title)
+            if(postingchecker) { 
+                setsaved(true)
+                console.log('saved has been found',postingchecker,jobft.id,jobft.title)
+            }
           }
-          if(check2.jobpostings!==undefined){
+
+          if(check2.jobpostings){
         const postingchecker=check2.jobpostings.find(i=>i.description+i.title==jobft.description+jobft.title)
         //const savedjobs
-if(postingchecker!==undefined)
+if(postingchecker)
 {
     setapplied(true)
     setclickedjob(true)
@@ -477,9 +496,10 @@ fbjobs &&
     <img src={notfound} style={{height:'200px',width:'auto'}}/>
 </div>
 </>
+
     :
 
-fbjobs.map((i)=>{
+    fbjobs.map((i)=>{
     const timeago=moment(i.createdAt).fromNow();
     i={
         ...i,
@@ -519,22 +539,16 @@ i.description.length > 251 ?
     </div>    
 </div>
 )})}
-
 </div>
-
-
 {
     clickedjob==true &&
     <div className="applicationdiv">
     <button className="Xbutton" onClick={()=>setclickedjob(false)} >X </button>
-
     <h2 className="apih">{jobft.title}</h2>
     <p className="bluepara">{jobft.name} </p>
     <p className="apih" style={{fontSize:'16px'}}>{jobft.time}</p>
-
     {
         jobseekerlogin==true ?
-
         <button className="uploadbutton"  onClick={()=>{  
        applied==false && setapplyclickstate(i=>!i) 
     }
@@ -565,9 +579,7 @@ i.description.length > 251 ?
     <p className="apih" style={{fontSize:'15.5px'}}>Posted {jobft.timeago}</p>
     </div>
     }
-
 </div>
-
 </>
 }
    <Footer/>

@@ -19,6 +19,7 @@ import JobseekerNotifications from './Components/SigninComponents/Jobseeker/jobs
 import JobseekerViewJob from './Components/SigninComponents/Jobseeker/JobseekerViewJob';
 import EmployerMessages from './Components/SigninComponents/Employer/employermessages';
 import Jobseekermessages from './Components/SigninComponents/Jobseeker/jobseekermessages';
+import Employernotifications from './Components/SigninComponents/Employer/employernotifications';
 function App() 
 {
   const employerlogin=useSelector(state=>state.reducer.employerloginstatus.employerlogin);
@@ -38,6 +39,7 @@ function App()
 <Route path='Signup/Employer' element={<EmployerSignupform/>}/>
 <Route path='/EmployerHome' element={<EmployerHome/>}/>
 <Route path='/EmployerHome/Postjob' element={employerlogin ? <Postjob/> : <Signin/>}/>
+<Route path='/EmployerHome/employernotifications' element={employerlogin ? <Employernotifications/> : <Signin/>}/>
 <Route path='/EmployerHome/employermessages' element={employerlogin ? <EmployerMessages/> : <Signin/>}/>
 <Route path='/EmployerHome/EmployerDashboard' element={employerlogin ? <EmployerDashboard/>: <Signin/>}/>
 <Route path='/EmployerHome/EmployerDashboard/:name' element={employerlogin ? <EmployerJobInsights/> :<Signin/>}/>
