@@ -14,7 +14,6 @@ function EmployerHome() {
 navigate('/EmployerHome/postjob')
 }
 else{
-   // navigate('/signin')
     alert('Please signin as an employer')
         }
     }

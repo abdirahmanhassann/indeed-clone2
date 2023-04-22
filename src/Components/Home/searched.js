@@ -121,8 +121,7 @@ async function internalapi1(){
     const  usersCollectionRef= collection (db,'employer')
     const po=  await getDocs(usersCollectionRef)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
- console.log(userss);
- setemployerinfo(userss)
+    setemployerinfo(userss)
 let g=[]
 
 userss.map((i)=>{
@@ -137,7 +136,6 @@ i.jobpostings.map((j)=>{
 })
     }
 })
-console.log(g);
 
 const internaljobfilter = await g.filter((i) => {
     return i.title.toLowerCase().includes(whatsearched.toLowerCase()) &&
@@ -194,7 +192,6 @@ async function internalapi(){
     const  usersCollectionRef= await collection (db,'employer')
     const po=  await getDocs(usersCollectionRef)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
- console.log(userss);
 let g=[]
 
 userss.map((i)=>{
@@ -208,12 +205,10 @@ i.jobpostings.map((j)=>{
  }
  if(j.status&& j.status===true) {
      g.push(j)
-     console.log('true',j.title,j.status)
  }
 })
     }
 })
-console.log(g);
 
     const internaljobfilter =  g.filter((i) => {
            return i.title.toLowerCase().includes(whatsearched.toLowerCase()) &&
@@ -251,15 +246,10 @@ else {
                 const  usersCollectionRef2= collection (db,'jobseeker')
                 const po2=  await getDocs(usersCollectionRef2)
                 const  userss2=  po2.docs.map((i)=>{return{...i.data(),id:i.id}})
-                console.log(userss2);
                 setclickedjob(true)
               const check2=  userss2.find(i=>i.email==jobseekeremaill)
-               console.log(check2)            
-      //  const f= await updateDoc(doc(db,'employer',jobft.id),({jobpostings:arrayRemove(jobft)}))  
-    console.log(jobft.id)
     setapplied(true);
     await setDoc(doc(db,'jobseeker',check2.id),{jobpostings:arrayUnion(jobft) },{merge:true})
-    //    const employerQuery=await (collection(db,emloyer))
     employerinfo.forEach((i)=>{
         i.jobpostings.forEach(async (j)=>{
             if(j.title + j.description==jobft.title + jobft.description)
@@ -291,19 +281,15 @@ applyclick()
 
     useEffect(()=>{
 async function checker(){
-    console.log('checker running')
         const  usersCollectionRef2= await collection (db,'jobseeker')
         const po2=  await getDocs(usersCollectionRef2)
             const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
           const check2= await userss2.find(i=>i.email==jobseekeremaill)          
-          console.log('postchecker' + userss2)
           setsaved(false) 
           if(check2.savedjobs){
-            console.log('checker saved jobs')
             const postingchecker=check2.savedjobs.find(i=>i.title+i.description===jobft.title+jobft.description)
             if(postingchecker) { 
                 setsaved(true)
-                console.log('saved has been found',postingchecker,jobft.id,jobft.title)
             }
           }
 
@@ -323,7 +309,6 @@ checker();
     },[jobft])
 
    async function functionSaved(i){
-console.log(i.id)
 setsaved(i=>!i)
 const  usersCollectionRef2= collection (db,'jobseeker')
 const po2= await getDocs(usersCollectionRef2)

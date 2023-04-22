@@ -23,9 +23,9 @@ function EmployerNotifications() {
     const dispatch=useDispatch()
     const navigate=useNavigate()
 const [id,setid]=useState()
-    useEffect(()=>{
 
-async function loadnotifications(){
+    useEffect(()=>{
+        async function loadnotifications(){
     setisloading(true)
     const  usersCollectionRef=  collection (db,'employer')
     const po=  await getDocs(usersCollectionRef)
@@ -36,19 +36,15 @@ async function loadnotifications(){
 setnotifications(check.notifications.sort((a,b)=>b.createdAt - a.createdAt))
 setisloading(false)
 console.log(notifications)
-
+}
 }
 
-}
 loadnotifications()
-
     },[])
 async function deletenotification (i){
-
     const po=notifications.filter((j)=> {return j!==i})
     setnotifications(po)
     await  updateDoc(doc(db,'employer',id),({notifications:arrayRemove(i)}))
-    
 }
 function clickedjobfunction(i){
     dispatch(clickedjob(i))
