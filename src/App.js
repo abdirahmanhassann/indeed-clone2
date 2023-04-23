@@ -20,6 +20,7 @@ import JobseekerViewJob from './Components/SigninComponents/Jobseeker/JobseekerV
 import EmployerMessages from './Components/SigninComponents/Employer/employermessages';
 import Jobseekermessages from './Components/SigninComponents/Jobseeker/jobseekermessages';
 import Employernotifications from './Components/SigninComponents/Employer/employernotifications';
+import JobseekerUpdate from './Components/SigninComponents/Jobseeker/JobseekerUpdate';
 function App() 
 {
   const employerlogin=useSelector(state=>state.reducer.employerloginstatus.employerlogin);
@@ -31,6 +32,7 @@ function App()
    <Route  path='/' element={<Home />}exact/>
  <Route  path= '/searched' element={<Searched /> }exact/>
  <Route  path= '/jobseekernotifications' element={jobseekerlogin? <JobseekerNotifications />:<Signin/> }exact/>
+ <Route  path= '/jobseekerupdate' element={jobseekerlogin? <JobseekerUpdate />:<Signin/> }exact/>
  <Route  path= '/jobseekerViewJob' element={jobseekerlogin? <JobseekerViewJob />:<Signin/> }exact/>
  <Route  path= '/jobseekermessages' element={jobseekerlogin? <Jobseekermessages />:<Signin/> }exact/>
 <Route path='*' element={<Notfound/>}/>

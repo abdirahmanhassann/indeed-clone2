@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import logo from '../../img/indeelogo.jpg';
-import {FaUserAlt} from 'react-icons/fa' 
+import {FaUser, FaUserAlt} from 'react-icons/fa' 
 import {FaAlignJustify} from  'react-icons/fa' 
 import {IoIosArrowForward, IoMdNotifications} from  'react-icons/io' 
 import {RiMessage2Fill} from 'react-icons/ri'
@@ -8,6 +8,7 @@ import '../../App.css'
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { jobseekerchat, jobseekeremail, jobseekerlogin } from "../../ReduxStore/Redux";
+import { AiFillFile, AiFillHeart } from "react-icons/ai";
 
 const Nav=()=>{
     const [sidebar,setsidebar]=useState(false);
@@ -72,12 +73,17 @@ jobseekerloginselector==true ?
 <a className='a21'>
     
     <div className="dropdown">
-  <span>Mouse over me</span>
+  <FaUser className="navbaricons" style={{color:'#2a2a2a',height:'25px',width:'18px'}}/>
   <div class="dropdown-content">
     <p style={{fontWeight:'700'}}>{email}</p>
     <div className="subdropdownmenu">
-    <span>Profile</span>
-    <span onClick={()=>navigate('/applications')}>MY jobs</span>
+
+    <span className="dropdownspan" onClick={()=> navigate('/jobseekerupdate')}>
+         <AiFillFile className='navbaricons3'/> <p>Profile</p>
+         </span>
+    <span onClick={()=>navigate('/applications')} className="dropdownspan"> 
+    <AiFillHeart className="navbaricons3" /> <p>My jobs </p> </span>
+
     </div>
     <div className="bottomdropdownmenu">
         <p onClick={()=>{

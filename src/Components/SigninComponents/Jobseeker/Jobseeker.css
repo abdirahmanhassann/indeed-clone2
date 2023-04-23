@@ -121,20 +121,20 @@
     position: absolute;
     background-color: white;
     min-width: max-content;
-    box-shadow: 0px 4px 9px 0px rgba(0,0,0,0.2);
+    margin-left: -60px;
+    box-shadow: 0px 4px 9px 0px #0200ff4f;
     padding: 4px 23px;
     z-index: 1;
     font-weight: 500;
     color: black;
   }
-  
+
   .dropdown:hover .dropdown-content {
     display: block;
   }
   .subdropdownmenu{
     display: flex;
     flex-direction: column;
-    gap: 10px;
     text-align: initial;
   }
   .bottomdropdownmenu{
@@ -142,4 +142,16 @@
     margin-top: 17px;
     font-weight: 600;
     color: #1e4aba;
+  }
+  .navbaricons3{
+    color: rgb(42, 42, 42);
+    height: 25px;
+    width: 18px;
+
+  }
+  .dropdownspan{
+    display: flex;
+    flex-direction: initial;
+    align-items: center;
+    gap: 6px;
   }
