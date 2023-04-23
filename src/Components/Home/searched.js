@@ -174,7 +174,7 @@ useEffect(()=>{
             'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
         }
     }
-
+    
     fetch('https://jsearch.p.rapidapi.com/search?query='+whatsearched+'%20in%20'+wordEntered+'&num_pages=1', options)
     .then(response => response.json())
     .then(response => {

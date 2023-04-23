@@ -111,3 +111,35 @@
     display: flex;
     gap: 9px;
 }
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: max-content;
+    box-shadow: 0px 4px 9px 0px rgba(0,0,0,0.2);
+    padding: 4px 23px;
+    z-index: 1;
+    font-weight: 500;
+    color: black;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .subdropdownmenu{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: initial;
+  }
+  .bottomdropdownmenu{
+    border-top: 1px solid lightgray;
+    margin-top: 17px;
+    font-weight: 600;
+    color: #1e4aba;
+  }

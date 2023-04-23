@@ -12,6 +12,8 @@ import { jobseekerchat, jobseekeremail, jobseekerlogin } from "../../ReduxStore/
 const Nav=()=>{
     const [sidebar,setsidebar]=useState(false);
     const jobseekerloginselector=useSelector(state=>state.reducer.jobseekerloginstatus.jobseekerlogin);
+    const email=useSelector(state=>state.reducer.jobseekeremailstatus.jobseekeremail);
+
     const dispatch=useDispatch();
     const navigate=useNavigate();
    const refOne=useRef(null);
@@ -67,12 +69,28 @@ return(
 {
 jobseekerloginselector==true ? 
 
-<a className='a21' onClick={()=>{
+<a className='a21'>
+    
+    <div className="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p style={{fontWeight:'700'}}>{email}</p>
+    <div className="subdropdownmenu">
+    <span>Profile</span>
+    <span onClick={()=>navigate('/applications')}>MY jobs</span>
+    </div>
+    <div className="bottomdropdownmenu">
+        <p onClick={()=>{
     dispatch(jobseekerlogin(false));
     dispatch(jobseekeremail(null));
     navigate('/')
     console.log(jobseekerloginselector)
-}}>Sign out</a>
+}}>Sign out</p>
+    </div>
+  </div>
+</div>
+
+</a>
 
 :
 <Link to='/signin' className="link">
