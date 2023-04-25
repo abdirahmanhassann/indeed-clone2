@@ -120,6 +120,7 @@ onChange={changed}
 }}/>
 <input style={{height:'inherit'}} className='BlueButton' type="file"  accept=".pdf" onChange={(e)=>{
 setcvupload(e.target.files[0])
+
   }}/>
 </div>
             </div>

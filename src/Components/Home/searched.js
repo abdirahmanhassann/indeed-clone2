@@ -89,8 +89,6 @@ function jobchange(e){
     }    
 }
 
-
-
 useEffect(()=>{
     const options = {
         method: 'GET',
@@ -174,7 +172,7 @@ useEffect(()=>{
             'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
         }
     }
-    
+
     fetch('https://jsearch.p.rapidapi.com/search?query='+whatsearched+'%20in%20'+wordEntered+'&num_pages=1', options)
     .then(response => response.json())
     .then(response => {
@@ -364,7 +362,7 @@ else{
 )})}
     </div>
     )}
-    <div style={{width:'100px',marginLeft:'5px'}}>
+    <div className="linksmall">
 <BlueButton text={'Find jobs'}  click={()=>setresearch(i=>!i)}/>
     </div>
    </form>
@@ -449,7 +447,7 @@ let kkey=Math.random();
 </div>
 <div>
 
-{apiclick && <div className="applicationdiv">
+{apiclick && <div className={window.innerWidth > 803 ? 'applicationdiv' :'applicationdivsmall'}>
     <button className="Xbutton" onClick={()=>setapiclick(false)} > X </button>
     <h2 className="apih">{jobft.job_title}</h2>
    { jobft.employer_website &&<a className="bluepara" href={jobft.employer_website.slice(12)}>{jobft.employer_name}.com</a>}

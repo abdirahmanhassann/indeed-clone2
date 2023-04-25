@@ -3,6 +3,7 @@ body{
 }
 nav{
     border-bottom: 1px #e4e2e0 solid;
+    margin: auto;
     margin-bottom: 58px;
     height: 42px;
     font-family: sans-serif;
@@ -14,6 +15,8 @@ nav{
     display: flex;
     flex-direction: row;
     justify-content:space-between;
+    width: 97%;
+    max-width: 1300px;
 }
 
 .navspan2{
@@ -286,7 +289,8 @@ h2{
     border: 1px solid lightgray;
     background: white;
   border-radius: 9px;
-  width: 451px;
+  max-width: 451px;
+  width: 100%;
   height: 269px;
     margin-bottom: 12px;
     cursor: pointer;
@@ -358,7 +362,6 @@ h2{
 .usericon{
     margin-top: -15px;
     display: block;
-    margin-left: 78%;
     height: 31px;
     width: fit-content;
     background-color: #2557a7;
@@ -371,6 +374,7 @@ h2{
     padding-top: 6px;
     cursor: pointer;
     display: none;
+    margin-right: 46px;
 }
 
 .hamburger {
@@ -414,6 +418,10 @@ h2{
 .sidebararrow{
     position: absolute;
     right: 0px;
+}
+
+.linksmall{
+    width:auto;
 }
 @media (min-width:1278px){
 
@@ -467,8 +475,8 @@ display: none;
        }
        .usericon{
       display: block;
-      margin-left: 76%;
-    }
+      margin-right: 46px;
+        }
     .hamburger{
         display: block;
         margin-left: 92%;
@@ -515,9 +523,10 @@ display: none;
         margin-left: 13px;
     }
     .apidiv{
+        margin-left:0px;
         justify-content: center;
         border-top: 1px solid lightgray;
-        padding: 10%;
+        padding: 2%;
         /* margin-left: 120px; */
     font-size: 15px;
     display: flex;
@@ -536,7 +545,10 @@ display: none;
         margin:0px;
         text-align: initial;
         }
-        
+        .linksmall{
+            margin-left:14px;
+            width: 92%;
+        }
 }
     @media (max-width:803px){
         .navspan2{
@@ -557,8 +569,8 @@ display: none;
        }
        .usericon{
       display: block;
-      margin-left: 60%;
-    }
+      margin-right: 46px;
+        }
     .hamburger{
         display: block;
 margin-left: 78%;
@@ -573,7 +585,12 @@ margin-left: 78%;
         place-content: center;
     }
     .applicationdiv{
-        display: none;
+        display: block;
+        position: fixed;
+        z-index: 1;
+        top: 10px;
+        left: 0%;
+        box-shadow: 1px 1px 18px 5px #979797;
     }
     .loader{
     margin-left: 50%;
@@ -604,7 +621,7 @@ display: none;
    }
    .usericon{
   display: block;
-  margin-left: 47%;
+  margin-right: 46px;
 }
 .hamburger{
     display: block;
@@ -618,7 +635,12 @@ nav{
     margin-left: 0px;
 }
 .applicationdiv{
-    display: none;
+    display: block;
+    position: fixed;
+    z-index: 1;
+    top: 10px;
+    left: -11%;
+    box-shadow: 1px 1px 18px 5px #979797;
 }
 .loader{
     margin-left: 45%;
@@ -657,7 +679,7 @@ display: none;
    .usericon {
     margin-top: -14px;
     display: block;
-    margin-left: 43%;
+    margin-right: 46px;
     height: 32px;
     width: fit-content;
     background-color: #2557a7;
@@ -683,7 +705,12 @@ nav{
 margin-left: 0px;
 }
 .applicationdiv{
-    display: none;
+    display: block;
+    position: fixed;
+    z-index: 1;
+    top: 10px;
+    left: -11%;
+    box-shadow: 1px 1px 18px 5px #979797;
 }
 .loader{
     margin-left: 35%;

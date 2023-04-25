@@ -90,7 +90,8 @@ return (
 )})}
     </div>
     )}
-<Link to='/searched'state={{whered:wheresearch, whatd:search}} style={{marginLeft:'10px'}}>
+<Link to='/searched'state={{whered:wheresearch, whatd:search}} className='linksmall'
+style={{marginLeft:'10px'}}>
    <BlueButton text={'Find jobs'}/>
    </Link>
 
