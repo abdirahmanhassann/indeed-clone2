@@ -32,21 +32,21 @@ function EmployerMessages() {
             collection(db, "messages"),
             orderBy("data.createdAt"),
             limit(50),
-
-      );
+            );
       const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
           let messages = [];
         QuerySnapshot.forEach((doc) => {
           messages.push({ ...doc.data(), id: doc.id });
         });
       const newmesages=  messages.filter((i)=>{return i.data.employer===email})
-      
+
         setMessages(newmesages);
+      
         console.log(newmesages)
-      //  console.log('initial',employerchatselector.initial)
+
         if(employerchatselector && employerchatselector.initial==true)
         {
-            console.log('if statement')
+          console.log('if statement')
                 const g=messages.find(i=>i.data.employer===email && employerchatselector?.data.jobseeker==i.data.jobseeker)
                 console.log(g)
                 setcurrent({data:g.data,messages:g.messages,id:g.id})

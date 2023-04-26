@@ -27,6 +27,7 @@ function clicked(){
 }
   return (
 <nav color='employerName' className='employernav'>
+    <div className='subnavdiv'>
 <div className='subnav'>
 <img src={pic} className='pic' onClick={()=>navigate('/employerhome')} style={{cursor:'pointer'}}/>
 
@@ -67,6 +68,7 @@ style={{cursor:'pointer'}}
 <a style={{borderLeft:' 1px solid #7c6f6f',paddingLeft:'25px',cursor:'pointer'}}
 onClick={()=>navigate('/')}
 >Find jobs</a>
+</div>
 </div>
 </nav>
     )

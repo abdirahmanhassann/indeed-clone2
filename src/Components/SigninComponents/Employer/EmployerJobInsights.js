@@ -103,22 +103,20 @@ console.log(g)
  }
 
  function cvfunc(i){
-        getDownloadURL(ref(storagee, `jobseeker/${i.email}`)).then((url)=>
-            {
-             
-               window.open(url)
-            })
-            i.jobpostings.map(async(k)=>{
+        getDownloadURL(ref(storagee, `jobseeker/${i.email}`)).then((url)=>    
+        {
+              window.open(url)
+              })
+              i.jobpostings.map(async(k)=>{
               console.log(k);
              if(k.title+ k.description==jobselector.title+jobselector.description)   
             {  
                       let  j={...k,createdAt:Date.now(),event:'Opened'}
                     await  setDoc(doc(db,'jobseeker',i.id),{notifications:arrayUnion(j) },{merge:true})
-
-                }
+                  }
           })
-
 }
+
 async function message(i){
   const  usersCollectionRef= collection (db,'messages')
   const po=  await getDocs(usersCollectionRef)
@@ -195,6 +193,7 @@ sx={{width:'111px',height:'50px',alignItems: 'center',
          </MenuItem>
   </Select>
 </FormControl>
+
 <div style={{width:'300px'}}>
 
 <BlueButton text={'Edit job posting'} click={()=>navigate('../EmployerHome/EmployerDashboard/editjob')}/>
