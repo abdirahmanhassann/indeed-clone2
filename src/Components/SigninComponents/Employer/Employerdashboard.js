@@ -191,6 +191,7 @@ sx={{width:'111px',height:'50px',alignItems: 'center',
     console.log(i)
     dispatch(clickedjob(i))
     navigate(`./:${i.title}`)
+    
   }}
   text={'View applicants'}
   style={{marginleft:'20px'}}

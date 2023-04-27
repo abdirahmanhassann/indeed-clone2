@@ -33,7 +33,7 @@ const [id,setid]=useState()
   const check= userss.find(i=>i.email==jobseekeremaill)
     if (check) {
         setid(check.id)
-setnotifications(check.notifications.sort((a,b)=>b.createdAt - a.createdAt))
+setnotifications(check?.notifications?.sort((a,b)=>b.createdAt - a.createdAt))
 setisloading(false)
 console.log(notifications)
 }
@@ -65,7 +65,7 @@ navigate( `/employerhome/employerdashboard/${i.title}`)
 <Largeheader text={'Notifications'}/>
 {
     notifications &&
-    notifications?.length==0 ?<Paragraph text={'No notifications'}/>
+    notifications?.length==0 || notifications==null ?<Paragraph text={'No notifications'}/>
     :
     notifications?.map((i)=>{
         return (

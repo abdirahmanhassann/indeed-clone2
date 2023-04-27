@@ -79,14 +79,14 @@ return (
                 <div className='largestdiv'>
             <div className='largediv'>
                 <img src={logo} className='logo' />
-                <form className='signindiv' onSubmit={signinclick}>
+                <form className='signindiv'onSubmit={signinclick} >
                     <div className='subdiv'>
                         <Header text={'Ready to take the next step?'}/>
 <Paragraph text={'Create an account or sign in.'}/>
 <Subaparagraph text={`By creating an account or logging in, you understand and agree to Indeed's Terms. You also acknowledge our Cookie and Privacy policies. You will receive marketing messages from Indeed and may opt out at any time by following the unsubscribe link in our messages, or as detailed in our terms.`}/>
                     </div>
                     <Link to='/signup' className='link'>
-                <BlueButton text={'Create an account'}/>
+                <div className='BlueButton' style={{width: '92%'}}> Create an account</div>
                     </Link>
                 <Paragraph text={'or login to your account'}/>
                 
@@ -96,7 +96,7 @@ return (
                 <TextField id="outlined-basic" type='email' required='true' label="Email"  variant="outlined" name='email'  onChange={changed}/>
                 <TextField id="outlined-basic" required='true' label="Password" variant="outlined" name='password' type='password' 
                 onChange={changed}/>
-<BlueButton text={'Continue'} />
+<button className='BlueButton' >Continue </button>
 {
     loading &&
     <div className="loader" style={{paddingTop:'0px'}}><ScaleLoader

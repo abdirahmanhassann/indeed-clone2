@@ -25,12 +25,14 @@
     max-width: 1204px;
     margin: auto;
 }
+
 .pic{
     height: 22px;
     width: auto;
     margin-right: 10px;
     margin-top: -7px;
 }
+
 .subnav{
     width:fit-content;
     display:flex;
@@ -47,7 +49,6 @@
     align-items: center;
     padding-right:3%
 }
-
 .usericon2{
     width: fit-content;
     font-family: sans-serif;
