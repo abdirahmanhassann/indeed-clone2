@@ -51,7 +51,7 @@ const location=useLocation();
     const [research,setresearch]=useState(false);
     const [saved,setsaved]=useState(false)
     const [employerinfo,setemployerinfo]=useState()
- //  const [apitime,setapitime]=useState('')
+ // const [apitime,setapitime]=useState('')
 
 const divstyle={
     cursor: 'pointer',
@@ -100,7 +100,7 @@ useEffect(()=>{
     }
 
     async function clicked(){
-try{
+        try{   
     setclickedjob(false)
     setisloading(true)
 const res=await  fetch('https://jsearch.p.rapidapi.com/search?query='+searched.whatd+'%20in%20'+searched.whered+'&num_pages=1', options)
@@ -108,10 +108,10 @@ const res=await  fetch('https://jsearch.p.rapidapi.com/search?query='+searched.w
          await setisloading(false)
           api.current=await jsonresult.data; 
 }
-catch(err){
-    console.error(err)
-         setstatus(false)
-     setapikey('ac7e8fcd59msha3e59fbda262531p147ad9jsn732b1de1990f')
+    catch(err){
+      console.error(err)
+      setstatus(false)
+      setapikey('ac7e8fcd59msha3e59fbda262531p147ad9jsn732b1de1990f')
 }
 }
 async function internalapi1(){
@@ -447,7 +447,8 @@ let kkey=Math.random();
 </div>
 <div>
 
-{apiclick && <div className={window.innerWidth > 803 ? 'applicationdiv' :'applicationdivsmall'}>
+{
+apiclick && <div className={window.innerWidth > 803 ? 'applicationdiv' :'applicationdivsmall'}>
     <button className="Xbutton" onClick={()=>setapiclick(false)} > X </button>
     <h2 className="apih">{jobft.job_title}</h2>
    { jobft.employer_website &&<a className="bluepara" href={jobft.employer_website.slice(12)}>{jobft.employer_name}.com</a>}

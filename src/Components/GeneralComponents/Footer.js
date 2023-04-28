@@ -1,6 +1,15 @@
 import React from "react";
 import '../../App.css'
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Footer =()=>{
+const navigate=useNavigate()
+const jobseekeremaill=useSelector((state)=>state.reducer.jobseekeremailstatus.jobseekeremail);
+
+function upload(){
+if(jobseekeremaill==null) return navigate('/signin')
+navigate('/jobseekerupdate')
+}
     return(
 <footer>
   <ul className='ul1'>
@@ -26,10 +35,10 @@ const Footer =()=>{
   </ul>
   <div className='div6'>
 <h2>Let employers find you</h2>
-<button className='uploadbutton'>Upload your CV</button>
+<button className='uploadbutton' onClick={upload}>Upload your CV</button>
   </div>
 </footer>
 
     )
 }
-export default Footer
+export default Footer;

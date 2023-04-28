@@ -106,18 +106,11 @@ style={{marginLeft:'10px'}}>
    </div>
 <div className='div5'>
 <h3>Popular seaches</h3>
-<button className='suggestedbutton'>Supermarket</button>
-<button className='suggestedbutton'>Warehouse</button>
-<button className='suggestedbutton'>Delivery driver</button>
-<button className='suggestedbutton'>lorem</button>
-<button className='suggestedbutton'>lorem</button>
-<div>
-<button className='suggestedbutton'>lorem</button>
-<button className='suggestedbutton'>lorem</button>
-<button className='suggestedbutton'>lorem</button>
-<button className='suggestedbutton'>lorem</button>
-<button className='suggestedbutton'>lorem</button>
-</div>
+<button className='suggestedbutton' onClick={()=>setsearch('Supermarket')}>Supermarket</button>
+<button className='suggestedbutton'onClick={()=>setsearch('Warehouse')}>Warehouse</button>
+<button className='suggestedbutton' onClick={()=>setsearch('Delivery driver')}>Delivery driver</button>
+<button className='suggestedbutton' onClick={()=>setsearch('Developer')}>Developer</button>
+<button className='suggestedbutton' onClick={()=>setsearch('Java')}>Java</button>
 </div>
 <Footer/>
    </div>

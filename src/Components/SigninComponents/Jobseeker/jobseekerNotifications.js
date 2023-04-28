@@ -30,12 +30,18 @@ async function loadnotifications(){
     const po=  await getDocs(usersCollectionRef)
     const  userss=  po.docs.map((i)=>{return{...i.data(),id:i.id}})
   const check= userss.find(i=>i.email==jobseekeremaill)
-    if (check) {
+    if (check.notifications) {
+        console.log('notifications')
         setid(check.id)
 setnotifications(check.notifications.sort((a,b)=>b.createdAt - a.createdAt))
 setisloading(false)
 console.log(notifications)
 
+}
+else{
+    setnotifications('0')
+    setisloading(false)
+    console.log(notifications)
 }
 
 }
@@ -68,7 +74,7 @@ navigate('/jobseekerviewjob')
 <Largeheader text={'Notifications'}/>
 {
     notifications &&
-    notifications?.length==0 ?<Paragraph text={'No notifications'}/>
+    notifications=='0' ?<Paragraph text={'No notifications'}/>
     :
     notifications?.map((i)=>{
         return (
