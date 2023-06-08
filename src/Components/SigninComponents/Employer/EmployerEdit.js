@@ -27,7 +27,6 @@ function changed(e){
             [e.target.name]:e.target.value
         }
     })
-    console.log(form)
 }
 async function clicked(){
     const newobj={

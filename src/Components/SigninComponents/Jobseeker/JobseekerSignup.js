@@ -42,7 +42,6 @@ const inputchange = (e, index) => {
     const newInputs = [...inputs];
     newInputs[index] = e.target.value;
     setInputs(newInputs);
-    console.log(employerdetails)
   };
 
 const handleAddInput = () => {
@@ -59,7 +58,6 @@ const handleAddInput = () => {
     function changed(e){
      
                   
-        console.log(employerdetails)
         setemployerdetails(i=>
      {     
    return{ 
@@ -76,13 +74,11 @@ const handleAddInput = () => {
 
   try{      
       const imagge= ( ref(storagee,`/jobseeker/${employerdetails.email}`))
-      console.log(imagge)
-      console.log(storagee)
   
          uploadBytes(imagge, imageupload)
   }
   catch(err){
-      console.log(err)
+    console.log(err)
   }
 }
 }
@@ -92,11 +88,9 @@ const handleAddInput = () => {
             const  usersCollectionRef= await collection (db,'jobseeker')
            const po=  await getDocs(usersCollectionRef)
            const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
-         await  console.log(userss);
          const check= await userss.find(i=>i.email==employerdetails.email)
          const check2=await  userss.find(i=>i.name==employerdetails.name)
            if (check==undefined || check2==undefined) {
-           console.log(employerdetails,inputs)
                addDoc(usersCollectionRef,{
                    Firstname: employerdetails.Firstname,
                    Surname: employerdetails.Surname,
@@ -111,7 +105,6 @@ const handleAddInput = () => {
                 enddate:employerdetails.enddate,
                 role:employerdetails.role
                })
-               console.log('success')
                setclicked(false)
                dispatch(jobseekerlogin(true))
                dispatch(jobseekeremail(employerdetails.email))
@@ -120,7 +113,6 @@ const handleAddInput = () => {
                
             }
             else { 
-              console.log('already exists')
               console.log(check, employerdetails.email)
               setadded(false)
               setclicked(false)

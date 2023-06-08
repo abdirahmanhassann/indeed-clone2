@@ -35,7 +35,6 @@ const [id,setid]=useState()
         setid(check.id)
 setnotifications(check?.notifications?.sort((a,b)=>b.createdAt - a.createdAt))
 setisloading(false)
-console.log(notifications)
 }
 }
 

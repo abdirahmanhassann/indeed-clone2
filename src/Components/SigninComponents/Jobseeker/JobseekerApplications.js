@@ -39,10 +39,8 @@ function JobseekerApplications() {
           const  usersCollectionRef= await collection (db,'jobseeker')
           const po=  await getDocs(usersCollectionRef)
           const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
-        await  console.log(userss);
         const check= await userss.find(i=>i.email==jobseekeremaill)
           if (check) {
-console.log(check)
 setinfo(check)
 
 setisloading(false)
@@ -66,11 +64,9 @@ async function message(i){
   const  userss=  po.docs.map((i)=>{return{...i.data(),id:i.id}})
   
   findemail.forEach(async(j)=>{
-    console.log(j)
  let g=j.jobpostings.find(e=> e.title+e.description===i.title+i.description)
 if(g){
   arrayy.push(g)
-  console.log(g,j)
   const t= userss.find(d=>d.data.employer===i.email && d.data.jobseeker===jobseekeremaill)
   const data={
     city:j.city, 
@@ -82,25 +78,20 @@ if(g){
    jobName:i.title,
    createdAt:Date.now()
   }
-  console.log(data)
   if(t){
-    console.log('if statement')
     dispatch(jobseekerchat({data:data,initial:true}))
     navigate('/jobseekermessages')
     }
   else{
 
-    console.log('else statement')
   await addDoc(usersCollectionRef,{data:data})
   dispatch(jobseekerchat({data:data,initial:true}))
   navigate('/jobseekermessages')
   }
 
 }
-else{
-  console.log('not found')
-}
-  })
+
+})
 }
 
 

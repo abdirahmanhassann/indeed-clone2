@@ -38,7 +38,6 @@ const navigate=useNavigate()
     function changed(e){
      
                   
-        console.log(employerdetails)
         setemployerdetails(i=>
      {     
    return{ 
@@ -55,12 +54,9 @@ const navigate=useNavigate()
 
   try{      
       const imagge= ( ref(storagee,employerdetails.email+v4()))
-      console.log(imagge)
-      console.log(storagee)
          uploadBytes(imagge, imageupload)
   }
   catch(err){
-      console.log(err)
   }
 }
 }
@@ -70,13 +66,10 @@ const navigate=useNavigate()
             const  usersCollectionRef= await collection (db,'employer')
            const po=  await getDocs(usersCollectionRef)
            const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
-         await  console.log(userss);
          const check= await userss.find(i=>i.email==employerdetails.email)
          const check2=await  userss.find(i=>i.name==employerdetails.name)
            if (check || check2) {
            
-             console.log('already exists')
-             console.log(check, employerdetails.email)
              setadded(false)
              setclicked(false)
             // setprogress(25)
@@ -92,13 +85,11 @@ const navigate=useNavigate()
                 repassword: employerdetails.repassword,
                 bio: employerdetails.bio
             })
-            console.log('success')
             setclicked(false)
             dispatch(employerlogin(true))
             dispatch(employeremail(employerdetails))
             navigate('/EmployerHome')
           }
-          await console.log(employerdetails.email)
     
       
     }
@@ -212,7 +203,6 @@ setimageupload(e.target.files[0])
          
 
              setprogress(i=>i+25);
-console.log(progress)
         uploadpic();
         seterr(false)
 

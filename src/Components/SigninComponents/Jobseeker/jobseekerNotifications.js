@@ -31,17 +31,14 @@ async function loadnotifications(){
     const  userss=  po.docs.map((i)=>{return{...i.data(),id:i.id}})
   const check= userss.find(i=>i.email==jobseekeremaill)
     if (check.notifications) {
-        console.log('notifications')
         setid(check.id)
 setnotifications(check.notifications.sort((a,b)=>b.createdAt - a.createdAt))
 setisloading(false)
-console.log(notifications)
 
 }
 else{
     setnotifications('0')
     setisloading(false)
-    console.log(notifications)
 }
 
 }

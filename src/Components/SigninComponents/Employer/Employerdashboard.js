@@ -49,12 +49,10 @@ async function details(){
   const  usersCollectionRef= await collection (db,'employer')
   const po=  await getDocs(usersCollectionRef)
   const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
-await  console.log(userss);
 const check= await userss.find(i=>i.email==email)
   if (check) {
     setloggedout(true);
   setjobinfo(check);
-    console.log(jobinfo);
 }
 else {
   setloggedout(false)
@@ -66,17 +64,13 @@ async function applicantchecker(){
 const  usersCollectionRef2= await collection (db,'jobseeker')
 const po2=  await getDocs(usersCollectionRef2)
 const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
-console.log(userss2);
 let g=[]
 userss2.map((i)=>{
-console.log(i);
 if(i.jobpostings){
 
 
   i.jobpostings.map((j)=>{
-    console.log(j)
     if(g.includes(j.name)){
-      console.log('correct')   
     }
     else{
       g.push(j)
@@ -87,7 +81,6 @@ if(i.jobpostings){
 
 })
 setactive(g)
-console.log(g)
 setisloading(false)
 }
 details().then(()=>
@@ -124,7 +117,6 @@ index=0;
 accepted=0;
 rejected=0;
 active.map((p)=>{
-  console.log(p);
   if(p.description==i.description){
     index++
     if(p.accepted==true)return accepted ++
@@ -132,7 +124,6 @@ active.map((p)=>{
   }
   else return null
 })
-console.log(index)
 
 const timeago=moment(i.createdAt).fromNow();
 return(
@@ -188,7 +179,6 @@ sx={{width:'111px',height:'50px',alignItems: 'center',
 </FormControl> */}
 <div style={{width:'400px'}}>
   <InverseButton click={()=>{
-    console.log(i)
     dispatch(clickedjob(i))
     navigate(`./:${i.title}`)
     

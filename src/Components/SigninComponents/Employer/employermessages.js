@@ -42,13 +42,10 @@ function EmployerMessages() {
 
         setMessages(newmesages);
       
-        console.log(newmesages)
 
         if(employerchatselector && employerchatselector.initial==true)
         {
-          console.log('if statement')
                 const g=messages.find(i=>i.data.employer===email && employerchatselector?.data.jobseeker==i.data.jobseeker)
-                console.log(g)
                 setcurrent({data:g.data,messages:g.messages,id:g.id})
                 setloading(false)
                 dummy.current.scrollIntoView({ behavior: 'smooth' });
@@ -56,23 +53,16 @@ function EmployerMessages() {
             }
             else if(employerchatselector && employerchatselector.initial==false){
                const ge= messages.find(i=>i.data.employer===email && i.data.jobseeker==employerchatselector.data.jobseeker  )
-               console.log('else if statement first')
                if(ge) {
-                   console.log('else if statement')
-                   console.log(ge)
                 setcurrent(ge)
             }
             }
             else{
                 const ge= messages.find(i=>i.data.employer===email)
-            console.log('else statement')
-            console.log(ge)
                 setcurrent(ge)
                 setloading(false)
                 dummy.current.scrollIntoView({ behavior: 'smooth' });
             }
-            console.log('currentt')
-            console.log(current)
             setloading(false)
         
     });
@@ -84,7 +74,6 @@ async function submitted(e)
     {
   e.preventDefault()
   const m=change.current.value
-        console.log('getting sent', current.id)
         if (change.current.value.trim().length === 0) return null
         change.current.value=''
         await setDoc(doc(db,'messages',current.id),{messages:arrayUnion({message:m,sender:email,createdAt:Date.now()})},{merge:true})
@@ -107,7 +96,6 @@ async function submitted(e)
         {
         messages && messages.map((i)=>{
             const length=i?.messages?.length-1
-            console.log(i?.messages && i?.messages[length])
             return(   
               i.messages && 
                     <>

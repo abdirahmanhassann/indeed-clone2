@@ -27,7 +27,6 @@ const [ifcheck,setifcheck]=useState();
 const [jobp,setjobp]=useState();
 const dispatch=useDispatch()
 const [isloading,setisloading]=useState(false)
-    console.log(jobselector)
     const greenstyle={
       background:`green`
     }
@@ -53,7 +52,6 @@ setisloading(true)
     const  usersCollectionRef= await collection (db,'jobseeker')
     const po=  await getDocs(usersCollectionRef)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
-    await  console.log(userss)
 
    let g=[]
    userss.map((i)=>{
@@ -64,7 +62,6 @@ setisloading(true)
         }
         else return null
     })
-    console.log(g)
     setapplicants(g);
 }
    }) 
@@ -85,12 +82,10 @@ Candidatescheck();
         
   
 async function functionstatus(o) {
-  console.log('functionstatus',o)
   const  usersCollectionRef= await collection (db,'employer')
   const po=  await getDocs(usersCollectionRef)
   const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
   const g= userss.find(d=>d.email===email)
-  console.log('email found')
   let k={...jobselector,status:o==='online'? true : false}
   
   await updateDoc(doc(db,'employer',g.id),({jobpostings:arrayRemove(jobselector)}))
@@ -99,7 +94,6 @@ async function functionstatus(o) {
     dispatch(clickedjob({...jobselector,status:o==='online'?true:false}))
      setDoc(doc(db,'employer',g.id),{jobpostings:arrayUnion(k) },{merge:true})
   })
-console.log(g)
  }
 
  function cvfunc(i){
@@ -108,7 +102,6 @@ console.log(g)
               window.open(url)
               })
               i.jobpostings.map(async(k)=>{
-              console.log(k);
              if(k.title+ k.description==jobselector.title+jobselector.description)   
             {  
                       let  j={...k,createdAt:Date.now(),event:'Opened'}
@@ -133,7 +126,6 @@ async function message(i){
    jobName:jobselector.title,
    createdAt:Date.now()
   }
-  console.log(data)
   if(g){
     dispatch(employerchat({data:data,initial:true}))
     navigate('/employerhome/employermessages')
@@ -240,7 +232,6 @@ else return null;
     async function checkedfunc(i)
     {
        const c=await i.jobpostings.map((k)=>{
-        console.log(k);
        if( k.description==jobselector.description)   
       {      
           updateDoc(doc(db,'jobseeker',i.id),({jobpostings:arrayRemove(k)}))
@@ -255,7 +246,6 @@ else return null;
        else return null;
 
     })
-// console.log(ifcheck)
     }
     checkedfunc(i)
 }}
@@ -283,7 +273,6 @@ return(
          async function checkedfunc(i)
          {
             const c=await i.jobpostings.map((k)=>{
-             console.log(k);
             if( k.description==jobselector.description)   
            {      
                updateDoc(doc(db,'jobseeker',i.id),({jobpostings:arrayRemove(k)}))
@@ -298,7 +287,6 @@ return(
             else return null;
      
          })
-     // console.log(ifcheck)
          }
          checkedfunc(i)
   }}>

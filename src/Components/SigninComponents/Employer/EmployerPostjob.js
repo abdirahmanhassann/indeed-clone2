@@ -20,7 +20,6 @@ function Postjob() {
 const selector=useSelector((state)=>state.reducer.employeremailstatus.employeremail.email)
 const navigate=useNavigate();
   function changed(e){
-    console.log(formm)
     setform(i=>{
       return{
         ...i,
@@ -36,10 +35,8 @@ const navigate=useNavigate();
       const  usersCollectionRef= await collection (db,'employer')
       const po=  await getDocs(usersCollectionRef)
       const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
-    await  console.log(userss);
     const check= await userss.find(i=>i.email==selector);
     const timme= Date.now();
-    console.log(timme)
       if (check) {
         await  setform(i=>{
         return{

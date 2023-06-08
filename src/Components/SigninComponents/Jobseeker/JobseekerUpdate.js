@@ -28,7 +28,6 @@ function changed(e){
             [e.target.name]:e.target.value
         }
     })
-    console.log(form)
 }
 async function clicked(){
     const newobj={
@@ -48,8 +47,6 @@ async function clicked(){
 
     if (cvupload){
         const imagge= ( ref(storagee,`/jobseeker/${email}`))
-        console.log(imagge)
-        console.log(storagee)
         await uploadBytes(imagge, cvupload)
     }
 
@@ -64,7 +61,6 @@ useEffect(()=>{
     const g= userss.find(d=>d.email===email)
     if (g){
         setform(g)
-        console.log(g)
     }
     }
     fetchdata()

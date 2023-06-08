@@ -178,9 +178,9 @@ useEffect(()=>{
     .then(response => {
         setisloading(false)
         api.current=response.data;
-        console.log(api.current)
     })
-    .catch(err => {console.error(err)
+    .catch(err => {
+        
         setstatus(false)
         setapikey('ac7e8fcd59msha3e59fbda262531p147ad9jsn732b1de1990f')
     });

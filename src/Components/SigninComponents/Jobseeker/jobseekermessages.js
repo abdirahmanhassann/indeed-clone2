@@ -42,13 +42,9 @@ function Jobseekermessages() {
         });
       const newmesages=  messages.filter((i)=>{return i.data.jobseeker===email})
         setMessages(newmesages);
-        console.log(newmesages)
-        //  console.log('initial',employerchatselector.initial)
         if(employerchatselector && employerchatselector.initial==true)
         {
-            console.log('if statement')
                 const g=messages.find(i=>i.data.jobseeker===email && employerchatselector?.data.employer==i.data.employer)
-                console.log(g)
                 setcurrent({data:g.data,messages:g.messages,id:g.id})
                 setloading(false)
                 
@@ -56,21 +52,16 @@ function Jobseekermessages() {
             else if(employerchatselector && employerchatselector.initial==false){
                 const ge= messages.find(i=>i.data.jobseeker===email && i.data.employer==employerchatselector.data.employer  )
                 if(ge) {
-                    console.log('else if statement')
-                    console.log(ge)
                     setcurrent(ge)
    
                     setloading(false)
                 }
             }
             else if (jobseekerchat==null){
-                console.log('else statement')
                 setcurrent(email)
                 setloading(false)
 
             }
-            console.log('currentt')
-            console.log(current)
             setloading(false)
         
     });
@@ -81,7 +72,6 @@ async function submitted(e)
     {
   e.preventDefault()
   const m=change.current.value
-  console.log('getting sent', current.id)
         if (change.current.value.trim().length === 0) return null
         change.current.value=''
         await setDoc(doc(db,'messages',current.id),{messages:arrayUnion({message:m,sender:email,createdAt:Date.now()})},{merge:true})
@@ -91,7 +81,6 @@ async function submitted(e)
     
     function currentfunc(i){
      //   dummy.current.scrollIntoView({ behavior: 'smooth' });
-     console.log(dummy)
         setloading(false)
         setcurrent({data:i.data,messages:i.messages,id:i.id})
         dispatch(jobseekerchat({data:i.data,id:i.id,initial:false}))

@@ -51,7 +51,6 @@ if (changedd === "") {
  
 const submit =(e)=>{
 e.preventDefault();
-console.log(search);
 
 }
  
@@ -114,6 +113,7 @@ style={{marginLeft:'10px'}}>
 </div>
 <Footer/>
    </div>
+
   );
 }
 
