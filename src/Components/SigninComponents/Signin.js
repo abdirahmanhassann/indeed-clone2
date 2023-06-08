@@ -22,7 +22,6 @@ const navigate=useNavigate()
 const dispatch=useDispatch()
 function changed(e){
     seterr(false)
-    console.log(signin)
     setsignin(i=>
  {     
 return{ 
@@ -39,17 +38,13 @@ async function signinclick(e){
     const  usersCollectionRef= await collection (db,'employer')
     const po=  await getDocs(usersCollectionRef)
     const  userss= await po.docs.map((i)=>{return{...i.data(),id:i.id}})
-  await  console.log(userss);
   const check= await userss.find(i=>i.email==signin.email)
-   console.log(check)
    if (check==undefined|| check.email==signin.email && check.password!=signin.password )
    {
     const  usersCollectionRef2= await collection (db,'jobseeker')
     const po2=  await getDocs(usersCollectionRef2)
     const  userss2= await po2.docs.map((i)=>{return{...i.data(),id:i.id}})
-  await  console.log(userss2);
   const check2= await userss2.find(i=>i.email==signin.email)
-   console.log(check2)
    if (check2==undefined|| check2.email==signin.email && check2.password!=signin.password )
 {
 
